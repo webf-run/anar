@@ -1,2 +1,1 @@
-# sprinkles
-Web Components with lit-element
+# WebF/Sprinkles
