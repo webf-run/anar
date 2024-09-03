@@ -10,7 +10,7 @@ import {
   SelectProps as AriaSelectProps,
   SelectValue,
   Text,
-  ValidationResult
+  ValidationResult,
 } from 'react-aria-components';
 
 import './Select.css';
@@ -24,28 +24,27 @@ export interface SelectProps<T extends object>
   children: React.ReactNode | ((item: T) => React.ReactNode);
 }
 
-export function Select<T extends object>(
-  { label, description, errorMessage, children, items, ...props }: SelectProps<
-    T
-  >
-) {
+export function Select<T extends object>({
+  label,
+  description,
+  errorMessage,
+  children,
+  items,
+  ...props
+}: SelectProps<T>) {
   return (
-    (
-      <AriaSelect {...props}>
-        <Label>{label}</Label>
-        <Button>
-          <SelectValue />
-          <span aria-hidden="true">▼</span>
-        </Button>
-        {description && <Text slot="description">{description}</Text>}
-        <FieldError>{errorMessage}</FieldError>
-        <Popover>
-          <ListBox items={items}>
-            {children}
-          </ListBox>
-        </Popover>
-      </AriaSelect>
-    )
+    <AriaSelect {...props}>
+      <Label>{label}</Label>
+      <Button>
+        <SelectValue />
+        <span aria-hidden='true'>▼</span>
+      </Button>
+      {description && <Text slot='description'>{description}</Text>}
+      <FieldError>{errorMessage}</FieldError>
+      <Popover>
+        <ListBox items={items}>{children}</ListBox>
+      </Popover>
+    </AriaSelect>
   );
 }
 

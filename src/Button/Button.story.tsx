@@ -1,6 +1,6 @@
-import { Button } from '../src/Button';
-
 import type { Meta } from '@storybook/react';
+
+import { Button } from './Button.js';
 
 const meta: Meta<typeof Button> = {
   component: Button,
@@ -12,8 +12,10 @@ const meta: Meta<typeof Button> = {
 
 export default meta;
 
-export const Example = {
-  render: (args: any) => <Button {...args}>Press me</Button>,
+export const Primary = {
+  render: (args: any) => {
+    return <Button {...args}>Press me</Button>
+  },
 
   args: {
     onPress: () => alert('Hello world!'),

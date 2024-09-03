@@ -2,7 +2,7 @@ import {
   ColorThumb,
   ColorWheel as AriaColorWheel,
   ColorWheelProps as AriaColorWheelProps,
-  ColorWheelTrack
+  ColorWheelTrack,
 } from 'react-aria-components';
 
 import './ColorWheel.css';
@@ -11,12 +11,10 @@ export interface ColorWheelProps
 
 export function ColorWheel(props: ColorWheelProps) {
   return (
-    (
-      <AriaColorWheel {...props} outerRadius={100} innerRadius={74}>
-        <ColorWheelTrack />
-        <ColorThumb />
-      </AriaColorWheel>
-    )
+    <AriaColorWheel {...props} outerRadius={100} innerRadius={74}>
+      <ColorWheelTrack />
+      <ColorThumb />
+    </AriaColorWheel>
   );
 }
 

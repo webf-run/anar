@@ -1,4 +1,4 @@
-@import './Button.css';
+@import './Button/Button.css';
 @import "./ColorArea.css";
 @import "./ColorSlider.css";
 @import "./ColorSwatch.css";

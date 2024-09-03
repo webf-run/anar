@@ -9,16 +9,17 @@
     "target": "ES2022",
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "module": "NodeNext",
+    "module": "ESNext",
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "Bundler",
     "allowImportingTsExtensions": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "jsxImportSource": "react",
 
     /* Linting */
     "strict": true,
@@ -27,7 +28,7 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Interop Constraints */
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false
   },
   "include": [],
   "references": [{ "path": "./tsconfig.node.json" }]

@@ -2,7 +2,7 @@
 @import './ListBox.css';
 @import './Popover.css';
 @import './Form.css';
-@import './Button.css';
+@import './Button/Button.css';
 @import "./theme.css";
 
 .react-aria-ComboBox {
