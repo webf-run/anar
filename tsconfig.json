@@ -3,14 +3,10 @@
     "noEmit": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": true
   },
   "references": [
-    {
-      "path": "./tsconfig.lib.json"
-    },
-    {
-      "path": "./tsconfig.infra.json"
-    }
-  ],
+    { "path": "./tsconfig.lib.json" },
+    { "path": "./tsconfig.infra.json" }
+  ]
 }

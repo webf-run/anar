@@ -14,7 +14,7 @@ export default meta;
 
 export const Primary = {
   render: (args: any) => {
-    return <Button {...args}>Press me</Button>
+    return <Button {...args} text='Press me' />;
   },
 
   args: {
