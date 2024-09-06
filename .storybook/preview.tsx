@@ -52,7 +52,7 @@ const preview: Preview = {
       if (colorScheme === 'all') {
         const style: CSSProperties = {
           display: 'flex',
-          gap: '4rem'
+          gap: '4rem',
         };
 
         return (

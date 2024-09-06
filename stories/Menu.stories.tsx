@@ -14,7 +14,7 @@ const meta: Meta<typeof Menu> = {
 export default meta;
 
 export const Example = {
-  render: (args: any) => (
+  render: (_args: any) => (
     <MenuButton label='Edit'>
       <MenuItem>Cut</MenuItem>
       <MenuItem>Copy</MenuItem>

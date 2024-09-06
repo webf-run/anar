@@ -10,7 +10,6 @@
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "skipLibCheck": true,
 
     /* Bundler mode */
     "moduleResolution": "Bundler",
@@ -28,8 +27,11 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Interop Constraints */
-    "verbatimModuleSyntax": false
+    "verbatimModuleSyntax": false,
+    "allowSyntheticDefaultImports": true,
+
+    /* Completeness */
+    "skipLibCheck": true,
   },
   "include": [],
-  "references": [{ "path": "./tsconfig.node.json" }]
 }

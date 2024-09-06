@@ -1,9 +1,27 @@
-import { createContext, type CSSProperties } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useSyncExternalStore,
+  type CSSProperties,
+} from 'react';
+
+import {
+  findBreakpoint,
+  isDesktop,
+  subscribe,
+  type Breakpoint,
+  type BreakpointMap,
+  type BreakpointQueryMap,
+} from './Util/Breakpoint';
+import { getGlobalContext, setGlobalContext, type GlobalContext } from './Util/GlobalContext';
 
 export type ColorScheme = 'light' | 'dark';
 
 export type AnarContext = {
   colorScheme: ColorScheme;
+  breakpoint: Breakpoint;
+  isDesktop: boolean;
 };
 
 export type AnarProviderProps = {
@@ -12,8 +30,10 @@ export type AnarProviderProps = {
   children: React.ReactNode;
 };
 
-const context = createContext({
+const Context = createContext<AnarContext>({
   colorScheme: 'dark',
+  breakpoint: 'BS',
+  isDesktop: false,
 });
 
 /**
@@ -22,15 +42,67 @@ const context = createContext({
 export function Anar(props: AnarProviderProps) {
   const { children, colorScheme, getRootElement } = props;
 
-  const styles: CSSProperties = {
-    background: `var(--background-color)`,
+  const [breakpoint, setBreakpoint] = useState<Breakpoint>('BS');
+
+  const data: AnarContext = {
+    colorScheme,
+    breakpoint,
+    isDesktop: true,
   };
 
-  return (
-    <context.Provider value={{ colorScheme }}>
-      <div style={styles} data-anar-scheme={colorScheme}>
-        {children}
-      </div>
-    </context.Provider>
+  useSyncExternalStore(
+    subscribe,
+    () => findBreakpoint(setBreakpoint),
+    () => setBreakpoint('BS')
   );
+
+  return (
+    <Context.Provider value={data}>
+      {children}
+    </Context.Provider>
+  );
+}
+
+export function useBreakpoint(): Breakpoint {
+  return useContext(Context).breakpoint;
+}
+
+export function useDesktop(): boolean {
+  const { breakpoint } = useContext(Context);
+
+  return isDesktop(breakpoint);
+}
+
+/**
+ * Initializes the library. The provider cannot be used
+ * without calling this function first.
+ *
+ */
+export function initAnar() {
+  const breakpoints: BreakpointMap = {
+    BS: 0,
+    XS: 480,
+    SM: 600,
+    MD: 768,
+    LG: 1024,
+    XL: 1280,
+    XXL: 1536,
+  };
+
+  const queries: BreakpointQueryMap = {
+    BS: window.matchMedia(`(min-width: ${breakpoints.BS}px)`),
+    XS: window.matchMedia(`(min-width: ${breakpoints.XS}px)`),
+    SM: window.matchMedia(`(min-width: ${breakpoints.SM}px)`),
+    MD: window.matchMedia(`(min-width: ${breakpoints.MD}px)`),
+    LG: window.matchMedia(`(min-width: ${breakpoints.LG}px)`),
+    XL: window.matchMedia(`(min-width: ${breakpoints.XL}px)`),
+    XXL: window.matchMedia(`(min-width: ${breakpoints.XXL}px)`),
+  };
+
+  const globalContext: GlobalContext = {
+    breakpoints,
+    queries,
+  };
+
+  setGlobalContext(globalContext);
 }
