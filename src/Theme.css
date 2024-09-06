@@ -8,7 +8,7 @@
 
 
 /* Semantic colors */
-[data-sprinkles-scheme] {
+[data-anar-scheme] {
   --focus-ring-color: var(--purple-400);
   --text-color: var(--gray-600);
   --text-color-base: var(--gray-500);
@@ -42,7 +42,7 @@
 
 /* Windows high contrast mode overrides */
 @media (forced-colors: active) {
-  [data-sprinkles-scheme] {
+  [data-anar-scheme] {
     --background-color: Canvas;
     --focus-ring-color: Highlight;
     --text-color: ButtonText;

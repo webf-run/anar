@@ -28,7 +28,7 @@ export const Button = forwardRef(function Button(
   const { className, variant, size, radius, isPending, text, ...racProps } =
     props;
 
-  const classes = clsx('sprinkles-button', className);
+  const classes = clsx('anar-button', className);
 
   return (
     <RACButton ref={ref} className={classes} {...racProps}>

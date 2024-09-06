@@ -1,5 +1,5 @@
 @import './Button/Button.css';
-@import "./theme.css";
+@import "./Theme.css";
 
 .react-aria-TextField {
   display: flex;

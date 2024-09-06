@@ -2,12 +2,13 @@ import { createContext, type CSSProperties } from 'react';
 
 export type ColorScheme = 'light' | 'dark';
 
-export type SprinkleContext = {
+export type AnarContext = {
   colorScheme: ColorScheme;
 };
 
-export type SprinkleProviderProps = {
+export type AnarProviderProps = {
   colorScheme: ColorScheme;
+  getRootElement?: () => HTMLElement;
   children: React.ReactNode;
 };
 
@@ -18,8 +19,8 @@ const context = createContext({
 /**
  *  A provider component that for the library.
  */
-export function Sprinkles(props: SprinkleProviderProps) {
-  const { children, colorScheme } = props;
+export function Anar(props: AnarProviderProps) {
+  const { children, colorScheme, getRootElement } = props;
 
   const styles: CSSProperties = {
     background: `var(--background-color)`,
@@ -27,7 +28,7 @@ export function Sprinkles(props: SprinkleProviderProps) {
 
   return (
     <context.Provider value={{ colorScheme }}>
-      <div style={styles} data-sprinkles-scheme={colorScheme}>
+      <div style={styles} data-anar-scheme={colorScheme}>
         {children}
       </div>
     </context.Provider>

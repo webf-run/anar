@@ -1,6 +1,6 @@
 @import './Form.css';
 @import './Button/Button.css';
-@import "./theme.css";
+@import "./Theme.css";
 
 .react-aria-TimeField {
   color: var(--text-color);

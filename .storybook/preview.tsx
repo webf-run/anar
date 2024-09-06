@@ -3,9 +3,9 @@ import { themes } from '@storybook/theming';
 
 // Side effects imports are on the top.
 import '../src/Theme/Static.css';
-import '../src/theme.css';
+import '../src/Theme.css';
 
-import { Sprinkles } from '../src/Sprinkles';
+import { Anar } from '../src/Anar';
 import type { CSSProperties } from 'react';
 
 const preview: Preview = {
@@ -43,39 +43,41 @@ const preview: Preview = {
     function withColorScheme(Story, context) {
       const colorScheme = context.globals.colorScheme || 'dark';
 
+      const storyWrapper: CSSProperties = {
+        padding: '4rem',
+        border: '1px solid var(--gray-600)',
+        flex: 1,
+      };
+
       if (colorScheme === 'all') {
         const style: CSSProperties = {
           display: 'flex',
           gap: '4rem'
         };
 
-        const wrapper: CSSProperties = {
-          padding: '4rem',
-          border: '1px solid var(--gray-600)',
-          flex: 1,
-        };
-
         return (
           <div style={style}>
-            <Sprinkles colorScheme='light'>
-              <div style={wrapper}>
+            <Anar colorScheme='light'>
+              <div style={storyWrapper}>
                 <Story />
               </div>
-            </Sprinkles>
+            </Anar>
 
-            <Sprinkles colorScheme='dark'>
-              <div style={wrapper}>
+            <Anar colorScheme='dark'>
+              <div style={storyWrapper}>
                 <Story />
               </div>
-            </Sprinkles>
+            </Anar>
           </div>
         );
       }
 
       return (
-        <Sprinkles colorScheme={colorScheme}>
-          <Story />
-        </Sprinkles>
+        <Anar colorScheme={colorScheme}>
+          <div style={storyWrapper}>
+            <Story />
+          </div>
+        </Anar>
       );
     },
   ],

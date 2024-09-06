@@ -1,6 +1,6 @@
 /* Color themes for dark and light modes, generated with Leonardo. */
 /* https://leonardocolor.io */
-[data-sprinkles-scheme='light'] {
+[data-anar-scheme='light'] {
   --background-color: #f8f8f8;
 
   --gray-50: #ffffff;
@@ -29,7 +29,7 @@
   --highlight-pressed: rgb(0 0 0 / 0.15);
 }
 
-[data-sprinkles-scheme='dark'] {
+[data-anar-scheme='dark'] {
   --background-color: #1d1d1d;
   --gray-50: #101010;
   --gray-100: #393939;

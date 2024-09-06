@@ -1,6 +1,6 @@
 @import './Button/Button.css';
 @import './Form.css';
-@import "./theme.css";
+@import "./Theme.css";
 
 .react-aria-RadioGroup {
   display: flex;

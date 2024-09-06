@@ -1,6 +1,6 @@
 @import './Button/Button.css';
 @import './Form.css';
-@import "./theme.css";
+@import "./Theme.css";
 
 .react-aria-NumberField {
   margin-bottom: 8px;

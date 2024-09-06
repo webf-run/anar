@@ -3,7 +3,7 @@
 @import './Checkbox.css';
 @import './Popover.css';
 @import './Menu.css';
-@import "./theme.css";
+@import "./Theme.css";
 
 .react-aria-Table {
   padding: 0.286rem;

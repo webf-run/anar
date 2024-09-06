@@ -1,6 +1,6 @@
 @import './Button/Button.css';
 @import './Link.css';
-@import "./theme.css";
+@import "./Theme.css";
 
 .react-aria-Tabs {
   display: flex;
