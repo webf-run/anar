@@ -1,3 +1,5 @@
+export type Size = 'XS' | 'SM' | 'MD' | 'LG' | 'XL';
+
 export interface AnarStyleProps {
   margin?: string;
   marginStart?: string;

@@ -1,0 +1,53 @@
+@layer anar {
+  .text {
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5;
+
+    &[data-size='XS'] {
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 1rem;
+    }
+
+    &[data-weight='SM'] {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+    }
+
+    &[data-size='LG'] {
+      font-size: 18px;
+      line-height: 28px;
+    }
+  }
+
+  h1.heading {
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+
+  h2.heading {
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  h3.heading {
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  h4.heading {
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  h5.heading {
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}

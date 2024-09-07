@@ -1,23 +1,26 @@
 import clsx from 'clsx';
-import { forwardRef, type Ref } from 'react';
+import { forwardRef, type ReactNode, type Ref } from 'react';
 import {
   Button as RACButton,
   type ButtonProps as RACButtonProps,
 } from 'react-aria-components';
 
 import './Button.css';
-
-export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+import type { Size } from '../Util/Style';
 
 export type ButtonVariants = {
-  variant?: 'primary' | 'secondary';
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  variant?: 'primary' | 'secondary' | 'accent' | 'negative';
+  style?: 'fill' | 'outline' | 'quiet';
+
+  size?: Size;
   radius?: 'none' | Size;
-  isPending?: boolean;
+  pending?: boolean;
 };
 
 export type ButtonProps = RACButtonProps &
   ButtonVariants & {
+    left?: ReactNode;
+    right?: ReactNode;
     text: string;
   };
 
@@ -25,7 +28,7 @@ export const Button = forwardRef(function Button(
   props: ButtonProps,
   ref: Ref<HTMLButtonElement>
 ) {
-  const { className, variant, size, radius, isPending, text, ...racProps } =
+  const { className, variant, size, radius, pending, text, ...racProps } =
     props;
 
   const classes = clsx('anar-button', className);
