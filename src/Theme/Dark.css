@@ -1,4 +1,4 @@
-[data-color-scheme="dark"] {
+[data-anar-scheme="dark"] {
   --gray-50: #1d1d1d;
   --gray-75: #262626;
   --gray-100: #323232;
@@ -193,4 +193,8 @@
   --magenta-1200: #ffdde9;
   --magenta-1300: #fff0f5;
 
+  /* TEMPORARY */
+  --background-color: var(--gray-100);
+  --highlight-hover: rgb(255 255 255 / 0.1);
+  --highlight-pressed: rgb(255 255 255 / 0.2);
 }

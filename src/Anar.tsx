@@ -1,20 +1,15 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useSyncExternalStore,
-  type CSSProperties,
-} from 'react';
+import { createContext, useContext, useSyncExternalStore } from 'react';
 
 import {
   findBreakpoint,
+  getMatchedBreakpoints,
   isDesktop,
   subscribe,
   type Breakpoint,
   type BreakpointMap,
   type BreakpointQueryMap,
 } from './Util/Breakpoint';
-import { getGlobalContext, setGlobalContext, type GlobalContext } from './Util/GlobalContext';
+import { setGlobalContext, type GlobalContext } from './Util/GlobalContext';
 
 export type ColorScheme = 'light' | 'dark';
 
@@ -41,30 +36,25 @@ const Context = createContext<AnarContext>({
  */
 export function Anar(props: AnarProviderProps) {
   const { children, colorScheme, getRootElement } = props;
-
-  const [breakpoint, setBreakpoint] = useState<Breakpoint>('BS');
+  const breakpoint = useSyncExternalStore(subscribe, findBreakpoint);
 
   const data: AnarContext = {
     colorScheme,
     breakpoint,
-    isDesktop: true,
+    isDesktop: isDesktop(breakpoint),
   };
 
-  useSyncExternalStore(
-    subscribe,
-    () => findBreakpoint(setBreakpoint),
-    () => setBreakpoint('BS')
-  );
-
-  return (
-    <Context.Provider value={data}>
-      {children}
-    </Context.Provider>
-  );
+  return <Context.Provider value={data}>{children}</Context.Provider>;
 }
 
 export function useBreakpoint(): Breakpoint {
   return useContext(Context).breakpoint;
+}
+
+export function useMatchedBreakpoints(): Breakpoint[] {
+  const { breakpoint } = useContext(Context);
+
+  return getMatchedBreakpoints(breakpoint);
 }
 
 export function useDesktop(): boolean {

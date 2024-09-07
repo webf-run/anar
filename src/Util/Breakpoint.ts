@@ -2,6 +2,8 @@ import { getGlobalContext } from './GlobalContext';
 
 export type Breakpoint = 'BS' | 'XS' | 'SM' | 'MD' | 'LG' | 'XL' | 'XXL';
 
+const breakpoints: Breakpoint[] = ['XXL', 'XL', 'LG', 'MD', 'SM', 'XS', 'BS'];
+
 export type BreakpointMap = {
   // The number in pixels for each breakpoint.
   [key in Breakpoint]: number;
@@ -16,24 +18,27 @@ export function isDesktop(matched: Breakpoint) {
   return ['LG', 'XL', 'XXL'].includes(matched);
 }
 
+export function getMatchedBreakpoints(breakpoint: Breakpoint): Breakpoint[] {
+  return breakpoints.slice(breakpoints.indexOf(breakpoint));
+}
 
-export function findBreakpoint(set: (breakpoint: Breakpoint) => void) {
+export function findBreakpoint(): Breakpoint {
   const { queries } = getGlobalContext();
 
   if (queries.XXL.matches) {
-    set('XXL');
+    return 'XXL';
   } else if (queries.XL.matches) {
-    set('XL');
+    return 'XL';
   } else if (queries.LG.matches) {
-    set('LG');
+    return 'LG';
   } else if (queries.MD.matches) {
-    set('MD');
+    return 'MD';
   } else if (queries.SM.matches) {
-    set('SM');
+    return 'SM';
   } else if (queries.XS.matches) {
-    set('XS');
+    return 'XS';
   } else {
-    set('BS');
+    return 'BS';
   }
 }
 

@@ -1,12 +1,17 @@
 import type { Preview } from '@storybook/react';
 import { themes } from '@storybook/theming';
+import type { CSSProperties } from 'react';
 
 // Side effects imports are on the top.
 import '../src/Theme/Static.css';
+import '../src/Theme/Darkest.css';
+import '../src/Theme/Dark.css';
+import '../src/Theme/Light.css';
 import '../src/Theme.css';
 
-import { Anar } from '../src/Anar';
-import type { CSSProperties } from 'react';
+import { Anar, initAnar } from '../src/Anar';
+
+initAnar();
 
 const preview: Preview = {
   globalTypes: {
@@ -58,13 +63,13 @@ const preview: Preview = {
         return (
           <div style={style}>
             <Anar colorScheme='light'>
-              <div style={storyWrapper}>
+              <div style={storyWrapper} data-anar-scheme={'light'}>
                 <Story />
               </div>
             </Anar>
 
             <Anar colorScheme='dark'>
-              <div style={storyWrapper}>
+              <div style={storyWrapper} data-anar-scheme={'dark'}>
                 <Story />
               </div>
             </Anar>
@@ -74,7 +79,7 @@ const preview: Preview = {
 
       return (
         <Anar colorScheme={colorScheme}>
-          <div style={storyWrapper}>
+          <div style={storyWrapper} data-anar-scheme={colorScheme}>
             <Story />
           </div>
         </Anar>

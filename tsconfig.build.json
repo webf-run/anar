@@ -5,7 +5,7 @@
     "incremental": false,
     "outDir": "./dist",
     "noEmit": false,
-    "emitDeclarationOnly": true,
+    "emitDeclarationOnly": true
   },
   "include": ["./src/**/*"],
   "exclude": [
@@ -14,5 +14,5 @@
     "**/*.spec.*",
     "**/*.story.tsx",
     "**/*.stories.tsx"
-  ],
+  ]
 }

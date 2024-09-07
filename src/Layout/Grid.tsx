@@ -1,13 +1,48 @@
 import clsx from 'clsx';
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 
-export type GridProps = {
-  className?: string;
-  children: ReactNode;
+import { useMatchedBreakpoints } from '../Anar';
+import { getResponsiveProps, type ResponsiveProps } from '../Util/Props';
+
+import style from './Grid.module.css';
+import type { AnarStyleProps } from '../Util/Style';
+
+export type GridDefinition = {
+  areas?: string;
+  columns?: string[];
+  rows?: string[];
+  gap?: string;
 };
 
-export function Grid(props: GridProps) {
-  const { className, children } = props;
+export interface GridResponsiveProps
+  extends ResponsiveProps<GridDefinition & AnarStyleProps> {}
 
-  return <div className={clsx('Grid', className)}>{children}</div>;
+export interface GridProps extends GridResponsiveProps {
+  className?: string;
+  children?: ReactNode;
+
+  // Move to generic style solution
+  height?: string;
+}
+
+export function Grid(props: GridProps) {
+  const { className, children, height, ...responsive } = props;
+
+  const breakpoints = useMatchedBreakpoints();
+  const rest = getResponsiveProps(responsive, breakpoints);
+
+  const styles: CSSProperties = {
+    gridTemplateAreas: rest.areas,
+    gridTemplateColumns: rest.columns?.join(' '),
+    gridTemplateRows: rest.rows?.join(' '),
+    gap: rest.gap,
+
+    height,
+  };
+
+  return (
+    <div className={clsx('Grid', style.root, className)} style={styles}>
+      {children}
+    </div>
+  );
 }

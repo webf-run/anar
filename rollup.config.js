@@ -13,11 +13,7 @@ import postcss from 'rollup-plugin-postcss';
 await fs.rmdir('./dist', { recursive: true }).catch(() => {});
 
 const entryPoints = await glob('./src/**/*.{ts,tsx}', {
-  ignore: [
-    './**/*.d.ts',
-    './**/*.stories.{ts,tsx}',
-    './**/*.story.{ts,tsx}'
-  ],
+  ignore: ['./**/*.d.ts', './**/*.stories.{ts,tsx}', './**/*.story.{ts,tsx}'],
 });
 
 const input = Object.fromEntries(

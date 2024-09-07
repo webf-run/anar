@@ -9,5 +9,5 @@
     { "path": "./tsconfig.lib.json" },
     { "path": "./tsconfig.infra.json" }
   ],
-  "include": [],
+  "include": []
 }
