@@ -1,6 +1,5 @@
-@import './Button/Button.css';
 @import './Popover.css';
-@import "./Theme.css";
+@import './Theme.css';
 
 .react-aria-Menu {
   max-height: inherit;

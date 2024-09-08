@@ -7,7 +7,7 @@ import { toDataAttrs } from '../Util/Style';
 export interface TextVariants {
   /** `md` is the default font-size */
   size?: 'xs' | 'sm' | 'md' | 'lg';
-};
+}
 
 export interface TextProps extends TextVariants {
   className?: string;

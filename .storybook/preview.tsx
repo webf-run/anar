@@ -3,12 +3,10 @@ import { themes } from '@storybook/theming';
 import type { CSSProperties } from 'react';
 
 // Side effects imports are on the top.
-import '../src/Theme/Static.css';
 import '../src/Theme/Darkest.css';
 import '../src/Theme/Dark.css';
 import '../src/Theme/Light.css';
-// import '../src/Theme.css';
-import '../src/Theme/Theme.css';
+import '../src/Anar.css';
 import './Reset.css';
 
 import { Anar, initAnar } from '../src/Anar.js';

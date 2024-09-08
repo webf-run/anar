@@ -1,14 +1,13 @@
-@import './Button/Button.css';
-@import "./ColorArea.css";
-@import "./ColorSlider.css";
-@import "./ColorSwatch.css";
-@import "./ColorSwatchPicker.css";
-@import "./ColorField.css";
-@import "./Popover.css";
+@import './ColorArea.css';
+@import './ColorSlider.css';
+@import './ColorSwatch.css';
+@import './ColorSwatchPicker.css';
+@import './ColorField.css';
+@import './Popover.css';
 @import './Dialog.css';
 @import './ListBox.css';
 @import './Select.css';
-@import "./Theme.css";
+@import './Theme.css';
 
 .color-picker {
   background: none;

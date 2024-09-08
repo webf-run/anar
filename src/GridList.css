@@ -1,7 +1,6 @@
-@import './Button/Button.css';
 @import './Checkbox.css';
 @import './ToggleButton.css';
-@import "./Theme.css";
+@import './Theme.css';
 
 .react-aria-GridList {
   display: flex;

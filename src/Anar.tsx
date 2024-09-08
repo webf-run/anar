@@ -11,6 +11,8 @@ import {
 } from './Util/Breakpoint';
 import { setGlobalContext, type GlobalContext } from './Util/GlobalContext';
 
+import './Anar.css';
+
 export type ColorScheme = 'light' | 'dark';
 
 export type AnarContext = {

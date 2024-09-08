@@ -5,7 +5,7 @@ import {
   type ButtonProps as RACButtonProps,
 } from 'react-aria-components';
 
-import './Button.css';
+
 import { toDataAttrs } from '../Util/Style';
 
 export type Size = 'sm' | 'md' | 'lg' | 'xl';

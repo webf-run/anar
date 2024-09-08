@@ -1,5 +1,4 @@
-@import "./Theme.css";
-@import './Button/Button.css';
+@import './Theme.css';
 @import './TextField.css';
 @import './Modal.css';
 

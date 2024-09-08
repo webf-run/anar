@@ -2,8 +2,7 @@
 @import './ListBox.css';
 @import './Popover.css';
 @import './Form.css';
-@import './Button/Button.css';
-@import "./Theme.css";
+@import './Theme.css';
 
 .react-aria-ComboBox {
   color: var(--text-color);

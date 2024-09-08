@@ -27,5 +27,5 @@ export interface AnarStyleProps {
 export function toStyle() {}
 
 export function toDataAttrs(attrs: string[]): Record<string, boolean> {
-  return Object.fromEntries(attrs.map(attr => [`data-${attr}`, true]));
+  return Object.fromEntries(attrs.map((attr) => [`data-${attr}`, true]));
 }

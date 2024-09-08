@@ -1,8 +1,7 @@
 @import './ListBox.css';
 @import './Popover.css';
-@import './Button/Button.css';
 @import './Form.css';
-@import "./Theme.css";
+@import './Theme.css';
 
 .react-aria-Select {
   color: var(--text-color);
