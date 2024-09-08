@@ -12,7 +12,7 @@ export interface ProgressBarProps extends AriaProgressBarProps {
 
 export function ProgressBar({ label, ...props }: ProgressBarProps) {
   return (
-    <AriaProgressBar {...props}>
+    <AriaProgressBar {...props} isIndeterminate>
       {({ percentage, valueText }) => (
         <>
           <Label>{label}</Label>

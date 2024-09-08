@@ -1,12 +1,14 @@
 import clsx from 'clsx';
-import { forwardRef, type ReactNode, type Ref } from 'react';
+import type { LucideIcon } from 'lucide-react';
+import { forwardRef, type Ref } from 'react';
 import {
-  Button as RACButton,
-  type ButtonProps as RACButtonProps,
+  Button as AriaButton,
+  type ButtonProps as AriaButtonProps,
 } from 'react-aria-components';
 
 
 import { toDataAttrs } from '../Util/Style';
+import { iconSizes } from '../Util/Icon';
 
 export type Size = 'sm' | 'md' | 'lg' | 'xl';
 
@@ -19,10 +21,10 @@ export type ButtonVariants = {
   pending?: boolean;
 };
 
-export type ButtonProps = RACButtonProps &
+export type ButtonProps = AriaButtonProps &
   ButtonVariants & {
-    left?: ReactNode;
-    right?: ReactNode;
+    left?: LucideIcon;
+    right?: LucideIcon;
     label: string;
   };
 
@@ -38,21 +40,28 @@ export const Button = forwardRef(function Button(
     radius,
     pending,
     label,
+    left: Left,
+    right: Right,
     ...racProps
   } = props;
 
   const classes = clsx('anar-button', className);
   const data = toDataAttrs([variant, toOneDataAttr([variant, emphasis]), size]);
+  const [strokeWidth, iconSize] = iconSizes[size];
 
   return (
-    <RACButton
+    <AriaButton
       ref={ref}
       className={classes}
       {...data}
       {...racProps}
     >
-      {label}
-    </RACButton>
+      {Left && <Left strokeWidth={strokeWidth} size={iconSize} />}
+      <span>
+        {label}
+      </span>
+      {Right && <Right strokeWidth={strokeWidth} size={iconSize} />}
+    </AriaButton>
   );
 });
 

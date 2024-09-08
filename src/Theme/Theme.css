@@ -29,12 +29,18 @@
     --button-color-negative-outline-hover: var(--red-200);
     --button-color-negative-outline-pressed: var(--red-300);
 
-    --button-color-accent: var(--seafoam-400);
+    --button-color-accent: var(--seafoam-600);
     --button-color-accent-hover: var(--seafoam-500);
     --button-color-accent-pressed: var(--seafoam-400);
 
     --button-color-accent-outline: var(--seafoam-900);
     --button-color-accent-outline-hover: var(--seafoam-200);
     --button-color-accent-outline-pressed: var(--seafoam-300);
+
+    --icon-size-xxs: 12px;
+    --icon-size-xs: 16px;
+
+    box-sizing: border-box;
+    color: var(--gray-800);
   }
 }

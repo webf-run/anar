@@ -1,0 +1,21 @@
+.root {
+  display: inline-flex;
+}
+
+.spinner {
+  transition: animation 0.2s ease-in-out;
+
+  &[data-active] {
+    animation: rotate 0.8s ease infinite;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateZ(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

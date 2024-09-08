@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Button } from './Button.js';
+import { ArrowBigRight, Database } from 'lucide-react';
 
 const meta: Meta<typeof Button> = {
   component: Button,
@@ -12,7 +13,7 @@ const meta: Meta<typeof Button> = {
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+export type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
@@ -53,5 +54,16 @@ export const Disabled: Story = {
     emphasis: 'fill',
     isDisabled: true,
     label: 'Press me',
+  },
+};
+
+export const WithIcon: Story = {
+  args: {
+    variant: 'primary',
+    emphasis: 'fill',
+    size: 'md',
+    label: 'Select Database',
+    left: Database,
+    right: ArrowBigRight,
   },
 };
