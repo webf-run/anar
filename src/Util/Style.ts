@@ -1,5 +1,3 @@
-export type Size = 'XS' | 'SM' | 'MD' | 'LG' | 'XL';
-
 export interface AnarStyleProps {
   margin?: string;
   marginStart?: string;
@@ -27,3 +25,7 @@ export interface AnarStyleProps {
 }
 
 export function toStyle() {}
+
+export function toDataAttrs(attrs: string[]): Record<string, boolean> {
+  return Object.fromEntries(attrs.map(attr => [`data-${attr}`, true]));
+}

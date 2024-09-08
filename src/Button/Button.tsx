@@ -6,11 +6,13 @@ import {
 } from 'react-aria-components';
 
 import './Button.css';
-import type { Size } from '../Util/Style';
+import { toDataAttrs } from '../Util/Style';
+
+export type Size = 'sm' | 'md' | 'lg' | 'xl';
 
 export type ButtonVariants = {
   variant?: 'primary' | 'secondary' | 'accent' | 'negative';
-  style?: 'fill' | 'outline' | 'quiet';
+  emphasis?: 'fill' | 'outline' | 'quiet';
 
   size?: Size;
   radius?: 'none' | Size;
@@ -21,21 +23,40 @@ export type ButtonProps = RACButtonProps &
   ButtonVariants & {
     left?: ReactNode;
     right?: ReactNode;
-    text: string;
+    label: string;
   };
 
 export const Button = forwardRef(function Button(
   props: ButtonProps,
   ref: Ref<HTMLButtonElement>
 ) {
-  const { className, variant, size, radius, pending, text, ...racProps } =
-    props;
+  const {
+    className,
+    variant = 'primary',
+    size = 'md',
+    emphasis = 'fill',
+    radius,
+    pending,
+    label,
+    ...racProps
+  } = props;
 
   const classes = clsx('anar-button', className);
+  const data = toDataAttrs([variant, toOneDataAttr([variant, emphasis]), size]);
 
   return (
-    <RACButton ref={ref} className={classes} {...racProps}>
-      {text}
+    <RACButton
+      ref={ref}
+      className={classes}
+      {...data}
+      {...racProps}
+    >
+      {label}
     </RACButton>
   );
 });
+
+
+function toOneDataAttr(attrs: string[]): string {
+  return `${attrs.join('-')}`;
+}

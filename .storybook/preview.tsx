@@ -18,7 +18,7 @@ const preview: Preview = {
     colorScheme: {
       title: 'Color Scheme',
       description: 'Global color scheme for components',
-      defaultValue: 'dark',
+      defaultValue: 'darkest',
       toolbar: {
         title: 'Color Scheme',
         icon: 'contrast',
@@ -26,6 +26,7 @@ const preview: Preview = {
         items: [
           { value: 'light', title: 'Light', right: '🔆' },
           { value: 'dark', title: 'Dark', right: '🔅' },
+          { value: 'darkest', title: 'Darkest', right: '🔅' },
           { value: 'all', title: 'Side-by-side', right: '🪵' },
         ],
       },
