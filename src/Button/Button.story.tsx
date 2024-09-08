@@ -15,63 +15,43 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  render: (args) => {
-    return <Button {...args} label='Press me' />;
-  },
-
   args: {
     variant: 'primary',
     emphasis: 'fill',
     size: 'md',
-    // radius: 'MD',
-    // pending: false,
+    label: 'Press me',
   },
 };
 
 export const Secondary: Story = {
-  render: (args) => {
-    return <Button {...args} label='Press me' />;
-  },
-
   args: {
     variant: 'secondary',
     emphasis: 'fill',
-    // size: 'MD',
-    // radius: 'MD',
-    // pending: false,
+    label: 'Press me',
   },
 };
 
 export const Accent: Story = {
-  render: (args) => {
-    return <Button {...args} label='Press me' />;
-  },
-
   args: {
     variant: 'accent',
     emphasis: 'fill',
+    label: 'Press me',
   },
 };
 
 export const Nagative: Story = {
-  render: (args) => {
-    return <Button {...args} label='Press me' />;
-  },
-
   args: {
     variant: 'negative',
     emphasis: 'fill',
+    label: 'Press me',
   },
 };
 
 export const Disabled: Story = {
-  render: (args) => {
-    return <Button {...args} label='Press me' />;
-  },
-
   args: {
     variant: 'negative',
     emphasis: 'fill',
     isDisabled: true,
+    label: 'Press me',
   },
 };

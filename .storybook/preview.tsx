@@ -7,9 +7,11 @@ import '../src/Theme/Static.css';
 import '../src/Theme/Darkest.css';
 import '../src/Theme/Dark.css';
 import '../src/Theme/Light.css';
-import '../src/Theme.css';
+// import '../src/Theme.css';
+import '../src/Theme/Theme.css';
+import './Reset.css';
 
-import { Anar, initAnar } from '../src/Anar';
+import { Anar, initAnar } from '../src/Anar.js';
 
 initAnar();
 

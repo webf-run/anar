@@ -4,8 +4,6 @@
     all: unset;
     appearance: none;
 
-    --focus-ring-color: var(--seafoam-400);
-
     display: inline-flex;
 
     /* Alignment */
@@ -39,59 +37,57 @@
     /* Use for outline when focused via keyboard */
     &[data-focus-visible] {
       outline: 2px solid var(--focus-ring-color);
-      outline-offset: 0;
+      outline-offset: 1px;
     }
 
     --button-base-tx: var(--gray-800);
 
+    &[data-primary] {
+      --button-hover-bg: var(--button-color-primary-hover);
+      --button-hover-bd: var(--button-color-primary-hover);
+
+      --button-pressed-bg: var(--button-color-primary-pressed);
+      --button-pressed-bd: var(--button-color-primary-pressed);
+    }
+
     &[data-primary-fill] {
-      --button-base-bg: var(--gray-400);
-      --button-base-bd: var(--gray-400);
-
-      --button-hover-bg: var(--gray-300);
-      --button-hover-bd: var(--gray-300);
-
-      --button-pressed-bg: var(--gray-200);
-      --button-pressed-bd: var(--gray-200);
+      --button-base-bg: var(--button-color-primary);
+      --button-base-bd: var(--button-color-primary);
     }
 
     &[data-primary-outline] {
       --button-base-bg: transparent;
-      --button-base-bd: var(--gray-800);
-
-      --button-hover-bg: var(--gray-300);
-      --button-pressed-bg: var(--gray-200);
+      --button-base-bd: var(--button-color-primary-outline);
+      --button-hover-bd: var(--button-color-primary-outline);
+      --button-pressed-bd: var(--button-color-primary-outline);
     }
 
     &[data-primary-quiet] {
       --button-base-bg: transparent;
       --button-base-bd: transparent;
+    }
 
-      --button-hover-bg: var(--gray-300);
-      --button-hover-bd: var(--gray-300);
+    &[data-secondary] {
+      --button-hover-bg: var(--button-color-secondary-hover);
+      --button-hover-bd: var(--button-color-secondary-hover);
 
-      --button-pressed-bg: var(--gray-200);
-      --button-pressed-bd: var(--gray-200);
+      --button-pressed-bg: var(--button-color-secondary-pressed);
+      --button-pressed-bd: var(--button-color-secondary-pressed);
     }
 
     &[data-secondary-fill] {
-      --button-base-bg: var(--gray-200);
-      --button-base-bd: var(--gray-200);
-
-      --button-hover-bg: var(--gray-300);
-      --button-hover-bd: var(--gray-300);
-
-      --button-pressed-bg: var(--gray-400);
-      --button-pressed-bd: var(--gray-400);
+      --button-base-bg: var(--button-color-secondary);
+      --button-base-bd: var(--button-color-secondary);
     }
 
     &[data-secondary-outline] {
       --button-base-bg: transparent;
-      --button-base-bd: var(--gray-800);
+      --button-base-bd: var(--button-color-secondary-outline);
 
-      --button-hover-bg: var(--gray-300);
+      --button-hover-bg: var(--button-color-secondary-hover);
 
-      --button-pressed-bg: var(--gray-400);
+      --button-pressed-bg: var(--button-color-secondary-pressed);
+      --button-pressed-bd: var(--button-color-secondary-pressed);
     }
 
     &[data-secondary-quiet] {
@@ -106,25 +102,25 @@
     }
 
     &[data-negative-fill] {
-      --button-base-tx: var(--gray-900);
-      --button-base-bg: var(--red-600);
-      --button-base-bd: var(--red-600);
+      --button-base-tx: var(--button-color-negative-text);
+      --button-base-bg: var(--button-color-negative);
+      --button-base-bd: var(--button-color-negative);
 
-      --button-hover-bg: var(--red-500);
-      --button-hover-bd: var(--red-500);
+      --button-hover-bg: var(--button-color-negative-hover);
+      --button-hover-bd: var(--button-color-negative-hover);
 
-      --button-pressed-bg: var(--red-400);
-      --button-pressed-bd: var(--red-400);
+      --button-pressed-bg: var(--button-color-negative-pressed);
+      --button-pressed-bd: var(--button-color-negative-pressed);
     }
 
     &[data-negative-outline] {
-      --button-base-tx: var(--red-900);
+      --button-base-tx: var(--button-color-negative-outline);
       --button-base-bg: transparent;
-      --button-base-bd: var(--red-900);
+      --button-base-bd: var(--button-color-negative-outline);
 
-      --button-hover-bg: var(--red-200);
+      --button-hover-bg: var(--button-color-negative-outline-hover);
 
-      --button-pressed-bg: var(--red-300);
+      --button-pressed-bg: var(--button-color-negative-outline-pressed);
     }
 
     &[data-negative-quiet] {
@@ -132,50 +128,50 @@
       --button-base-bg: transparent;
       --button-base-bd: transparent;
 
-      --button-hover-bg: var(--red-200);
-      --button-hover-bd: var(--red-200);
+      --button-hover-bg: var(--button-color-negative-outline-hover);
+      --button-hover-bd: var(--button-color-negative-outline-hover);
 
-      --button-pressed-bg: var(--red-300);
-      --button-pressed-bd: var(--red-300);
+      --button-pressed-bg: var(--button-color-negative-outline-pressed);
+      --button-pressed-bd: var(--button-color-negative-outline-pressed);
     }
 
     &[data-accent-fill] {
-      --button-base-bg: var(--seafoam-400);
-      --button-base-bd: var(--seafoam-400);
+      --button-base-bg: var(--button-color-accent);
+      --button-base-bd: var(--button-color-accent);
 
-      --button-hover-bg: var(--seafoam-500);
-      --button-hover-bd: var(--seafoam-500);
+      --button-hover-bg: var(--button-color-accent-hover);
+      --button-hover-bd: var(--button-color-accent-hover);
 
-      --button-pressed-bg: var(--seafoam-400);
-      --button-pressed-bd: var(--seafoam-400);
+      --button-pressed-bg: var(--button-color-accent-pressed);
+      --button-pressed-bd: var(--button-color-accent-pressed);
     }
 
     &[data-accent-outline] {
-      --button-base-tx: var(--seafoam-900);
+      --button-base-tx: var(--button-color-accent-outline);
       --button-base-bg: transparent;
-      --button-base-bd: var(--seafoam-900);
+      --button-base-bd: var(--button-color-accent-outline);
 
-      --button-hover-bg: var(--seafoam-200);
+      --button-hover-bg: var(--button-color-accent-outline-hover);
 
-      --button-pressed-bg: var(--seafoam-300);
+      --button-pressed-bg: var(--button-color-accent-outline-pressed);
     }
 
     &[data-accent-quiet] {
-      --button-base-tx: var(--seafoam-900);
+      --button-base-tx: var(--button-color-accent-outline);
       --button-base-bg: transparent;
       --button-base-bd: transparent;
 
-      --button-hover-bg: var(--seafoam-200);
-      --button-hover-bd: var(--seafoam-200);
+      --button-hover-bg: var(--button-color-accent-outline-hover);
+      --button-hover-bd: var(--button-color-accent-outline-hover);
 
-      --button-pressed-bg: var(--seafoam-300);
-      --button-pressed-bd: var(--seafoam-300);
+      --button-pressed-bg: var(--button-color-accent-outline-pressed);
+      --button-pressed-bd: var(--button-color-accent-outline-pressed);
     }
 
     &[data-disabled] {
-      --button-base-tx: var(--gray-500);
-      --button-base-bg: var(--gray-200);
-      --button-base-bd: var(--gray-200);
+      --button-base-tx: var(--color-text-disabled);
+      --button-base-bg: var(--color-text-disabled-bg);
+      --button-base-bd: var(--color-text-disabled-bg);
     }
 
     &[data-sm] {

@@ -1,0 +1,40 @@
+@layer anar {
+  [data-anar-scheme] {
+    --color-text: var(--gray-800);
+    --color-text-subdued: var(--gray-700);
+    --color-text-title: var(--gray-900);
+    --color-text-disabled: var(--gray-500);
+    --color-text-disabled-bg: var(--gray-200);
+
+    --focus-ring-color: var(--seafoam-400);
+
+    /************************************************************/
+    /* Button component */
+    --button-color-primary: var(--gray-400);
+    --button-color-primary-hover: var(--gray-300);
+    --button-color-primary-pressed: var(--gray-200);
+    --button-color-primary-outline: var(--color-text);
+
+    --button-color-secondary: var(--gray-200);
+    --button-color-secondary-hover: var(--gray-300);
+    --button-color-secondary-pressed: var(--gray-400);
+    --button-color-secondary-outline: var(--gray-300);
+
+    --button-color-negative: var(--red-600);
+    --button-color-negative-text: var(--gray-900);
+    --button-color-negative-hover: var(--red-500);
+    --button-color-negative-pressed: var(--red-400);
+
+    --button-color-negative-outline: var(--red-900);
+    --button-color-negative-outline-hover: var(--red-200);
+    --button-color-negative-outline-pressed: var(--red-300);
+
+    --button-color-accent: var(--seafoam-400);
+    --button-color-accent-hover: var(--seafoam-500);
+    --button-color-accent-pressed: var(--seafoam-400);
+
+    --button-color-accent-outline: var(--seafoam-900);
+    --button-color-accent-outline-hover: var(--seafoam-200);
+    --button-color-accent-outline-pressed: var(--seafoam-300);
+  }
+}

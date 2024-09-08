@@ -4,21 +4,27 @@
     font-size: 1rem;
     line-height: 1.5;
 
-    &[data-size='XS'] {
+    color: var(--color-text);
+
+    &[data-xs] {
       font-size: 0.75rem;
       font-weight: 700;
       line-height: 1rem;
     }
 
-    &[data-weight='SM'] {
+    &[data-sm] {
       font-size: 0.875rem;
       line-height: 1.25rem;
     }
 
-    &[data-size='LG'] {
+    &[data-lg] {
       font-size: 18px;
       line-height: 28px;
     }
+  }
+
+  .heading {
+    color: var(--color-text-title);
   }
 
   h1.heading {

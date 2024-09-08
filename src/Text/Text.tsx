@@ -2,10 +2,11 @@ import clsx from 'clsx';
 import { Text as RACText } from 'react-aria-components';
 
 import style from './Text.module.css';
+import { toDataAttrs } from '../Util/Style';
 
-export type TextVariants = {
-  /** MD is the default font-size */
-  size?: 'LG' | 'MD' | 'SM' | 'XS';
+export interface TextVariants {
+  /** `md` is the default font-size */
+  size?: 'xs' | 'sm' | 'md' | 'lg';
 };
 
 export interface TextProps extends TextVariants {
@@ -16,13 +17,15 @@ export interface TextProps extends TextVariants {
 }
 
 export function Text(props: TextProps) {
-  const { className, elementType = 'span', size, text } = props;
+  const { className, elementType = 'span', size = 'md', text } = props;
+
+  const data = toDataAttrs([size]);
 
   return (
     <RACText
       elementType={elementType}
       className={clsx('Text', style.text, className)}
-      data-size={size}
+      {...data}
       children={text}
     />
   );
