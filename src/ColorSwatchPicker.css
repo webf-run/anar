@@ -1,6 +1,5 @@
 @import "./ColorSwatch.css";
 @import "./ColorField.css";
-@import './Theme.css';
 
 .react-aria-ColorSwatchPicker {
   display: flex;

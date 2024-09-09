@@ -5,6 +5,7 @@
     appearance: none;
 
     display: inline-flex;
+    height: var(--button-height, 30px);
 
     /* Alignment */
     gap: 0.5rem;
@@ -15,7 +16,7 @@
     color: var(--button-base-tx);
     background-color: var(--button-base-bg);
     border: 1px solid var(--button-base-bd);
-    border-radius: 0.25rem;
+    border-radius: 0.4rem;
     text-decoration: none;
     font-weight: 600;
     outline: none;
@@ -176,21 +177,25 @@
     }
 
     &[data-sm] {
+      --button-height: 32px;
       font-size: 0.875rem;
       padding: 0.25rem 0.5rem;
     }
 
     &[data-md] {
-      font-size: 1rem;
+      --button-height: 36px;
+      font-size: 14px;
       padding: 0.5rem 0.75rem;
     }
 
     &[data-lg] {
+      --button-height: 40px;
       font-size: 1.125rem;
       padding: 0.75rem 1rem;
     }
 
     &[data-xl] {
+      --button-height: 44px;
       font-size: 1.25rem;
       padding: 0.75rem 1.25rem;
     }

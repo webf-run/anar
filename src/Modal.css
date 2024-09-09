@@ -1,5 +1,4 @@
 @import './TextField.css';
-@import './Theme.css';
 
 .react-aria-ModalOverlay {
   position: fixed;

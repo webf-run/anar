@@ -7,7 +7,6 @@
 @import './Dialog.css';
 @import './ListBox.css';
 @import './Select.css';
-@import './Theme.css';
 
 .color-picker {
   background: none;
