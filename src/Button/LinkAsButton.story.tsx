@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Spinner } from './Spinner.js';
+import { ButtonAsLink } from './LinkAsButton';
 
-const meta: Meta<typeof Spinner> = {
-  component: Spinner,
+const meta: Meta<typeof ButtonAsLink> = {
+  title: 'Buttons/AsLink',
+  component: ButtonAsLink,
   parameters: {
     layout: 'centered',
   },
@@ -16,7 +17,8 @@ export type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    active: true,
-    size: 'xl',
+    label: 'The Missing Link',
+    href: 'https://github.com/webf-run/anar',
+    target: '_blank',
   },
 };

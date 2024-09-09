@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
-import { Button } from './Button.js';
 import { ArrowBigRight, Database } from 'lucide-react';
 
+import { Button } from './Button.js';
+
 const meta: Meta<typeof Button> = {
+  title: 'Buttons/Button',
   component: Button,
   parameters: {
     layout: 'centered',

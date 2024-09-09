@@ -2,7 +2,6 @@ import type { Meta } from '@storybook/react';
 
 import { ProgressBar } from './ProgressBar.js';
 
-
 const meta: Meta<typeof ProgressBar> = {
   component: ProgressBar,
   parameters: {

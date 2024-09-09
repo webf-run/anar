@@ -49,7 +49,6 @@
 /* Semantic colors */
 @layer anar {
   [data-anar-scheme] {
-    --focus-ring-color: var(--purple-400);
     --text-color: var(--gray-600);
     --text-color-base: var(--gray-500);
     --text-color-hover: var(--gray-600);
