@@ -1,4 +1,28 @@
+
 @import './Theme/Static.css';
+@import './Theme/Darkest.css';
+@import './Theme/Dark.css';
+@import './Theme/Light.css';
+
 @import './Theme/Theme.css';
 
 @import './Button/Button.css';
+
+[data-anar-scheme] {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1.5;
+
+  background: var(--background-color);
+
+  /* Make custom fonts render better */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+
+  /* TODO: Should this be here? */
+  box-sizing: border-box;
+}

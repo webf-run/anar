@@ -1,4 +1,4 @@
-import { createContext, useContext, useSyncExternalStore } from 'react';
+import { createContext, useContext, useEffect, useSyncExternalStore } from 'react';
 
 import {
   findBreakpoint,
@@ -45,6 +45,17 @@ export function Anar(props: AnarProviderProps) {
     breakpoint,
     isDesktop: isDesktop(breakpoint),
   };
+
+  useEffect(() => {
+    if (getRootElement) {
+      const rootElement = getRootElement();
+      rootElement.dataset.anarScheme = colorScheme;
+
+      return () => {
+        delete rootElement.dataset.anarScheme;
+      };
+    }
+  }, [getRootElement]);
 
   return <Context.Provider value={data}>{children}</Context.Provider>;
 }
