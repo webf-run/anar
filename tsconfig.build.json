@@ -13,6 +13,7 @@
     "**/*.test.*",
     "**/*.spec.*",
     "**/*.story.tsx",
+    "**/*.play.tsx",
     "**/*.stories.tsx"
   ]
 }

@@ -8,6 +8,7 @@ node_modules
 
 # Generated artifacts
 dist
+doc_build
 *.tsbuildinfo
 
 # Editor directories and files
