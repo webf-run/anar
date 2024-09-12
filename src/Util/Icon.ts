@@ -1,6 +1,6 @@
-import type { TShirtSize } from './Style';
+import type { IconSize } from './Style.js';
 
-export const iconSizes: Record<TShirtSize, readonly [number, number]> = {
+export const iconSizes: Record<IconSize, readonly [number, number]> = {
   xxs: [2, 10],
   xs: [2, 12],
   sm: [2, 14],

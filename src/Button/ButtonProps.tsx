@@ -1,17 +1,15 @@
 import clsx from 'clsx';
 import type { LucideIcon } from 'lucide-react';
 
-import { toDataAttrs } from '../Util/Style';
-import { iconSizes } from '../Util/Icon';
-
-export type Size = 'sm' | 'md' | 'lg' | 'xl';
+import { toDataAttrs, type TShirtSize } from '../Util/Style.js';
+import { iconSizes } from '../Util/Icon.js';
 
 export type ButtonVariants = {
   variant?: 'primary' | 'secondary' | 'accent' | 'negative';
   emphasis?: 'fill' | 'outline' | 'quiet';
 
-  size?: Size;
-  radius?: 'none' | Size;
+  size?: TShirtSize;
+  radius?: 'none' | TShirtSize;
   pending?: boolean;
 };
 

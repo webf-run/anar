@@ -1,13 +1,13 @@
+import clsx from 'clsx';
 import {
-  FieldError,
-  Label,
   RadioGroup as AriaRadioGroup,
   RadioGroupProps as AriaRadioGroupProps,
   Text,
-  ValidationResult,
+  type ValidationResult,
 } from 'react-aria-components';
 
-import './RadioGroup.css';
+import { FieldError } from '../Text/FieldError.js';
+import { Label } from '../Text/Label.js';
 
 export interface RadioGroupProps extends Omit<AriaRadioGroupProps, 'children'> {
   children?: React.ReactNode;
@@ -16,15 +16,18 @@ export interface RadioGroupProps extends Omit<AriaRadioGroupProps, 'children'> {
   errorMessage?: string | ((validation: ValidationResult) => string);
 }
 
-export function RadioGroup({
-  label,
-  description,
-  errorMessage,
-  children,
-  ...props
-}: RadioGroupProps) {
+export function RadioGroup(props: RadioGroupProps) {
+  const {
+    className,
+    label,
+    description,
+    errorMessage,
+    children,
+    ...rest
+  } = props;
+
   return (
-    <AriaRadioGroup {...props}>
+    <AriaRadioGroup className={clsx('anar-radio-group', className)} {...rest}>
       <Label>{label}</Label>
       {children}
       {description && <Text slot='description'>{description}</Text>}

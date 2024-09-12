@@ -1,0 +1,10 @@
+
+.anar-label {
+  font-weight: 500;
+  color: var(--color-text-subdued);
+}
+
+.anar-field-error {
+  font-size: 0.75rem;
+  color: var(--color-error);
+}

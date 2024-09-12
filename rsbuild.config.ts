@@ -17,5 +17,8 @@ export default defineConfig({
       },
     },
   },
+  html: {
+    template: './index.html',
+  },
   plugins: [pluginReact()],
 });

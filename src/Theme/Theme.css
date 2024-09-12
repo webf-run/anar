@@ -1,12 +1,18 @@
 @layer anar {
   [data-anar-scheme] {
+    /* Generic styles */
     --color-text: var(--gray-800);
     --color-text-subdued: var(--gray-700);
     --color-text-title: var(--gray-900);
     --color-text-disabled: var(--gray-500);
     --color-text-disabled-bg: var(--gray-200);
+    --color-error: var(--red-900);
+    --color-error-pressed: var(--red-1000);
 
-    --focus-ring-color: var(--seafoam-400);
+    --border-color: var(--gray-400);
+    --border-color-hover: var(--gray-500);
+    --border-color-pressed: var(--gray-500);
+    --border-color-disabled: var(--gray-500);
 
     /************************************************************/
     /* Button component */
@@ -37,11 +43,27 @@
     --button-color-accent-outline-hover: var(--seafoam-200);
     --button-color-accent-outline-pressed: var(--seafoam-300);
 
+    /* Radio */
+    --radio-color-hightlight: var(--color-text);
+    --radio-color-hightlight-pressed: var(--color-title);
+
     --icon-size-xxs: 12px;
     --icon-size-xs: 16px;
 
     box-sizing: border-box;
     color: var(--gray-800);
+  }
+
+  [data-anar-scheme='dark'] {
+    --focus-ring-color: var(--seafoam-400);
+  }
+
+  [data-anar-scheme='darkest'] {
+    --focus-ring-color: var(--seafoam-300);
+  }
+
+  [data-anar-scheme='light'] {
+    --focus-ring-color: var(--seafoam-900);
   }
 }
 
@@ -57,10 +79,6 @@
     --link-color: var(--purple-500);
     --link-color-secondary: var(--gray-500);
     --link-color-pressed: var(--purple-600);
-    --border-color: var(--gray-300);
-    --border-color-hover: var(--gray-400);
-    --border-color-pressed: var(--gray-400);
-    --border-color-disabled: var(--gray-100);
     --field-background: var(--gray-50);
     --field-text-color: var(--gray-600);
     --overlay-background: var(--gray-50);

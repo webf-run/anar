@@ -1,4 +1,5 @@
-export type TShirtSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+export type TShirtSize = 'sm' | 'md' | 'lg' | 'xl';
+export type IconSize = TShirtSize | 'xxs' | 'xs' | 'xxl';
 
 export interface AnarStyleProps {
   margin?: string;
