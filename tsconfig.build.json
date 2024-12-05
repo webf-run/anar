@@ -7,9 +7,13 @@
     "noEmit": false,
     "emitDeclarationOnly": true
   },
-  "include": ["./src/**/*"],
+  "include": [
+    "./src/Anar.tsx",
+    "./src/Button/**/*",
+    "./src/Radio/**/*",
+    "./src/Util/**/*"
+  ],
   "exclude": [
-    "dist/**/*",
     "**/*.test.*",
     "**/*.spec.*",
     "**/*.story.tsx",

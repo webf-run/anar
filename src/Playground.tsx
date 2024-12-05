@@ -34,5 +34,5 @@ export function Playground<T>(props: PlaygroundProps<T>) {
 }
 
 export function withPlayground<T>(configuration: PlaygroundConfiguration<T>) {
-  return (props: T) => <Playground configuration={configuration} />;
+  return (_props: T) => <Playground configuration={configuration} />;
 }

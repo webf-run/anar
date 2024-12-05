@@ -8,11 +8,7 @@
     "allowSyntheticDefaultImports": false,
     "esModuleInterop": false
   },
-  "include": [
-    "./script/**/*",
-    "./.storybook/**/*",
-    "./site/**/*",
-  ],
+  "include": ["./script/**/*", "./.storybook/**/*", "./site/**/*"],
   "references": [
     {
       "path": "./tsconfig.lib.json"

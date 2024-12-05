@@ -1,5 +1,8 @@
 import clsx from 'clsx';
-import { Radio as AriaRadio, RadioProps as AriaRadioProps } from 'react-aria-components';
+import {
+  Radio as AriaRadio,
+  RadioProps as AriaRadioProps,
+} from 'react-aria-components';
 
 import type { TShirtSize } from '../Util/Style.js';
 

@@ -6,7 +6,6 @@ export const ButtonPlayground = withPlayground<ButtonProps>({
     label: 'Button',
     isDisabled: false,
     variant: 'primary',
-
   },
   component: Button,
 });

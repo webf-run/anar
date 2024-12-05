@@ -17,14 +17,8 @@ export interface RadioGroupProps extends Omit<AriaRadioGroupProps, 'children'> {
 }
 
 export function RadioGroup(props: RadioGroupProps) {
-  const {
-    className,
-    label,
-    description,
-    errorMessage,
-    children,
-    ...rest
-  } = props;
+  const { className, label, description, errorMessage, children, ...rest } =
+    props;
 
   return (
     <AriaRadioGroup className={clsx('anar-radio-group', className)} {...rest}>

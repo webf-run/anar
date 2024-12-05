@@ -1,5 +1,8 @@
 import clsx from 'clsx';
-import { Label as AriaLabel, LabelProps as AriaLabelProps } from 'react-aria-components';
+import {
+  Label as AriaLabel,
+  LabelProps as AriaLabelProps,
+} from 'react-aria-components';
 
 import { toDataAttrs, type TShirtSize } from '../Util/Style.js';
 
@@ -13,10 +16,6 @@ export function Label(props: LabelProps) {
   const data = toDataAttrs([size]);
 
   return (
-    <AriaLabel
-      className={clsx('anar-label', className)}
-      {...data}
-      {...rest}
-    />
+    <AriaLabel className={clsx('anar-label', className)} {...data} {...rest} />
   );
-};
+}

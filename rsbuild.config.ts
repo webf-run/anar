@@ -5,7 +5,7 @@ export default defineConfig({
   root: './site',
   source: {
     entry: {
-      index: './index.tsx'
+      index: './index.tsx',
     },
   },
   tools: {

@@ -9,12 +9,20 @@ import atImport from 'postcss-import';
 import { nodeExternals } from 'rollup-plugin-node-externals';
 import postcss from 'rollup-plugin-postcss';
 
-// Clean the generated dist folder.
-await fs.rmdir('./dist', { recursive: true }).catch(() => {});
+import tsconfig from './tsconfig.build.json' with { type: 'json' };
 
-const entryPoints = await glob('./src/**/*.{ts,tsx}', {
-  ignore: ['./**/*.d.ts', './**/*.stories.{ts,tsx}', './**/*.story.{ts,tsx}'],
-});
+// Clean the generated dist folder.
+await fs.rm('./dist', { recursive: true }).catch(() => {});
+
+const entryPoints = await glob(
+  tsconfig.include,
+  {
+    ignore: [
+      ...tsconfig.exclude,
+      './**/*.css',
+    ],
+  }
+);
 
 const input = Object.fromEntries(
   entryPoints.map((entry) => [
