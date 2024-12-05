@@ -1,1 +1,17 @@
 !dist
+
+.storybook
+.vscode
+config
+public
+scripts
+site
+src
+stories
+
+.babelrc.json
+.prettier*
+rollup*
+rsbuild*
+rslib*
+tsconfig*
