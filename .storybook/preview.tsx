@@ -6,9 +6,7 @@ import type { CSSProperties } from 'react';
 import '../src/Anar.css';
 import './Reset.css';
 
-import { Anar, initAnar } from '../src/Anar.js';
-
-initAnar();
+import { Anar } from '../src/Anar.js';
 
 const preview: Preview = {
   globalTypes: {

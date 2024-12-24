@@ -6,15 +6,12 @@ import {
 } from 'react';
 
 import {
-  findBreakpoint,
+  getBreakpoint,
   getMatchedBreakpoints,
   isDesktop,
   subscribe,
   type Breakpoint,
-  type BreakpointMap,
-  type BreakpointQueryMap,
 } from './Util/Breakpoint';
-import { setGlobalContext, type GlobalContext } from './Util/GlobalContext';
 
 import './Anar.css';
 
@@ -43,13 +40,7 @@ const Context = createContext<AnarContext>({
  */
 export function Anar(props: AnarProviderProps) {
   const { children, colorScheme, getRootElement } = props;
-  const breakpoint = useSyncExternalStore(subscribe, findBreakpoint);
-
-  const data: AnarContext = {
-    colorScheme,
-    breakpoint,
-    isDesktop: isDesktop(breakpoint),
-  };
+  const breakpoint = useSyncExternalStore(subscribe, getBreakpoint, getBreakpoint);
 
   useEffect(() => {
     if (getRootElement) {
@@ -61,6 +52,13 @@ export function Anar(props: AnarProviderProps) {
       };
     }
   }, [getRootElement]);
+
+
+  const data: AnarContext = {
+    colorScheme,
+    breakpoint,
+    isDesktop: isDesktop(breakpoint),
+  };
 
   return <Context.Provider value={data}>{children}</Context.Provider>;
 }
@@ -79,38 +77,4 @@ export function useDesktop(): boolean {
   const { breakpoint } = useContext(Context);
 
   return isDesktop(breakpoint);
-}
-
-/**
- * Initializes the library. The provider cannot be used
- * without calling this function first.
- *
- */
-export function initAnar() {
-  const breakpoints: BreakpointMap = {
-    BS: 0,
-    XS: 480,
-    SM: 600,
-    MD: 768,
-    LG: 1024,
-    XL: 1280,
-    XXL: 1536,
-  };
-
-  const queries: BreakpointQueryMap = {
-    BS: window.matchMedia(`(min-width: ${breakpoints.BS}px)`),
-    XS: window.matchMedia(`(min-width: ${breakpoints.XS}px)`),
-    SM: window.matchMedia(`(min-width: ${breakpoints.SM}px)`),
-    MD: window.matchMedia(`(min-width: ${breakpoints.MD}px)`),
-    LG: window.matchMedia(`(min-width: ${breakpoints.LG}px)`),
-    XL: window.matchMedia(`(min-width: ${breakpoints.XL}px)`),
-    XXL: window.matchMedia(`(min-width: ${breakpoints.XXL}px)`),
-  };
-
-  const globalContext: GlobalContext = {
-    breakpoints,
-    queries,
-  };
-
-  setGlobalContext(globalContext);
 }

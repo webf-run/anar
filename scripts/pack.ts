@@ -22,7 +22,7 @@ function execute(command: string, cwd: string) {
 async function build(packagePath: string) {
   const cwd = path.join(processCWD, packagePath);
 
-  return execute(`npm run build`, cwd);
+  return execute(`npm run build2`, cwd);
 }
 
 async function bundle(packagePath: string) {
