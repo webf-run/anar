@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ArrowBigRight, Database } from 'lucide-react';
 
-import { CheckBox } from './CheckBox.js';
+import { Checkbox } from './Checkbox.js';
 
-const meta: Meta<typeof CheckBox> = {
-  title: 'Core/CheckBox',
-  component: CheckBox,
+const meta: Meta<typeof Checkbox> = {
+  title: 'Core/Checkbox',
+  component: Checkbox,
   parameters: {
     layout: 'centered',
   },
@@ -18,7 +17,6 @@ export type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    variant: 'active',
     size: 'md',
     label: 'Check box',
   },
@@ -26,7 +24,6 @@ export const Primary: Story = {
 
 export const Indeterminate: Story = {
   args: {
-    variant: 'active',
     size: 'md',
     label: 'Check box',
     isIndeterminate: true,
@@ -36,7 +33,6 @@ export const Indeterminate: Story = {
 export const Disabled: Story = {
   args: {
     isDisabled: true,
-    variant: 'disabled',
     label: 'Check box',
   },
 };

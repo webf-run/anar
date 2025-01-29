@@ -5,19 +5,36 @@ import {
   type CheckboxProps as AriaCheckboxProps,
 } from 'react-aria-components';
 
-import { CheckBoxBaseProps, getProps } from './CheckBoxProps';
 
-export type CheckboxProps = CheckBoxBaseProps & AriaCheckboxProps;
+import { TShirtSize } from '../Util/Style.js';
 
-export const CheckBox = function CheckBox(props: CheckboxProps) {
-  const { label, className, ...checkboxProps } = getProps(props);
+export type CheckboxVariants = {
+  size?: TShirtSize;
+  radius?: 'none' | TShirtSize;
+};
 
-  console.log(props);
+export type CheckboxBaseProps = CheckboxVariants & {
+  className?: string;
+  label: string;
+};
+
+export type CheckboxProps = CheckboxBaseProps & AriaCheckboxProps;
+
+export function Checkbox(props: CheckboxProps) {
+  const {
+    className,
+    size = 'md',
+    radius,
+    label,
+    ...racProps
+  } = props;
+
+  const classes = clsx('anar-checkbox', className);
 
   return (
     <AriaCheckbox
-      className={clsx('anar-checkbox', className)}
-      {...checkboxProps}
+      className={classes}
+      {...racProps}
     >
       {({ isIndeterminate, isSelected }) => (
         <>
@@ -35,4 +52,4 @@ export const CheckBox = function CheckBox(props: CheckboxProps) {
       )}
     </AriaCheckbox>
   );
-};
+}
