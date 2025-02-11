@@ -1,60 +1,62 @@
 @layer anar {
   .anar-checkbox {
+    --bg: transparent;
+    --border: var(--border-control-color);
+    --icon: var(--border-control-color);
+    --text: var(--color-text);
+    --outline: 0;
 
-    --selected-color: var(--highlight-background);
-    --selected-color-pressed: var(--highlight-background-pressed);
-    --checkmark-color: var(--highlight-foreground);
-
-    display: flex;
+    display: inline-flex;
+    gap: 0.5rem;
     align-items: center;
-    flex-direction: row;
-    gap: 0.571rem;
-    font-size: 1.143rem;
-    color: var(--text-color);
+
+    color: var(--text);
     cursor: pointer;
 
-    .checkbox-icon {
-      width: 1.143rem;
-      height: 1.143rem;
-      border-radius: 4px;
-      transition: all 200ms;
+    .icon {
       display: flex;
+      width: 20px;
+      height: 20px;
       align-items: center;
-      justify-content: center;
+
+      /* This color is used by SVG icon */
+      color: var(--icon);
+      background-color: var(--bg);
+
+      border: 2px solid var(--border);
+      border-radius: 4px;
+      outline: var(--outline) solid var(--focus-ring-color);
+      outline-offset: 2px;
+
+      transition: all 120ms;
     }
 
     &[data-hovered] {
-      background:rgba(228, 228, 229, 0.3);
+      --border: var(--border-control-color-hover);
     }
-  
-    &[data-pressed] .checkbox {
-      border-color: var(--border-color-pressed);
+
+    &[data-pressed] {
+      --border: var(--border-control-color-pressed);
+    }
+
+    &[data-focus-visible] {
+      --outline: 2px;
+    }
+
+    &[data-selected] {
+      --bg: var(--primary-900);
+      --border: var(--primary-900);
+      --icon: var(--gray-50);
     }
 
     &[data-disabled] {
-      color:   rgba(228, 228, 229, 0.3);
-
+      --border: var(--border-color-disabled);
+      --text: var(--color-text-disabled);
       cursor: default;
     }
-  
-    &[data-focus-visible] .checkbox {
-      outline: 2px solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
-  
-    &[data-selected] {
-      background: rgba(228, 228, 229, 0.3);
 
-      .checkbox-icon {
-        background: var(--selected-color);
-        color: #ffff;
-      }
-  
-      &[data-pressed] .checkbox-icon {
-        border-color: var(--selected-color-pressed);
-        background: var(--selected-color-pressed);
-      }
+    &[data-selected][data-disabled] {
+      --bg: var(--color-text-disabled);
     }
-
   }
 }

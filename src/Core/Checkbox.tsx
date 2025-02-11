@@ -1,8 +1,8 @@
 import clsx from 'clsx';
-import { Square, SquareCheck, SquareMinus } from 'lucide-react';
+import { Check, Minus, Square, SquareCheck, SquareMinus } from 'lucide-react';
 import {
-  Checkbox as AriaCheckbox,
-  type CheckboxProps as AriaCheckboxProps,
+  Checkbox as RiaCheckbox,
+  type CheckboxProps as RiaCheckboxProps,
 } from 'react-aria-components';
 
 
@@ -10,46 +10,40 @@ import { TShirtSize } from '../Util/Style.js';
 
 export type CheckboxVariants = {
   size?: TShirtSize;
-  radius?: 'none' | TShirtSize;
 };
 
-export type CheckboxBaseProps = CheckboxVariants & {
+export interface CheckboxProps extends CheckboxVariants, RiaCheckboxProps {
   className?: string;
   label: string;
-};
-
-export type CheckboxProps = CheckboxBaseProps & AriaCheckboxProps;
+}
 
 export function Checkbox(props: CheckboxProps) {
   const {
     className,
     size = 'md',
-    radius,
     label,
-    ...racProps
+    ...riaProps
   } = props;
 
   const classes = clsx('anar-checkbox', className);
 
   return (
-    <AriaCheckbox
+    <RiaCheckbox
       className={classes}
-      {...racProps}
-    >
-      {({ isIndeterminate, isSelected }) => (
+      {...riaProps}
+      children={({ isIndeterminate, isSelected }) => (
         <>
-          <div className='checkbox-icon'>
+          <div className='icon'>
             {isSelected ? (
-              <SquareCheck />
+              <Check size={20} strokeWidth={3} />
             ) : isIndeterminate ? (
-              <SquareMinus />
-            ) : (
-              <Square />
-            )}
+              <Minus size={20} strokeWidth={3} />
+            ) : null}
           </div>
-          <div className='checkbox-text'>{label}</div>
+          <div className='text'>{label}</div>
         </>
       )}
-    </AriaCheckbox>
+    />
+
   );
 }

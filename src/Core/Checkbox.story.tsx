@@ -18,14 +18,14 @@ export type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     size: 'md',
-    label: 'Check box',
+    label: 'Checkbox',
   },
 };
 
 export const Indeterminate: Story = {
   args: {
     size: 'md',
-    label: 'Check box',
+    label: 'Checkbox',
     isIndeterminate: true,
   },
 };
@@ -33,6 +33,7 @@ export const Indeterminate: Story = {
 export const Disabled: Story = {
   args: {
     isDisabled: true,
-    label: 'Check box',
+    isSelected: true,
+    label: 'Checkbox',
   },
 };
