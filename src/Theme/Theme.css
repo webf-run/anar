@@ -1,5 +1,21 @@
 @layer anar {
   [data-anar-scheme] {
+    --primary-100: var(--purple-100);
+    --primary-200: var(--purple-200);
+    --primary-300: var(--purple-300);
+    --primary-400: var(--purple-400);
+    --primary-500: var(--purple-500);
+    --primary-600: var(--purple-600);
+    --primary-700: var(--purple-700);
+    --primary-800: var(--purple-800);
+    --primary-900: var(--purple-900);
+    --primary-1000: var(--purple-1000);
+    --primary-1100: var(--purple-1100);
+    --primary-1200: var(--purple-1200);
+    --primary-1300: var(--purple-1300);
+  }
+
+  [data-anar-scheme] {
     /* Generic styles */
     --color-text: var(--gray-800);
     --color-text-subdued: var(--gray-700);
@@ -13,6 +29,11 @@
     --border-color-hover: var(--gray-500);
     --border-color-pressed: var(--gray-500);
     --border-color-disabled: var(--gray-500);
+
+    /* Control borders like switch, radio and checkbox */
+    --border-control-color: var(--gray-600);
+    --border-control-color-hover: var(--gray-700);
+    --border-control-color-pressed: var(--gray-700);
 
     /************************************************************/
     /* Button component */
@@ -55,15 +76,15 @@
   }
 
   [data-anar-scheme='dark'] {
-    --focus-ring-color: var(--seafoam-400);
+    --focus-ring-color: var(--primary-400);
   }
 
   [data-anar-scheme='darkest'] {
-    --focus-ring-color: var(--seafoam-300);
+    --focus-ring-color: var(--primary-300);
   }
 
   [data-anar-scheme='light'] {
-    --focus-ring-color: var(--seafoam-900);
+    --focus-ring-color: var(--primary-900);
   }
 }
 

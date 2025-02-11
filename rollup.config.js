@@ -14,15 +14,9 @@ import tsconfig from './tsconfig.build.json' with { type: 'json' };
 // Clean the generated dist folder.
 await fs.rm('./dist', { recursive: true }).catch(() => {});
 
-const entryPoints = await glob(
-  tsconfig.include,
-  {
-    ignore: [
-      ...tsconfig.exclude,
-      './**/*.css',
-    ],
-  }
-);
+const entryPoints = await glob(tsconfig.include, {
+  ignore: [...tsconfig.exclude, './**/*.css'],
+});
 
 const input = Object.fromEntries(
   entryPoints.map((entry) => [
