@@ -40,7 +40,11 @@ const Context = createContext<AnarContext>({
  */
 export function Anar(props: AnarProviderProps) {
   const { children, colorScheme, getRootElement } = props;
-  const breakpoint = useSyncExternalStore(subscribe, getBreakpoint, getBreakpoint);
+  const breakpoint = useSyncExternalStore(
+    subscribe,
+    getBreakpoint,
+    getBreakpoint
+  );
 
   useEffect(() => {
     if (getRootElement) {
@@ -52,7 +56,6 @@ export function Anar(props: AnarProviderProps) {
       };
     }
   }, [getRootElement]);
-
 
   const data: AnarContext = {
     colorScheme,

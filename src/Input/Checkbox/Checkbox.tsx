@@ -1,12 +1,11 @@
 import clsx from 'clsx';
-import { Check, Minus, Square, SquareCheck, SquareMinus } from 'lucide-react';
+import { Check, Minus } from 'lucide-react';
 import {
   Checkbox as RiaCheckbox,
   type CheckboxProps as RiaCheckboxProps,
 } from 'react-aria-components';
 
-
-import { TShirtSize } from '../Util/Style.js';
+import { TShirtSize } from '../../Util/Style.js';
 
 export type CheckboxVariants = {
   size?: TShirtSize;
@@ -18,12 +17,7 @@ export interface CheckboxProps extends CheckboxVariants, RiaCheckboxProps {
 }
 
 export function Checkbox(props: CheckboxProps) {
-  const {
-    className,
-    size = 'md',
-    label,
-    ...riaProps
-  } = props;
+  const { className, size = 'md', label, ...riaProps } = props;
 
   const classes = clsx('anar-checkbox', className);
 
@@ -44,6 +38,5 @@ export function Checkbox(props: CheckboxProps) {
         </>
       )}
     />
-
   );
 }
