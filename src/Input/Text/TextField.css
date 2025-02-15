@@ -6,17 +6,22 @@
     --outline: 0;
 
     display: flex;
-    flex-direction: column;
     width: fit-content;
+    gap: 0.25rem;
+    flex-direction: column;
 
     .anar-input {
       margin: 0;
       padding: 0.5rem;
 
+      background-color: var(--bg);
       color: var(--text);
+
       border: 1px solid var(--border);
       border-radius: 0.25rem;
-      outline: 0;
+
+      outline: 0 solid var(--focus-ring-color);
+      outline-offset: -1px;
     }
 
     /* Applies to internal .anar-input */
@@ -25,13 +30,10 @@
     }
 
     /* Applies to internal .anar-input */
-    [data-focused] {
-      /* outline: 2px solid var(--focus-ring-color); */
-      /* outline-offset: -1px; */
+    [data-focused],
+    [data-focus-visible] {
+      outline-width: 2px;
     }
-
-    /* Only applies to internal .anar-input */
-    [data-focus-visible] {}
 
     &[data-disabled] {
       --bg: var(--color-text-disabled-bg);

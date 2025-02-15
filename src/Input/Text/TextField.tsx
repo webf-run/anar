@@ -24,9 +24,9 @@ export function TextField(props: TextFieldProps) {
 
   return (
     <RiaTextField className={classname} {...rest}>
-      <Label isDisabled={rest.isDisabled}>{label}</Label>
+      {label && <Label isDisabled={rest.isDisabled}>{label}</Label>}
       <Input className={'anar-input'} />
-      {description && (
+      {description && !rest.isInvalid && (
         <Text
           slot='description'
           isDisabled={rest.isDisabled}

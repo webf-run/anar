@@ -21,7 +21,24 @@ export const Primary: Story = {
     value: 'John Doe',
     description: 'Enter your full name',
     errorMessage: 'Invalid name',
-    // isInvalid: true,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    label: 'Name',
+    value: 'John Doe',
+    description: 'Enter your full name',
     isDisabled: true,
+  },
+};
+
+export const Invalid: Story = {
+  args: {
+    label: 'Name',
+    value: 'John Doe',
+    description: 'Enter your full name',
+    isInvalid: true,
+    errorMessage: 'Incomplete name',
   },
 };
