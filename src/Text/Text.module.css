@@ -4,7 +4,7 @@
     font-size: 1rem;
     line-height: 1.5;
 
-    color: var(--color-text);
+    color: var(--color, --color-text);
 
     &[data-xs] {
       font-size: 0.75rem;
@@ -20,6 +20,10 @@
     &[data-lg] {
       font-size: 18px;
       line-height: 28px;
+    }
+
+    &[data-disabled] {
+      --color: var(--color-text-disabled);
     }
   }
 
