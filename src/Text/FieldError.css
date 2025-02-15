@@ -1,0 +1,8 @@
+@layer anar {
+  .anar-field-error {
+    color: var(--color-error);
+
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+}
