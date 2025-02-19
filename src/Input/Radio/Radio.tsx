@@ -4,7 +4,7 @@ import {
   RadioProps as AriaRadioProps,
 } from 'react-aria-components';
 
-import type { TShirtSize } from '../Util/Style.js';
+import type { TShirtSize } from '../../Util/Style.js';
 
 export type AriaFilteredProps = Omit<AriaRadioProps, 'children'>;
 

@@ -7,8 +7,8 @@ import {
   type ValidationResult,
 } from 'react-aria-components';
 
-import { FieldError } from '../Text/FieldError.js';
-import { Label } from '../Text/Label.js';
+import { FieldError } from '../../Text/FieldError.js';
+import { Label } from '../../Text/Label.js';
 
 export interface RadioGroupProps extends AriaRadioGroupProps {
   children?: ReactNode;
