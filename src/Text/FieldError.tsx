@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import {
-  FieldError as RiaFieldError,
   type FieldErrorProps,
+  FieldError as RiaFieldError,
 } from 'react-aria-components';
 
 export function FieldError(props: FieldErrorProps) {

@@ -9,6 +9,7 @@
 @import './Text/FieldError.css';
 @import './Button/Button.css';
 @import './Input/Checkbox/Checkbox.css';
+@import './Input/Checkbox/CheckboxGroup.css';
 @import './Input/Text/TextField.css';
 @import './Radio/Radio.css';
 @import './Radio/RadioGroup.css';

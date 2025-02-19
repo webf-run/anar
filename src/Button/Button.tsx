@@ -1,10 +1,10 @@
-import { forwardRef, type Ref } from 'react';
+import { type Ref, forwardRef } from 'react';
 import {
   Button as AriaButton,
   type ButtonProps as AriaButtonProps,
 } from 'react-aria-components';
 
-import { getProps, type ButtonBaseProps } from './ButtonProps.js';
+import { type ButtonBaseProps, getProps } from './ButtonProps.js';
 
 export type ButtonProps = ButtonBaseProps & AriaButtonProps;
 

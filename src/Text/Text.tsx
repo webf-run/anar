@@ -2,7 +2,6 @@ import clsx from 'clsx';
 import { Text as RiaText } from 'react-aria-components';
 
 import { disabled, toDataAttrs } from '../Util/Style.js';
-
 import style from './Text.module.css';
 
 export interface TextVariants {

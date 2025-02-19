@@ -3,7 +3,6 @@ import { LoaderCircle } from 'lucide-react';
 
 import { iconSizes } from '../Util/Icon.js';
 import type { TShirtSize } from '../Util/Style.js';
-
 import style from './Spinner.module.css';
 
 export type SpinnerProps = {

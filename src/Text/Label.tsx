@@ -4,7 +4,7 @@ import {
   LabelProps as RiaLabelProps,
 } from 'react-aria-components';
 
-import { disabled, toDataAttrs, type TShirtSize } from '../Util/Style.js';
+import { type TShirtSize, disabled, toDataAttrs } from '../Util/Style.js';
 
 export interface LabelProps extends RiaLabelProps {
   size?: TShirtSize;

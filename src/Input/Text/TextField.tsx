@@ -14,7 +14,7 @@ import { Text } from '../../Text/Text.js';
 export interface TextFieldProps extends RiaTextFieldProps {
   label?: ReactNode;
   description?: string;
-  errorMessage?: string | ((validation: ValidationResult) => string);
+  errorMessage?: string;
 }
 
 export function TextField(props: TextFieldProps) {

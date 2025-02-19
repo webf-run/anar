@@ -4,7 +4,7 @@ import type {
 } from 'react';
 import { Link as AriaLink } from 'react-aria-components';
 
-import { getProps, type ButtonBaseProps } from './ButtonProps.js';
+import { type ButtonBaseProps, getProps } from './ButtonProps.js';
 
 export interface ButtonAsLinkProps extends ButtonBaseProps {
   href: string;

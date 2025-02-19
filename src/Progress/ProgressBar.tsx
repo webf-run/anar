@@ -1,7 +1,7 @@
 import {
-  Label,
   ProgressBar as AriaProgressBar,
   ProgressBarProps as AriaProgressBarProps,
+  Label,
 } from 'react-aria-components';
 
 import './ProgressBar.css';

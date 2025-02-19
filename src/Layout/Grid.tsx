@@ -2,10 +2,9 @@ import clsx from 'clsx';
 import type { CSSProperties, ReactNode } from 'react';
 
 import { useMatchedBreakpoints } from '../Anar';
-import { getResponsiveProps, type ResponsiveProps } from '../Util/Props';
-
-import style from './Grid.module.css';
+import { type ResponsiveProps, getResponsiveProps } from '../Util/Props';
 import type { AnarStyleProps } from '../Util/Style';
+import style from './Grid.module.css';
 
 export type GridDefinition = {
   areas?: string;

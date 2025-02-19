@@ -6,11 +6,6 @@
 }
 
 .anar-radio-group {
-  /* .react-aria-FieldError {
-    font-size: 12px;
-    color: var(--invalid-color);
-  } */
-
   [slot=description] {
     font-size: 12px;
   }

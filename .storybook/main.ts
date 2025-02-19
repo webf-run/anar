@@ -1,5 +1,5 @@
-import { type RuleSetRule } from 'webpack';
 import { type StorybookConfig } from '@storybook/react-webpack5';
+import { type RuleSetRule } from 'webpack';
 
 const excludedProps = new Set([
   'id',
