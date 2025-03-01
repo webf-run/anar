@@ -33,14 +33,6 @@ export const Secondary: Story = {
   },
 };
 
-export const Accent: Story = {
-  args: {
-    variant: 'accent',
-    emphasis: 'fill',
-    label: 'Press me',
-  },
-};
-
 export const Nagative: Story = {
   args: {
     variant: 'negative',

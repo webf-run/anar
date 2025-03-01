@@ -1,3 +1,7 @@
+/* Anar property declations */
+@import './Theme/Prop.css';
+@import './Button/DryButton.prop.css';
+
 @import './Theme/Static.css';
 @import './Theme/Darkest.css';
 @import './Theme/Dark.css';
@@ -5,6 +9,8 @@
 
 @import './Theme/Theme.css';
 
+/* Component styles */
+@import './Button/DryButton.css';
 @import './Button/Button.css';
 
 @import './Input/Checkbox/Checkbox.css';

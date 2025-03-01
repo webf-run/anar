@@ -2,8 +2,8 @@ import type { Meta } from '@storybook/react';
 
 import { NumberField } from './NumberField.js';
 
-
 const meta: Meta<typeof NumberField> = {
+  title: 'Inputs/Number/NumberField',
   component: NumberField,
   parameters: {
     layout: 'centered',

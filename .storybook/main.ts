@@ -49,11 +49,12 @@ const config: StorybookConfig = {
     },
   },
   async webpackFinal(config) {
-    let rule = config?.module?.rules?.find((rule) =>
-      String((rule as RuleSetRule).test).includes('.css')
-    );
+    // Note: Disabled as it doesn't support @property rules currently.
 
-    (rule as any).use?.push('lightningcss-loader');
+    // const rule = config?.module?.rules?.find((rule) =>
+    //   String((rule as RuleSetRule).test).includes('.css')
+    // );
+    // (rule as any).use?.push('lightningcss-loader');
 
     config.resolve = {
       ...config.resolve,
