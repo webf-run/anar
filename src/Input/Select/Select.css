@@ -1,0 +1,73 @@
+@import '../../Popover.css';
+
+
+@layer anar {
+  .anar-select {
+    --bg: transparent;
+    --border: var(--border-control-color);
+    --icon: var(--border-control-color);
+    --text: var(--color-text);
+    --outline: 0;
+
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 0.5rem;
+
+    color: var(--text);
+    cursor: pointer;
+    
+    .select-button {
+      display: flex;
+      align-items: center;
+
+      border-radius: 5px;
+      border: 2px solid var(--border);
+
+      &[data-focused] {
+        outline: 0;
+        --border: var(--primary-900);
+      }
+
+    }
+  }
+  .items-popover {
+    --bg: #262626;
+    --border: var(--border-control-color);
+    
+    outline: 0;
+    min-width: var(--trigger-width);
+    background: var(--bg);
+    /* border: 2px solid var(--border); */
+    border: 2px solid #6d6d6d;
+    border-radius: 5px;
+    
+    .my-item {
+      outline: 0;
+      color: #ffffff;
+      
+      &[data-hovered] {
+        /* background-color: var(--gray-800); */
+        background-color: #222;
+      }
+      
+    }
+    
+    &[data-focused] {
+      outline: none;
+    }
+
+    &[data-selected] {
+      font-weight: 600;
+      background: unset;
+      color: var(--text-color);
+    }
+
+    &[data-focused],
+    &[data-pressed] {
+      background: var(--highlight-background);
+      color: var(--highlight-foreground);
+    }
+  }
+}
