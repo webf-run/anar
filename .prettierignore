@@ -2,4 +2,4 @@
 **/*.html
 dist
 build
-api/Gen
+stories

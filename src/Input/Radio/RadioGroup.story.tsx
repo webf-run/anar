@@ -4,6 +4,7 @@ import { Radio } from './Radio.js';
 import { RadioGroup } from './RadioGroup.js';
 
 const meta: Meta<typeof RadioGroup> = {
+  title: 'Inputs/Radio',
   component: RadioGroup,
   parameters: {
     layout: 'centered',
@@ -26,7 +27,7 @@ export const Primary: Story = {
     label: 'Favorite sport',
     description: 'Pick whatever you need',
     errorMessage: 'Please select a sport',
-    isInvalid: true,
+    // isInvalid: true,
   },
 };
 

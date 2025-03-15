@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { ReactNode } from 'react';
 import {
   RadioGroup as AriaRadioGroup,
   RadioGroupProps as AriaRadioGroupProps,
@@ -6,11 +7,11 @@ import {
   type ValidationResult,
 } from 'react-aria-components';
 
-import { FieldError } from '../Text/FieldError.js';
-import { Label } from '../Text/Label.js';
+import { FieldError } from '../../Text/FieldError.js';
+import { Label } from '../../Text/Label.js';
 
-export interface RadioGroupProps extends Omit<AriaRadioGroupProps, 'children'> {
-  children?: React.ReactNode;
+export interface RadioGroupProps extends AriaRadioGroupProps {
+  children?: ReactNode;
   label?: string;
   description?: string;
   errorMessage?: string | ((validation: ValidationResult) => string);

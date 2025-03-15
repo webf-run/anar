@@ -1,0 +1,56 @@
+@layer anar {
+  .anar-textfield {
+    --bg: transparent;
+    --border: var(--border-color);
+    --text: var(--color-text);
+    --outline: 0;
+
+    display: flex;
+    width: fit-content;
+    gap: 0.25rem;
+    flex-direction: column;
+
+    .anar-input {
+      margin: 0;
+      padding: 0.5rem;
+
+      background-color: var(--bg);
+      color: var(--text);
+
+      border: 1px solid var(--border);
+      border-radius: 0.25rem;
+
+      outline: 0 solid var(--focus-ring-color);
+      outline-offset: -1px;
+    }
+
+    /* Applies to internal .anar-input */
+    [data-hovered] {
+      --border: var(--border-color-hover);
+    }
+
+    /* Applies to internal .anar-input */
+    [data-focused],
+    [data-focus-visible] {
+      outline-width: 2px;
+    }
+
+    &[data-disabled] {
+      --bg: var(--color-text-disabled-bg);
+      --border: var(--border-color-disabled);
+      --text: var(--color-text-disabled);
+    }
+
+    &[data-invalid] {
+      --border: var(--color-error);
+    }
+
+    &[data-readonly] {}
+
+    &[data-required] {}
+
+    [slot=description] {
+      font-size: 14px;
+    }
+  }
+}

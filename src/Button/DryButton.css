@@ -1,0 +1,61 @@
+@layer anar {
+  .AnarDryButton {
+    --font-size: inherit;
+
+    /* Reset all the default  */
+    all: unset;
+    appearance: none;
+
+    display: inline-flex;
+    margin: 0;
+    height: var(--DryButtonHeight);
+    padding: var(--DryButtonPadding);
+
+    align-items: center;
+    vertical-align: middle;
+
+    background: var(--DryButtonColorBg);
+    border: var(--DryButtonBorderWidth) solid var(--DryButtonColorBd);
+    border-radius: var(--DryButtonRadius);
+    outline: 0 solid var(--AnarFocusRing);
+    outline-offset: 1px;
+
+    color: var(--DryButtonColorText);
+    line-height: 1;
+    font: inherit;
+    font-weight: 600;
+    font-size: var(--DryButtonFont);
+    text-decoration: none;
+    cursor: pointer;
+
+    transition: 120ms ease-out;
+
+    &:where([data-hovered]) {
+      background: var(--DryButtonHoverColorBg, var(--DryButtonColorBg));
+      border-color: var(--DryButtonHoverColorBd, var(--DryButtonColorBd));
+      color: var(--DryButtonHoverColorText, var(--DryButtonColorText));
+    }
+
+    &:where([data-pressed]) {
+      background: var(--DryButtonPressedColorBg, var(--DryButtonColorBg));
+      border-color: var(--DryButtonPressedColorBd, var(--DryButtonColorBd));
+      color: var(--DryButtonPressedColorText, var(--DryButtonColorText));
+    }
+
+    &:where([data-focus-visible]) {
+      outline-width: var(--AnarOutline);
+    }
+
+    &:where([data-disabled]) {
+      background: var(--DryButtonColorDisabledBg);
+      border-color: var(--DryButtonColorDisabledBd);
+      color: var(--DryButtonDisabledText);
+    }
+  }
+
+  .AnarDryButtonContent {
+    display: flex;
+    align-items: center;
+    gap: var(--DryButtonGap);
+  }
+}

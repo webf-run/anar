@@ -10,6 +10,7 @@
   "include": [
     "./src/Anar.tsx",
     "./src/Button/**/*",
+    "./src/Input/**/*",
     "./src/Radio/**/*",
     "./src/Util/**/*"
   ],

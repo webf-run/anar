@@ -1,21 +1,22 @@
 import clsx from 'clsx';
 import {
-  Label as AriaLabel,
-  LabelProps as AriaLabelProps,
+  Label as RiaLabel,
+  LabelProps as RiaLabelProps,
 } from 'react-aria-components';
 
-import { toDataAttrs, type TShirtSize } from '../Util/Style.js';
+import { type TShirtSize, disabled, toDataAttrs } from '../Util/Style.js';
 
-export interface LabelProps extends AriaLabelProps {
+export interface LabelProps extends RiaLabelProps {
   size?: TShirtSize;
+  isDisabled?: boolean;
 }
 
 export function Label(props: LabelProps) {
-  const { className, size = 'md', ...rest } = props;
+  const { className, isDisabled, size = 'md', ...rest } = props;
 
-  const data = toDataAttrs([size]);
+  const data = toDataAttrs([size, disabled(isDisabled)]);
 
   return (
-    <AriaLabel className={clsx('anar-label', className)} {...data} {...rest} />
+    <RiaLabel className={clsx('anar-label', className)} {...data} {...rest} />
   );
 }

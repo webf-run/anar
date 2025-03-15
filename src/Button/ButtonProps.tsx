@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 import type { LucideIcon } from 'lucide-react';
 
-import { toDataAttrs, type TShirtSize } from '../Util/Style.js';
 import { iconSizes } from '../Util/Icon.js';
+import { type TShirtSize, toDataAttrs } from '../Util/Style.js';
 
 export type ButtonVariants = {
-  variant?: 'primary' | 'secondary' | 'accent' | 'negative';
+  variant?: 'primary' | 'secondary' | 'negative';
   emphasis?: 'fill' | 'outline' | 'quiet';
 
   size?: TShirtSize;
@@ -39,8 +39,9 @@ export function getProps(props: ButtonBaseProps) {
   const [strokeWidth, iconSize] = iconSizes[size];
 
   const left = Left && <Left strokeWidth={strokeWidth} size={iconSize} />;
-
   const right = Right && <Right strokeWidth={strokeWidth} size={iconSize} />;
+
+  console.log(data);
 
   return {
     className: classes,

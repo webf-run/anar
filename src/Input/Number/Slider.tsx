@@ -1,8 +1,8 @@
 import {
-  Label,
   Slider as AriaSlider,
-  SliderOutput,
   SliderProps as AriaSliderProps,
+  Label,
+  SliderOutput,
   SliderThumb,
   SliderTrack,
 } from 'react-aria-components';

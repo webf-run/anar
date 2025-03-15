@@ -4,9 +4,8 @@ import type { CSSProperties } from 'react';
 
 // Side effects imports are on the top.
 import '../src/Anar.css';
-import './Reset.css';
-
 import { Anar } from '../src/Anar.js';
+import './Reset.css';
 
 const preview: Preview = {
   globalTypes: {

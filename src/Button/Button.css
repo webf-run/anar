@@ -1,203 +1,145 @@
 @layer anar {
   .anar-button {
-    /* Reset all the default  */
-    all: unset;
-    appearance: none;
+    --AnarOutline: 2px;
+    --DryButtonRadius: 0.4rem;
+    --DryButtonBorderWidth: 2px;
 
-    display: inline-flex;
-    height: var(--button-height, 30px);
+    --DryButtonDisabledColorBd: var(--gray-200);
+    --DryButtonDisabledColorBg: var(--gray-200);
+    --DryButtonDisabledColorText: var(--gray-500);
 
-    /* Alignment */
-    gap: 0.5rem;
-    align-items: center;
-    vertical-align: middle;
+    &:where([data-primary-fill]) {
+      --DryButtonColorBd: var(--primary-900);
+      --DryButtonColorBg: var(--primary-900);
+      --DryButtonColorText: var(--gray-50);
 
-    /* Decoration */
-    color: var(--button-base-tx);
-    background-color: var(--button-base-bg);
-    border: 1px solid var(--button-base-bd);
-    border-radius: 0.4rem;
-    text-decoration: none;
-    font-weight: 600;
-    outline: none;
-    line-height: 1;
+      --DryButtonHoverColorBd: var(--primary-1000);
+      --DryButtonHoverColorBg: var(--primary-1000);
 
-    transition: 240ms ease-out;
-
-    &[data-hovered] {
-      color: var(--button-hover-tx, var(--button-base-tx));
-      background-color: var(--button-hover-bg, var(--button-base-bg));
-      border-color: var(--button-hover-bd, var(--button-base-bd));
+      --DryButtonPressedColorBd: var(--primary-1100);
+      --DryButtonPressedColorBg: var(--primary-1100);
     }
 
-    &[data-pressed] {
-      color: var(--button-pressed-tx, var(--button-base-tx));
-      background-color: var(--button-pressed-bg, var(--button-base-bg));
-      border-color: var(--button-pressed-bd, var(--button-base-bd));
+    &:where([data-primary-outline]) {
+      --DryButtonColorBd: var(--primary-900);
+      --DryButtonColorBg: transparent;
+      --DryButtonColorText: var(--primary-900);
+
+      --DryButtonHoverColorBd: var(--primary-1000);
+      --DryButtonHoverColorBg: var(--primary-1000);
+      --DryButtonHoverColorText: var(--gray-50);
+
+      --DryButtonPressedColorBd: var(--primary-1100);
+      --DryButtonPressedColorBg: var(--primary-1100);
+      --DryButtonPressedColorText: var(--gray-50);
     }
 
-    /* Use for outline when focused via keyboard */
-    &[data-focus-visible] {
-      outline: 2px solid var(--focus-ring-color);
-      outline-offset: 1px;
+    &:where([data-primary-quiet]) {
+      --DryButtonColorBd: transparent;
+      --DryButtonColorBg: transparent;
+
+      --DryButtonColorText: var(--primary-900);
+      --DryButtonHoverColorText: var(--primary-1000);
+      --DryButtonPressedColorText: var(--primary-1100);
+
     }
 
-    --button-base-tx: var(--gray-800);
+    &:where([data-secondary-fill]) {
+      --DryButtonColorBd: var(--gray-200);
+      --DryButtonColorBg: var(--gray-200);
+      --DryButtonColorText: var(--gray-800);
 
-    &[data-primary] {
-      --button-hover-bg: var(--button-color-primary-hover);
-      --button-hover-bd: var(--button-color-primary-hover);
+      --DryButtonHoverColorBd: var(--gray-300);
+      --DryButtonHoverColorBg: var(--gray-300);
 
-      --button-pressed-bg: var(--button-color-primary-pressed);
-      --button-pressed-bd: var(--button-color-primary-pressed);
+      --DryButtonPressedColorBd: var(--gray-400);
+      --DryButtonPressedColorBg: var(--gray-400);
     }
 
-    &[data-primary-fill] {
-      --button-base-bg: var(--button-color-primary);
-      --button-base-bd: var(--button-color-primary);
+    &:where([data-secondary-outline]) {
+      --DryButtonColorBd: var(--gray-200);
+      --DryButtonColorBg: transparent;
+      --DryButtonColorText: var(--gray-800);
+
+      --DryButtonHoverColorBd: var(--gray-300);
+      --DryButtonHoverColorBg: var(--gray-300);
+
+      --DryButtonPressedColorBd: var(--gray-400);
+      --DryButtonPressedColorBg: var(--gray-400);
     }
 
-    &[data-primary-outline] {
-      --button-base-bg: transparent;
-      --button-base-bd: var(--button-color-primary-outline);
-      --button-hover-bd: var(--button-color-primary-outline);
-      --button-pressed-bd: var(--button-color-primary-outline);
+    &:where([data-secondary-quiet]) {
+      --DryButtonColorBd: transparent;
+      --DryButtonColorBg: transparent;
+
+      --DryButtonColorText: var(--gray-800);
+      --DryButtonHoverColorText: var(--gray-900);
+      --DryButtonPressedColorText: var(--gray-1000);
     }
 
-    &[data-primary-quiet] {
-      --button-base-bg: transparent;
-      --button-base-bd: transparent;
+
+    /* Negative */
+    &:where([data-negative]) {
+      --AnarFocusRing: var(--red-900);
     }
 
-    &[data-secondary] {
-      --button-hover-bg: var(--button-color-secondary-hover);
-      --button-hover-bd: var(--button-color-secondary-hover);
+    &:where([data-negative-fill]) {
+      --DryButtonColorBd: var(--red-900);
+      --DryButtonColorBg: var(--red-900);
+      --DryButtonColorText: var(--gray-50);
 
-      --button-pressed-bg: var(--button-color-secondary-pressed);
-      --button-pressed-bd: var(--button-color-secondary-pressed);
+      --DryButtonHoverColorBd: var(--red-1000);
+      --DryButtonHoverColorBg: var(--red-1000);
+
+      --DryButtonPressedColorBd: var(--red-1100);
+      --DryButtonPressedColorBg: var(--red-1100);
     }
 
-    &[data-secondary-fill] {
-      --button-base-bg: var(--button-color-secondary);
-      --button-base-bd: var(--button-color-secondary);
+    &:where([data-negative-outline]) {
+      --DryButtonColorBd: var(--red-900);
+      --DryButtonColorBg: transparent;
+      --DryButtonColorText: var(--red-900);
+
+      --DryButtonHoverColorBd: var(--red-1000);
+      --DryButtonHoverColorBg: var(--red-1000);
+      --DryButtonHoverColorText: var(--gray-50);
+
+      --DryButtonPressedColorBd: var(--red-1100);
+      --DryButtonPressedColorBg: var(--red-1100);
+      --DryButtonPressedColorText: var(--gray-50);
     }
 
-    &[data-secondary-outline] {
-      --button-base-bg: transparent;
-      --button-base-bd: var(--button-color-secondary-outline);
+    &:where([data-negative-quiet]) {
+      --DryButtonColorBd: transparent;
+      --DryButtonColorBg: transparent;
 
-      --button-hover-bg: var(--button-color-secondary-hover);
-
-      --button-pressed-bg: var(--button-color-secondary-pressed);
-      --button-pressed-bd: var(--button-color-secondary-pressed);
+      --DryButtonColorText: var(--red-900);
+      --DryButtonHoverColorText: var(--red-1000);
+      --DryButtonPressedColorText: var(--red-1100);
     }
 
-    &[data-secondary-quiet] {
-      --button-base-bg: transparent;
-      --button-base-bd: transparent;
-
-      --button-hover-bg: var(--gray-300);
-      --button-hover-bd: var(--gray-300);
-
-      --button-pressed-bg: var(--gray-200);
-      --button-pressed-bd: var(--gray-200);
+    &:where([data-sm]) {
+      --DryButtonHeight: 32px;
+      --DryButtonFont: 0.875rem;
+      --DryButtonPadding: 0.25rem 0.5rem;
     }
 
-    &[data-negative-fill] {
-      --button-base-tx: var(--button-color-negative-text);
-      --button-base-bg: var(--button-color-negative);
-      --button-base-bd: var(--button-color-negative);
-
-      --button-hover-bg: var(--button-color-negative-hover);
-      --button-hover-bd: var(--button-color-negative-hover);
-
-      --button-pressed-bg: var(--button-color-negative-pressed);
-      --button-pressed-bd: var(--button-color-negative-pressed);
+    &:where([data-md]) {
+      --DryButtonHeight: 36px;
+      --DryButtonFont: 14px;
+      --DryButtonPadding: 0.5rem 0.75rem;
     }
 
-    &[data-negative-outline] {
-      --button-base-tx: var(--button-color-negative-outline);
-      --button-base-bg: transparent;
-      --button-base-bd: var(--button-color-negative-outline);
-
-      --button-hover-bg: var(--button-color-negative-outline-hover);
-
-      --button-pressed-bg: var(--button-color-negative-outline-pressed);
+    &:where([data-lg]) {
+      --DryButtonHeight: 40px;
+      --DryButtonFont: 1.125rem;
+      --DryButtonPadding: 0.75rem 1rem;
     }
 
-    &[data-negative-quiet] {
-      --button-base-tx: var(--red-900);
-      --button-base-bg: transparent;
-      --button-base-bd: transparent;
-
-      --button-hover-bg: var(--button-color-negative-outline-hover);
-      --button-hover-bd: var(--button-color-negative-outline-hover);
-
-      --button-pressed-bg: var(--button-color-negative-outline-pressed);
-      --button-pressed-bd: var(--button-color-negative-outline-pressed);
-    }
-
-    &[data-accent-fill] {
-      --button-base-bg: var(--button-color-accent);
-      --button-base-bd: var(--button-color-accent);
-
-      --button-hover-bg: var(--button-color-accent-hover);
-      --button-hover-bd: var(--button-color-accent-hover);
-
-      --button-pressed-bg: var(--button-color-accent-pressed);
-      --button-pressed-bd: var(--button-color-accent-pressed);
-    }
-
-    &[data-accent-outline] {
-      --button-base-tx: var(--button-color-accent-outline);
-      --button-base-bg: transparent;
-      --button-base-bd: var(--button-color-accent-outline);
-
-      --button-hover-bg: var(--button-color-accent-outline-hover);
-
-      --button-pressed-bg: var(--button-color-accent-outline-pressed);
-    }
-
-    &[data-accent-quiet] {
-      --button-base-tx: var(--button-color-accent-outline);
-      --button-base-bg: transparent;
-      --button-base-bd: transparent;
-
-      --button-hover-bg: var(--button-color-accent-outline-hover);
-      --button-hover-bd: var(--button-color-accent-outline-hover);
-
-      --button-pressed-bg: var(--button-color-accent-outline-pressed);
-      --button-pressed-bd: var(--button-color-accent-outline-pressed);
-    }
-
-    &[data-disabled] {
-      --button-base-tx: var(--color-text-disabled);
-      --button-base-bg: var(--color-text-disabled-bg);
-      --button-base-bd: var(--color-text-disabled-bg);
-    }
-
-    &[data-sm] {
-      --button-height: 32px;
-      font-size: 0.875rem;
-      padding: 0.25rem 0.5rem;
-    }
-
-    &[data-md] {
-      --button-height: 36px;
-      font-size: 14px;
-      padding: 0.5rem 0.75rem;
-    }
-
-    &[data-lg] {
-      --button-height: 40px;
-      font-size: 1.125rem;
-      padding: 0.75rem 1rem;
-    }
-
-    &[data-xl] {
-      --button-height: 44px;
-      font-size: 1.25rem;
-      padding: 0.75rem 1.25rem;
+    &:where([data-xl]) {
+      --DryButtonHeight: 44px;
+      --DryButtonFont: 1.25rem;
+      --DryButtonPadding: 0.75rem 1.25rem;
     }
   }
 }

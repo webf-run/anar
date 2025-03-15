@@ -1,0 +1,68 @@
+
+.anar-radio {
+  --bg: (--gray-50);
+  --text: var(--color-text);
+  --border: var(--border-control-color);
+  --border-size: 0.143rem;
+  --outline: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  color: var(--text);
+  outline: var(--outline) solid var(--focus-ring-color);
+  outline-offset: 2px;
+
+  /* TODO: Handle later */
+  forced-color-adjust: none;
+
+  &:before {
+    content: '';
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    box-sizing: border-box;
+    border: var(--border-size) solid var(--border);
+    background: var(--bg);
+    border-radius: 1rem;
+
+    transition: all 120ms;
+  }
+
+  &[data-hovered] {
+    --border: var(--border-control-color-hover);
+  }
+
+  &[data-pressed] {
+    --border: var(--border-control-color-pressed);
+  }
+
+  &[data-selected] {
+    --border: var(--primary-900);
+    --border-size: 0.3rem;
+
+    &[data-pressed] {
+      --color: var(--primary-1000);
+    }
+  }
+
+  &[data-focus-visible] {
+    --outline: 2px;
+  }
+
+  &[data-readonly] {}
+
+  &[data-invalid] {
+    --border: var(--color-error);
+
+    &[data-pressed] {
+      --border: var(--color-error-pressed);
+    }
+  }
+
+  &[data-disabled] {
+    --text: var(--text-color-disabled);
+    --border: var(--border-color-disabled);
+  }
+}

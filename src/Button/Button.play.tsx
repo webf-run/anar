@@ -1,5 +1,5 @@
-import { Button, type ButtonProps } from './Button.js';
 import { withPlayground } from '../Playground.js';
+import { Button, type ButtonProps } from './Button.js';
 
 export const ButtonPlayground = withPlayground<ButtonProps>({
   defaultProps: {

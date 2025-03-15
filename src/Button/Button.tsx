@@ -1,12 +1,10 @@
-import { forwardRef, type Ref } from 'react';
-import {
-  Button as AriaButton,
-  type ButtonProps as AriaButtonProps,
-} from 'react-aria-components';
+import { type Ref, forwardRef } from 'react';
+import { type ButtonProps as RiaButtonProps } from 'react-aria-components';
 
-import { getProps, type ButtonBaseProps } from './ButtonProps.js';
+import { type ButtonBaseProps, getProps } from './ButtonProps.js';
+import { DryButton, type DryButtonProps } from './DryButton.js';
 
-export type ButtonProps = ButtonBaseProps & AriaButtonProps;
+export type ButtonProps = ButtonBaseProps & RiaButtonProps;
 
 export const Button = forwardRef(function Button(
   props: ButtonProps,
@@ -14,11 +12,12 @@ export const Button = forwardRef(function Button(
 ) {
   const { left, right, label, ...buttonProps } = getProps(props);
 
-  return (
-    <AriaButton ref={ref} {...buttonProps}>
-      {left}
-      <span>{label}</span>
-      {right}
-    </AriaButton>
-  );
+  const dryButtonProps: DryButtonProps = {
+    lead: left,
+    main: label,
+    tail: right,
+    ...buttonProps,
+  };
+
+  return <DryButton ref={ref} {...dryButtonProps} />;
 });

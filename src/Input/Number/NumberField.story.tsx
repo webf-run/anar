@@ -1,9 +1,10 @@
-import { Slider } from '../src/Slider';
-
 import type { Meta } from '@storybook/react';
 
-const meta: Meta<typeof Slider> = {
-  component: Slider,
+import { NumberField } from './NumberField.js';
+
+const meta: Meta<typeof NumberField> = {
+  title: 'Inputs/Number/NumberField',
+  component: NumberField,
   parameters: {
     layout: 'centered',
   },
@@ -14,8 +15,6 @@ export default meta;
 
 export const Example = {
   args: {
-    label: 'Range',
-    defaultValue: [30, 60],
-    thumbLabels: ['start', 'end'],
+    label: 'Cookies',
   },
 };

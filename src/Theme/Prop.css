@@ -1,0 +1,11 @@
+@property --AnarOutline {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --AnarFocusRing {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}

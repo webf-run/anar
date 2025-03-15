@@ -1,0 +1,103 @@
+@property --DryButtonColorText {
+  syntax: '<color>';
+  inherits: true;
+}
+
+@property --DryButtonColorBg {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: none;
+}
+
+@property --DryButtonColorBd {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: none;
+}
+
+@property --DryButtonHoverColorBg {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: none;
+}
+
+@property --DryButtonHoverColorBd {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: none;
+}
+
+@property --DryButtonHoverColorText {
+  syntax: '<color>';
+  inherits: true;
+}
+
+@property --DryButtonPressedColorBg {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: none;
+}
+
+@property --DryButtonPressedColorBd {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: none;
+}
+
+@property --DryButtonPressedColorText {
+  syntax: '<color>';
+  inherits: false;
+}
+
+@property --DryButtonDisabledColorBg {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: none;
+}
+
+@property --DryButtonDisabledColorBd {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: none;
+}
+
+@property --DryButtonDisabledColorText {
+  syntax: '<color>';
+  inherits: false;
+}
+
+@property --DryButtonHeight {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: auto;
+}
+
+@property --DryButtonRadius {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --DryButtonBorderWidth {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --DryButtonGap {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --DryButtonPadding {
+  syntax: '<length>+';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --DryButtonFont {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: inherit;
+}

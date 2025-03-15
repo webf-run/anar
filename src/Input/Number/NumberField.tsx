@@ -4,15 +4,13 @@ import {
   Group,
   Input,
   Label,
-  NumberField as AriaNumberField,
-  NumberFieldProps as AriaNumberFieldProps,
+  NumberField as RiaNumberField,
+  NumberFieldProps as RiaNumberFieldProps,
   Text,
   ValidationResult,
 } from 'react-aria-components';
 
-import './NumberField.css';
-
-export interface NumberFieldProps extends AriaNumberFieldProps {
+export interface NumberFieldProps extends RiaNumberFieldProps {
   label?: string;
   description?: string;
   errorMessage?: string | ((validation: ValidationResult) => string);
@@ -25,7 +23,7 @@ export function NumberField({
   ...props
 }: NumberFieldProps) {
   return (
-    <AriaNumberField {...props}>
+    <RiaNumberField {...props}>
       <Label>{label}</Label>
       <Group>
         <Button slot='decrement'>-</Button>
@@ -34,6 +32,6 @@ export function NumberField({
       </Group>
       {description && <Text slot='description'>{description}</Text>}
       <FieldError>{errorMessage}</FieldError>
-    </AriaNumberField>
+    </RiaNumberField>
   );
 }
