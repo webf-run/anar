@@ -30,8 +30,6 @@ export function Select<T extends object>(props: SelectProps<T>) {
 
   const classes = clsx('AnarSelect', className);
 
-  console.log(rest.isDisabled);
-
   return (
     <RiaSelect className={classes} {...rest}>
       <Label>{label}</Label>
