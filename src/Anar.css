@@ -1,6 +1,7 @@
 /* Anar property declations */
 @import './Theme/Prop.css';
 @import './Button/DryButton.prop.css';
+@import './Input/Select/Select.prop.css';
 
 @import './Theme/Static.css';
 @import './Theme/Darkest.css';
