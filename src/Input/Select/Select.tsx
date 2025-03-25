@@ -1,40 +1,48 @@
-import {
-  Button,
-  ListBox,
-  ListBoxItem,
-  Popover,
-  SelectValue,
-  SelectProps as AriaSelectProps,
-  Select as RiaSelect,
-  ListBoxItemProps,
-} from 'react-aria-components';
-import { Label } from '../../Text/Label';
 import clsx from 'clsx';
 import { ChevronDown } from 'lucide-react';
+import {
+  SelectProps as AriaSelectProps,
+  FieldError,
+  Group,
+  ListBox,
+  ListBoxItem,
+  ListBoxItemProps,
+  Popover,
+  Select as RiaSelect,
+  SelectValue,
+  ValidationResult,
+} from 'react-aria-components';
+
+import { DryButton } from '../../Button/DryButton';
+import { Label } from '../../Text/Label';
 
 export interface SelectProps<T extends object>
   extends Omit<AriaSelectProps<T>, 'children'> {
   className?: string;
   label?: string;
   items?: Iterable<T>;
-
+  errorMessage?: string | ((validation: ValidationResult) => string);
   children: React.ReactNode | ((item: T) => React.ReactNode);
 }
 
 export function Select<T extends object>(props: SelectProps<T>) {
-  const { label, className, items, children } = props;
+  const { label, className, errorMessage, items, children, ...rest } = props;
 
-  const classes = clsx('anar-select', className);
+  const classes = clsx('AnarSelect', className);
+
+  console.log(rest.isDisabled);
 
   return (
-    <RiaSelect className={classes}>
+    <RiaSelect className={classes} {...rest}>
       <Label>{label}</Label>
-      <Button className='select-button'>
-        <SelectValue />
-        <ChevronDown size={20} strokeWidth={3} />
-      </Button>
-      <Popover className='items-popover'>
-        <ListBox className={'list'} items={items}>
+      <DryButton
+        className='AnarSelectButton'
+        main={<SelectValue />}
+        tail={<ChevronDown size={20} strokeWidth={3} />}
+      />
+      <FieldError>{errorMessage}</FieldError>
+      <Popover className='AnarSelectDropdown'>
+        <ListBox className={'AnarSelectDropdownBox'} items={items}>
           {children}
         </ListBox>
       </Popover>
@@ -43,16 +51,5 @@ export function Select<T extends object>(props: SelectProps<T>) {
 }
 
 export function SelectItem(props: ListBoxItemProps) {
-  return (
-    <ListBoxItem
-      {...props}
-      className={
-        // clsx(
-        ({ isFocused, isSelected }) =>
-          `my-item ${isFocused ? 'focused' : ''} ${isSelected ? 'selected' : ''}`
-        // 'listItem'
-        // )
-      }
-    />
-  );
+  return <ListBoxItem {...props} className={clsx('AnarSelectDropdownItem')} />;
 }

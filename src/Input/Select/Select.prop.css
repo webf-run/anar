@@ -1,0 +1,85 @@
+@property --AnarSelectWidth {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: auto;
+}
+
+@property --AnarSelectHeight {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: auto;
+}
+
+@property --AnarSelectPadding {
+  syntax: '<length>+';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --AnarSelectGap {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --AnarSelectRadius {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: none;
+}
+
+@property --AnarSelectColorBd {
+  syntax: '<color>';
+  inherits: true;
+}
+
+@property --AnarSelectColorBg {
+  syntax: '<color>';
+  inherits: true;
+}
+
+@property --AnarSelectDisabledColorBg {
+  syntax: '<color>';
+  inherits: true;
+}
+
+@property --AnarSelectColorText {
+  syntax: '<color>';
+  inherits: true;
+}
+
+@property --AnarSelectFocusedColorBd {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: none;
+}
+
+@property --AnarSelectDropdownPadding {
+  syntax: '<length>+';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --AnarSelectDropdownColorBg {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: none;
+}
+
+@property --AnarSelectDropdownColorText {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: none;
+}
+
+@property --AnarSelectDropdownItemPadding {
+  syntax: '<length>+';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --AnarSelectDropdownItemColorBg {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: none;
+}
