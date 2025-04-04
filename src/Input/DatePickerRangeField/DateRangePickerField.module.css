@@ -1,0 +1,42 @@
+@layer anar {
+  .AnarDateRangePicker {
+    --AnarDateRangePickerFieldGap: 10px;
+    
+    outline: none;
+
+    display: flex;
+    gap: var(--AnarDateRangePickerFieldGap);
+  }
+  
+  .DateInputField {
+    --AnarDateRangePickerFieldGap: 10px;
+    
+    display: flex;
+    flex-direction: column;
+    gap: var(--AnarDateRangePickerFieldGap);
+  }
+
+  .button {
+    --AnarDateRangePickerFieldBorder: var(--gray-600);
+    --AnarDateRangePickerFieldPadding: 9px 10px;
+    --AnarDateRangePickerFieldRadius: 5px;
+
+    display: flex;
+    min-height: 46px;
+    min-width: 126px;
+    padding: var(--AnarDateRangePickerFieldPadding);
+
+    border-radius: var(--AnarDateRangePickerFieldRadius);
+    border: 2px solid var(--AnarDateRangePickerFieldBorder);
+  }
+
+  .DateRangePickerPopover {
+    --AnarDateRangePickerFieldCalendarBorder: var(--gray-200);
+    --AnarDateRangePickerFieldCalendarRadius: 5px;
+
+    border-radius: var(--AnarDateRangePickerFieldCalendarRadius);
+    border: 1px solid var(--AnarDateRangePickerFieldCalendarBorder);
+    background-color: var(--overlay-background);
+
+  }
+}
