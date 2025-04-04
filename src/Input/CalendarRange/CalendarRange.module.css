@@ -1,0 +1,66 @@
+@layer anar {
+  .AnarCalendarRange {
+    --AnarCalendarColorBg: var(--gray-100 );
+    --AnarCalendarColorText: var(--gray-800);
+    --AnarCalendarPadding:   20px 10px;
+
+    display: inline-flex;
+    flex-direction: column;
+
+    padding:var(--AnarCalendarPadding);
+    
+    color: var(--AnarCalendarColorText);
+    background-color: var(--AnarCalendarColorBg);
+    
+  }
+
+  .CalendarMonthChanger {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .arrowButtons {
+    --AnarCalendarRangeColorArrowButton: var(--gray-500);
+
+    color: var(--AnarCalendarRangeColorArrowButton);
+  }
+
+  .divider {
+    --AnarCalendarRangeColorDivider: #B1B2B5FF;
+    --AnarCalendarRangeMarginDivider: 0px 0px 15px 0px;
+
+    margin: var(--AnarCalendarRangeMarginDivider);
+    border: 1px solid var(--AnarCalendarRangeColorDivider);
+  }
+
+  .CalendarGrid th, td {
+    padding: 5px;
+  }
+
+  .CalendarGrid tbody{
+    text-align: center;
+  }
+
+  .CalendarGrid tbody tr td div {
+    --AnarCalendarRangeColorTextDisabled: var(--AnarCalendarColorText);
+    --AnarCalendarRangeColorSelectedBorder: none;
+
+    outline: 2px solid var(--AnarCalendarRangeColorSelectedBorder);
+    outline-offset: 2px;
+    border-radius: 5px;
+
+    color: var(--AnarCalendarRangeColorTextDisabled);
+
+    &[data-disabled] {
+      --AnarCalendarRangeColorTextDisabled: var(--gray-500);
+    }
+    
+    &[data-selected] {
+    --AnarCalendarRangeColorSelectedBorder: var(--purple-400)  
+    }
+
+    &[data-hovered] {
+      cursor: pointer;
+    }
+  }
+}
