@@ -73,7 +73,7 @@ const preview: Preview = {
       }
 
       return (
-        <Anar colorScheme={colorScheme}>
+        <Anar colorScheme={colorScheme} getRootElement={() => document.body}>
           <div style={storyWrapper} data-anar-scheme={colorScheme}>
             <Story />
           </div>

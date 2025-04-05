@@ -17,6 +17,14 @@
 
   [data-anar-scheme] {
     /* Generic styles */
+    --AnarColorText: var(--gray-800);
+    --AnarColorSubdued: var(--gray-700);
+    --AnarColorTitle: var(--gray-900);
+    --AnarColorDisabled: var(--gray-500);
+    --AnarColorDisabledBg: var(--gray-200);
+    --colorError: var(--red-900);
+    --colorErrorPressed: var(--red-1000);
+
     --color-text: var(--gray-800);
     --color-text-subdued: var(--gray-700);
     --color-text-title: var(--gray-900);
@@ -36,6 +44,19 @@
     --border-control-color-pressed: var(--gray-700);
 
     /************************************************************/
+
+    /* List */
+    --AnarListItemPadding: 0.25rem;
+    --AnarListItemRadius: 0.25rem;
+    --AnarListItemColor: var(--AnarColorText);
+    --AnarListItemSelectedColorBg: var(--gray-100);
+    --AnarListItemSelectedColor: var(--AnarColorText);
+    --AnarListItemDisabledColor: var(--AnarColorDisabled);
+    --AnarListPadding: 0.25rem;
+    --AnarListBorderWidth: 1px;
+    --AnarListColorBd: var(--gray-400);
+    --AnarListRadius: 0.25rem;
+    --AnarListColorBg: var(--gray-50);
 
     /* Radio */
     --radio-color-hightlight: var(--color-text);

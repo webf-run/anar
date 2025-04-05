@@ -8,10 +8,11 @@
     "emitDeclarationOnly": true
   },
   "include": [
+    "./src/augment.d.ts",
     "./src/Anar.tsx",
     "./src/Button/**/*",
+    "./src/Collection/**/*",
     "./src/Input/**/*",
-    "./src/Radio/**/*",
     "./src/Util/**/*"
   ],
   "exclude": [

@@ -1,0 +1,91 @@
+@layer anar {
+  .root {
+    --AnarSelectColorText: var(--gray-800);
+    --AnarSelectColorBd: var(--gray-600);
+
+    display: inline-flex;
+
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 0.5rem;
+
+    color: var(--AnarSelectColorText);
+
+    &:where([data-hover]) {
+      cursor: pointer;
+    }
+
+    &:where([data-disabled]) {
+      --AnarSelectColorText: var(--color-text-disabled);
+    }
+  }
+
+  .trigger {
+    --DryButtonColorBd: var(--gray-400);
+    --DryButtonBorderWidth: 1px;
+    --DryButtonPadding: 8px 11px;
+    --DryButtonColorBg: transparent;
+    --DryButtonDisabledColorBg: var(--gray-300);
+
+    display: flex;
+    align-items: center;
+
+    padding: var(--DryButtonPadding);
+
+    outline: none;
+    border-radius: 5px;
+    border: var(--DryButtonBorderWidth) solid var(--DryButtonColorBd);
+
+    background: var(--DryButtonColorBg);
+
+    &:where([data-pressed]) {
+      --DryButtonColorBd: var(--purple-400)
+    }
+
+    &:where([data-disabled]) {
+      background: var(--DryButtonDisabledColorBg);
+      color: transparent;
+    }
+  }
+
+  .popover {
+    --AnarSelectColorBd: var(--gray-600);
+    --AnarSelectDropdownColorBg: var(--gray-100);
+    --AnarSelectDropdownPadding: 5px 0px;
+
+    min-width: var(--trigger-width);
+    padding: var(--AnarSelectDropdownPadding);
+
+    overflow: auto;
+
+    outline: none;
+    border: 2px solid var(--AnarSelectColorBd);
+    border-radius: 5px;
+
+    background: var(--AnarSelectDropdownColorBg);
+  }
+
+  .list {
+    outline: none;
+  }
+
+  .AnarSelectDropdownItem {
+    --AnarSelectDropdownColorText: var(--gray-800);
+    --AnarSelectDropdownItemPadding: 2px 10px;
+    --AnarSelectDropdownItemColorBg: transparent;
+
+    padding: var(--AnarSelectDropdownItemPadding);
+
+    outline: none;
+
+    color: var(--AnarSelectDropdownColorText);
+    background-color: var(--AnarSelectDropdownItemColorBg);
+
+    &:where([data-hovered],[data-selected]) {
+      --AnarSelectDropdownItemColorBg: var(--gray-200);
+
+      cursor: pointer;
+    }
+  }
+}
