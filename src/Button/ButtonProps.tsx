@@ -34,7 +34,7 @@ export function getProps(props: ButtonBaseProps) {
     ...racProps
   } = props;
 
-  const classes = clsx('anar-button', className);
+  const classes = clsx('AnarButton', className);
   const data = toDataAttrs([variant, toOneDataAttr([variant, emphasis]), size]);
   const [strokeWidth, iconSize] = iconSizes[size];
 

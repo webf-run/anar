@@ -24,9 +24,7 @@ const config: StorybookConfig = {
       },
     },
   },
-  stories: [
-    '../src/**/*.story.tsx',
-  ],
+  stories: ['../src/**/*.story.tsx'],
   addons: [
     '@storybook/addon-webpack5-compiler-babel',
     '@storybook/addon-links',

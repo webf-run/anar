@@ -1,6 +1,5 @@
 @layer anar {
-  .anar-button {
-    --AnarOutline: 2px;
+  .AnarButton {
     --DryButtonRadius: 0.4rem;
     --DryButtonBorderWidth: 2px;
 

@@ -1,16 +1,17 @@
 @layer anar {
-  .AnarSelect {
+  .root {
     --AnarSelectColorText: var(--gray-800);
     --AnarSelectColorBd: var(--gray-600);
 
     display: inline-flex;
+
     flex-direction: column;
     align-items: flex-start;
 
     gap: 0.5rem;
 
     color: var(--AnarSelectColorText);
-    
+
     &:where([data-hover]) {
       cursor: pointer;
     }
@@ -20,7 +21,7 @@
     }
   }
 
-  .AnarSelectButton {
+  .trigger {
     --DryButtonColorBd: var(--gray-400);
     --DryButtonBorderWidth: 1px;
     --DryButtonPadding: 8px 11px;
@@ -29,9 +30,9 @@
 
     display: flex;
     align-items: center;
-    
+
     padding: var(--DryButtonPadding);
-    
+
     outline: none;
     border-radius: 5px;
     border: var(--DryButtonBorderWidth) solid var(--DryButtonColorBd);
@@ -48,11 +49,11 @@
     }
   }
 
-  .AnarSelectDropdown {
+  .popover {
     --AnarSelectColorBd: var(--gray-600);
     --AnarSelectDropdownColorBg: var(--gray-100);
     --AnarSelectDropdownPadding: 5px 0px;
-    
+
     min-width: var(--trigger-width);
     padding: var(--AnarSelectDropdownPadding);
 
@@ -61,11 +62,11 @@
     outline: none;
     border: 2px solid var(--AnarSelectColorBd);
     border-radius: 5px;
-    
+
     background: var(--AnarSelectDropdownColorBg);
   }
 
-  .AnarSelectDropdownBox {
+  .list {
     outline: none;
   }
 
@@ -80,7 +81,7 @@
 
     color: var(--AnarSelectDropdownColorText);
     background-color: var(--AnarSelectDropdownItemColorBg);
-    
+
     &:where([data-hovered],[data-selected]) {
       --AnarSelectDropdownItemColorBg: var(--gray-200);
 

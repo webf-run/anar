@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     "./*": "./dist/*",
+    "./Collection": "./dist/Collection/export.js",
     "./Style.css": "./dist/Style.css"
   },
   "scripts": {

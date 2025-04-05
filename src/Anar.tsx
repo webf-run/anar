@@ -6,14 +6,12 @@ import {
 } from 'react';
 
 import {
+  type Breakpoint,
   getBreakpoint,
   getMatchedBreakpoints,
   isDesktop,
   subscribe,
-  type Breakpoint,
 } from './Util/Breakpoint';
-
-import './Anar.css';
 
 export type ColorScheme = 'light' | 'dark';
 

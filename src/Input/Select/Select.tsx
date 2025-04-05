@@ -1,46 +1,46 @@
 import clsx from 'clsx';
 import { ChevronDown } from 'lucide-react';
+import type { ReactNode } from 'react';
 import {
-  SelectProps as AriaSelectProps,
   FieldError,
-  Group,
   ListBox,
   ListBoxItem,
   ListBoxItemProps,
   Popover,
   Select as RiaSelect,
+  SelectProps as RiaSelectProps,
   SelectValue,
-  ValidationResult,
 } from 'react-aria-components';
 
-import { DryButton } from '../../Button/DryButton';
-import { Label } from '../../Text/Label';
+import { DryButton } from '../../Button/DryButton.js';
+import { Label } from '../../Text/Label.js';
+import style from './Select.module.css';
 
 export interface SelectProps<T extends object>
-  extends Omit<AriaSelectProps<T>, 'children'> {
+  extends Omit<RiaSelectProps<T>, 'children'> {
   className?: string;
-  label?: string;
+  label?: ReactNode;
   items?: Iterable<T>;
-  errorMessage?: string | ((validation: ValidationResult) => string);
-  children: React.ReactNode | ((item: T) => React.ReactNode);
+  errorMessage?: ReactNode;
+  children: ReactNode | ((item: T) => ReactNode);
 }
 
 export function Select<T extends object>(props: SelectProps<T>) {
   const { label, className, errorMessage, items, children, ...rest } = props;
 
-  const classes = clsx('AnarSelect', className);
+  const classes = clsx('AnarSelect', style.root, className);
 
   return (
     <RiaSelect className={classes} {...rest}>
       <Label>{label}</Label>
       <DryButton
-        className='AnarSelectButton'
+        className={style.trigger}
         main={<SelectValue />}
         tail={<ChevronDown size={20} strokeWidth={3} />}
       />
       <FieldError>{errorMessage}</FieldError>
-      <Popover className='AnarSelectDropdown'>
-        <ListBox className={'AnarSelectDropdownBox'} items={items}>
+      <Popover className={style.popover}>
+        <ListBox className={style.list} items={items}>
           {children}
         </ListBox>
       </Popover>
