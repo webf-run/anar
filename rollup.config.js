@@ -16,6 +16,7 @@ await fs.rm('./dist', { recursive: true }).catch(() => {});
 
 const entryPoints = await glob(tsconfig.include, {
   ignore: [...tsconfig.exclude, './**/*.css'],
+  nodir: true,
 });
 
 const input = Object.fromEntries(

@@ -61,6 +61,7 @@
     "rollup-plugin-postcss": "^4.0.2",
     "storybook": "^8.2.9",
     "storybook-dark-mode": "^4.0.2",
+    "storybook-react-rsbuild": "^1.0.1",
     "tsx": "^4.16.5",
     "typescript": "^5.5.4"
   },
