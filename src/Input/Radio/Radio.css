@@ -1,8 +1,8 @@
 
-.anar-radio {
+.AnarRadio {
   --bg: (--gray-50);
-  --text: var(--color-text);
-  --border: var(--border-control-color);
+  --text: var(--AnarColorText);
+  --border: var(--AnarBorderControlColor);
   --border-size: 0.143rem;
   --outline: 0;
 
@@ -11,7 +11,7 @@
   gap: 0.5rem;
 
   color: var(--text);
-  outline: var(--outline) solid var(--focus-ring-color);
+  outline: var(--outline) solid var(--AnarFocusRign);
   outline-offset: 2px;
 
   /* TODO: Handle later */
@@ -31,11 +31,11 @@
   }
 
   &[data-hovered] {
-    --border: var(--border-control-color-hover);
+    --border: var(--AnarBorderControlHover);
   }
 
   &[data-pressed] {
-    --border: var(--border-control-color-pressed);
+    --border: var(--AnarBorderControlPressed);
   }
 
   &[data-selected] {
@@ -54,15 +54,15 @@
   &[data-readonly] {}
 
   &[data-invalid] {
-    --border: var(--color-error);
+    --border: var(--AnarColorError);
 
     &[data-pressed] {
-      --border: var(--color-error-pressed);
+      --border: var(--AnarColorErrorPressed);
     }
   }
 
   &[data-disabled] {
-    --text: var(--text-color-disabled);
-    --border: var(--border-color-disabled);
+    --text: var(--AnarColorTextDisabled);
+    --border: var(--AnarBorderColorDisabled);
   }
 }

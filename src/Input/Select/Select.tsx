@@ -2,7 +2,6 @@ import clsx from 'clsx';
 import { ChevronDown } from 'lucide-react';
 import type { ReactNode } from 'react';
 import {
-  FieldError,
   ListBox,
   ListBoxItem,
   ListBoxItemProps,
@@ -13,6 +12,7 @@ import {
 } from 'react-aria-components';
 
 import { DryButton } from '../../Button/DryButton.js';
+import { FieldError } from '../../Text/FieldError.js';
 import { Label } from '../../Text/Label.js';
 import style from './Select.module.css';
 
@@ -32,11 +32,12 @@ export function Select<T extends object>(props: SelectProps<T>) {
 
   return (
     <RiaSelect className={classes} {...rest}>
-      <Label>{label}</Label>
+      {label && <Label>{label}</Label>}
       <DryButton
         className={style.trigger}
+        classContent={style.triggerContent}
         main={<SelectValue />}
-        tail={<ChevronDown size={20} strokeWidth={3} />}
+        tail={<ChevronDown size={20} strokeWidth={2} />}
       />
       <FieldError>{errorMessage}</FieldError>
       <Popover className={style.popover}>

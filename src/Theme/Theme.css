@@ -20,28 +20,20 @@
     --AnarColorText: var(--gray-800);
     --AnarColorSubdued: var(--gray-700);
     --AnarColorTitle: var(--gray-900);
-    --AnarColorDisabled: var(--gray-500);
+    --AnarColorTextDisabled: var(--gray-500);
     --AnarColorDisabledBg: var(--gray-200);
-    --colorError: var(--red-900);
-    --colorErrorPressed: var(--red-1000);
+    --AnarColorError: var(--red-900);
+    --AnarColorErrorPressed: var(--red-1000);
 
-    --color-text: var(--gray-800);
-    --color-text-subdued: var(--gray-700);
-    --color-text-title: var(--gray-900);
-    --color-text-disabled: var(--gray-500);
-    --color-text-disabled-bg: var(--gray-200);
-    --color-error: var(--red-900);
-    --color-error-pressed: var(--red-1000);
-
-    --border-color: var(--gray-400);
-    --border-color-hover: var(--gray-500);
-    --border-color-pressed: var(--gray-500);
-    --border-color-disabled: var(--gray-500);
+    --AnarBorderColor: var(--gray-400);
+    --AnarBorderColorHover: var(--gray-500);
+    --AnarBorderColorPressed: var(--gray-500);
+    --AnarBorderColorDisabled: var(--gray-500);
 
     /* Control borders like switch, radio and checkbox */
-    --border-control-color: var(--gray-600);
-    --border-control-color-hover: var(--gray-700);
-    --border-control-color-pressed: var(--gray-700);
+    --AnarBorderControlColor: var(--gray-600);
+    --AnarBorderControlHover: var(--gray-700);
+    --AnarBorderControlPressed: var(--gray-700);
 
     /************************************************************/
 

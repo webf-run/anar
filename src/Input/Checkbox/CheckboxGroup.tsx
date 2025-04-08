@@ -21,7 +21,7 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
   const { label, description, errorMessage, children, className, ...rest } =
     props;
 
-  const classes = clsx('anar-checkbox-group', className);
+  const classes = clsx('AnarCheckboxGroup', className);
 
   return (
     <RiaCheckboxGroup className={classes} {...rest}>

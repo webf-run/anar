@@ -22,7 +22,7 @@ export function RadioGroup(props: RadioGroupProps) {
     props;
 
   return (
-    <AriaRadioGroup className={clsx('anar-radio-group', className)} {...rest}>
+    <AriaRadioGroup className={clsx('AnarRadioGroup', className)} {...rest}>
       <Label>{label}</Label>
       {children}
       {description && <Text slot='description'>{description}</Text>}

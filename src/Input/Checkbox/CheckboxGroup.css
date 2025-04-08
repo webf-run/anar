@@ -1,6 +1,6 @@
 @layer anar {
-  .anar-checkbox-group {
-    --text: var(--color-text);
+  .AnarCheckboxGroup {
+    --text: var(--AnarColorText);
 
     display: flex;
     flex-direction: column;

@@ -17,7 +17,7 @@ export type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   render: () => (
-    <Select label='Select'>
+    <Select label='Select' style={{ width: '200px' }}>
       <SelectItem>Item- 1</SelectItem>
       <SelectItem>Item- 2</SelectItem>
       <SelectItem>Item- 3</SelectItem>

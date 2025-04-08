@@ -42,7 +42,7 @@
     }
 
     &[data-invalid] {
-      --border: var(--color-error);
+      --border: var(--AnarColorError);
     }
 
     &[data-readonly] {}

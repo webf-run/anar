@@ -1,11 +1,11 @@
-.anar-radio-group {
+.AnarRadioGroup {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  color: var(--text-color);
+  color: var(--AnarColorText);
 }
 
-.anar-radio-group {
+.AnarRadioGroup {
   [slot=description] {
     font-size: 12px;
   }

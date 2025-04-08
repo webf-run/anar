@@ -18,7 +18,7 @@ export function Radio(props: RadioProps) {
 
   return (
     <AriaRadio
-      className={clsx('anar-radio', className)}
+      className={clsx('AnarRadio', className)}
       id={id}
       value={value}
       isDisabled={isDisabled}

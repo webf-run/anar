@@ -1,9 +1,9 @@
 @layer anar {
-  .anar-checkbox {
+  .AnarCheckbox {
     --bg: transparent;
-    --border: var(--border-control-color);
-    --icon: var(--border-control-color);
-    --text: var(--color-text);
+    --border: var(--AnarBorderControlColor);
+    --icon: var(--AnarBorderControlColor);
+    --text: var(--ColorText);
     --outline: 0;
 
     display: inline-flex;
@@ -25,18 +25,18 @@
 
       border: 2px solid var(--border);
       border-radius: 4px;
-      outline: var(--outline) solid var(--focus-ring-color);
+      outline: var(--outline) solid var(--AnarFocusRing);
       outline-offset: 2px;
 
       transition: all 120ms;
     }
 
     &[data-hovered] {
-      --border: var(--border-control-color-hover);
+      --border: var(--AnarBorderControlHover);
     }
 
     &[data-pressed] {
-      --border: var(--border-control-color-pressed);
+      --border: var(--AnarBorderControlPressed);
     }
 
     &[data-focus-visible] {
@@ -50,13 +50,13 @@
     }
 
     &[data-disabled] {
-      --border: var(--border-color-disabled);
-      --text: var(--color-text-disabled);
+      --border: var(--AnarBorderColorDisabled);
+      --text: var(--AnarColorTextDisabled);
       cursor: default;
     }
 
     &[data-selected][data-disabled] {
-      --bg: var(--color-text-disabled);
+      --bg: var(--AnarColorTextDisabled);
     }
   }
 }

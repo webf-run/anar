@@ -23,7 +23,7 @@
 
   .trigger {
     --DryButtonColorBd: var(--gray-400);
-    --DryButtonBorderWidth: 1px;
+    --DryButtonBorderWidth: 2px;
     --DryButtonPadding: 8px 11px;
     --DryButtonColorBg: transparent;
     --DryButtonDisabledColorBg: var(--gray-300);
@@ -33,7 +33,6 @@
 
     padding: var(--DryButtonPadding);
 
-    outline: none;
     border-radius: 5px;
     border: var(--DryButtonBorderWidth) solid var(--DryButtonColorBd);
 
@@ -47,6 +46,10 @@
       background: var(--DryButtonDisabledColorBg);
       color: transparent;
     }
+  }
+
+  .triggerContent {
+
   }
 
   .popover {

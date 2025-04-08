@@ -19,7 +19,7 @@ export interface CheckboxProps extends CheckboxVariants, RiaCheckboxProps {
 export function Checkbox(props: CheckboxProps) {
   const { className, size = 'md', label, ...riaProps } = props;
 
-  const classes = clsx('anar-checkbox', className);
+  const classes = clsx('AnarCheckbox', className);
 
   return (
     <RiaCheckbox
