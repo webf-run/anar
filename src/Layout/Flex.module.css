@@ -18,23 +18,23 @@
 .child {
   display: contents;
 
-  &:where([data-strategy="auto"]) > * {
+  &:where([data-strategy="occupy"]) > * {
     flex: 1 1 auto;
   }
 
-  &:where([data-push="row-start"]) > * {
+  &:where([data-strategy="push-start"][data-direction="row"]) > * {
     margin-right: auto;
   }
 
-  &:where([data-push="row-end"]) > * {
+  &:where([data-strategy="push-end"][data-direction="row"]) > * {
     margin-left: auto;
   }
 
-  &:where([data-push="column-start"]) > * {
+  &:where([data-strategy="push-start"][data-direction="column"]) > * {
     margin-bottom: auto;
   }
 
-  &:where([data-push="column-end"]) > * {
+  &:where([data-strategy="push-end"][data-direction="column"]) > * {
     margin-top: auto;
   }
 }

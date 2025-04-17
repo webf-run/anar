@@ -70,7 +70,6 @@ export const EqualWithShrink: Story = {
     return (
       <div>
         <h3>Equal Layout - Shrink</h3>
-        <code>flex: 1 1 100%</code>
         <Flex
           style={{ ...layoutStyle }}
           placement='start'
@@ -81,11 +80,11 @@ export const EqualWithShrink: Story = {
           <Apple style={iconStyle} size={48} />
           <ChartPie style={iconStyle} size={48} />
           <ChartSpline style={iconStyle} size={48} />
-          <Flex.AutoChild>
+          <Flex.Child>
             <div style={childStyle}>
               This is a very long text which fits without shrinking icons
             </div>
-          </Flex.AutoChild>
+          </Flex.Child>
         </Flex>
       </div>
     );
@@ -98,7 +97,6 @@ export const EqualWithGrow: Story = {
     return (
       <div>
         <h3>Equal Layout - Grow</h3>
-        <code></code>
         <Flex
           style={{ ...layoutStyle }}
           placement='start'
@@ -107,11 +105,11 @@ export const EqualWithGrow: Story = {
           gap='1rem'
         >
           <Apple style={iconStyle} size={48} />
-          <Flex.AutoChild>
+          <Flex.Child>
             <div style={childStyle}>
               This is a very long text which fits without shrinking icons
             </div>
-          </Flex.AutoChild>
+          </Flex.Child>
         </Flex>
       </div>
     );
@@ -124,8 +122,7 @@ export const Fixed: Story = {
     return (
       <div>
         <h3>Fixed Layout - Overflow</h3>
-        <code>flex: 0 0 auto</code>
-        <Sample strategy='fixed' />
+        <FlexSample strategy='fixed' />
       </div>
     );
   },
@@ -137,15 +134,14 @@ export const FixedOverflow: Story = {
     return (
       <div>
         <h3>Fixed Layout - Overflow</h3>
-        <code>flex: 0 0 auto</code>
-        <Sample strategy='fixed'>
+        <FlexSample strategy='fixed'>
           <div style={childStyle}>
             <h3>Item 4</h3>
           </div>
           <div style={childStyle}>
             <h3>Item 5</h3>
           </div>
-        </Sample>
+        </FlexSample>
       </div>
     );
   },
@@ -157,13 +153,13 @@ export const FixedWithGrow: Story = {
     return (
       <div>
         <h3>Fixed Layout - Overflow</h3>
-        <Sample strategy='fixed'>
-          <Flex.AutoChild>
+        <FlexSample strategy='fixed'>
+          <Flex.Child>
             <div style={childStyle}>
               <h3>Grow</h3>
             </div>
-          </Flex.AutoChild>
-        </Sample>
+          </Flex.Child>
+        </FlexSample>
       </div>
     );
   },
@@ -175,13 +171,13 @@ export const FixedWithShrink: Story = {
     return (
       <div>
         <h3>Fixed Layout - Overflow</h3>
-        <Sample strategy='fixed'>
-          <Flex.AutoChild>
+        <FlexSample strategy='fixed'>
+          <Flex.Child>
             <div style={childStyle}>
               <h3>Shrinking Child</h3>
             </div>
-          </Flex.AutoChild>
-        </Sample>
+          </Flex.Child>
+        </FlexSample>
       </div>
     );
   },
@@ -193,25 +189,25 @@ export const PushedChild: Story = {
       <div>
         <h3>Pushed Child</h3>
         <code>flex: 0 0 auto</code>
-        <Sample strategy='fixed' style={{ width: 800 }}>
-          <Flex.AutoChild auto={false} push='end'>
+        <FlexSample strategy='fixed' style={{ width: 800 }}>
+          <Flex.Child adjustment='push-end'>
             <div style={childStyle}>
               <h3>Pushed Child</h3>
             </div>
-          </Flex.AutoChild>
-        </Sample>
+          </Flex.Child>
+        </FlexSample>
       </div>
     );
   },
 };
 
-type SampleProps = {
+type FlexSampleProps = {
   style?: React.CSSProperties;
   strategy: FlexStrategy;
   children?: ReactNode;
 };
 
-function Sample(props: SampleProps) {
+function FlexSample(props: FlexSampleProps) {
   return (
     <div style={{ ...layoutStyle, ...props.style }}>
       <Flex placement='start' strategy={props.strategy} gap='1rem'>

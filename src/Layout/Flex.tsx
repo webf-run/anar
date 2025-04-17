@@ -32,15 +32,14 @@ export type FlexProps = {
   gap?: string;
 };
 
-export type AutoChildProps = {
-  auto?: boolean;
+export type FlexChildProps = {
+  adjustment?: 'occupy' | 'push-start' | 'push-end';
   order?: number;
-  push?: 'start' | 'end';
 
   children?: ReactNode;
 };
 
-Flex.AutoChild = AutoChild;
+Flex.Child = FlexChild;
 
 const FlexContext = createContext({
   direction: 'row' as FlexDirection,
@@ -72,15 +71,15 @@ export function Flex(props: FlexProps) {
 }
 
 /** Fluid/adjustable child of flex layout */
-export function AutoChild(props: AutoChildProps) {
-  const { auto = true, children, push } = props;
+export function FlexChild(props: FlexChildProps) {
+  const { adjustment = 'occupy', children } = props;
 
   useContext(FlexContext);
   const { direction } = useContext(FlexContext);
 
   const attributes = {
-    'data-strategy': auto ? 'auto' : undefined,
-    'data-push': push ? `${direction}-${push}` : undefined,
+    'data-strategy': adjustment,
+    'data-direction': direction,
   };
 
   return (

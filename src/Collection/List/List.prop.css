@@ -16,7 +16,7 @@
 @property --AnarListItemColor {
   syntax: '<color>';
   inherits: true;
-  initial-value: inherit;
+  initial-value: #000000;
 }
 
 @property --AnarListItemSelectedColorBg {
@@ -28,7 +28,7 @@
 @property --AnarListItemSelectedColor {
   syntax: '<color>';
   inherits: true;
-  initial-value: inherit;
+  initial-value: #000000;
 }
 
 @property --AnarListItemDisabledColor {
