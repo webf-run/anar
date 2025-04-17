@@ -6,20 +6,29 @@ import {
 } from 'react-aria-components';
 
 import styles from './Popover.module.css';
+import type { PopoverController } from './UsePopover';
 
 export interface PopoverProps extends RiaPopoverProps {
   className?: string;
+  controller?: PopoverController;
   children: ReactNode;
 }
 
 export function Popover(props: PopoverProps) {
-  const { className, children, ...rest } = props;
+  const { className, controller, ...rest } = props;
 
   const classes = clsx(styles.root, className);
 
+  const isOpen = controller?.isOpen ?? rest.isOpen;
+  const triggerRef = controller?.triggerRef ?? rest.triggerRef;
+
   return (
-    <RiaPopover className={classes} {...rest} >
-      {children}
-    </RiaPopover>
+    <RiaPopover
+      {...rest}
+      triggerRef={triggerRef}
+      className={classes}
+      isOpen={isOpen}
+      onOpenChange={controller?.close}
+    />
   );
 }

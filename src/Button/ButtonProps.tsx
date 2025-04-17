@@ -41,8 +41,6 @@ export function getProps(props: ButtonBaseProps) {
   const left = Left && <Left strokeWidth={strokeWidth} size={iconSize} />;
   const right = Right && <Right strokeWidth={strokeWidth} size={iconSize} />;
 
-  console.log(data);
-
   return {
     className: classes,
     left,
