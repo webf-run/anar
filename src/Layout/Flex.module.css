@@ -1,0 +1,49 @@
+.root {
+  display: flex;
+
+  & > * {
+    min-width: 0;
+    min-height: 0;
+  }
+
+  &:where([data-strategy="fixed"]) > * {
+    flex: 0 0 auto;
+  }
+
+  &:where([data-strategy="equal"]) > * {
+    flex: 1 1 100%;
+  }
+}
+
+.child {
+  display: contents;
+
+  &:where([data-strategy="occupy"]) > * {
+    flex: 1 1 auto;
+  }
+
+  &:where([data-strategy="push-start"][data-direction="row"]) > * {
+    margin-right: auto;
+  }
+
+  &:where([data-strategy="push-end"][data-direction="row"]) > * {
+    margin-left: auto;
+  }
+
+  &:where([data-strategy="push-start"][data-direction="column"]) > * {
+    margin-bottom: auto;
+  }
+
+  &:where([data-strategy="push-end"][data-direction="column"]) > * {
+    margin-top: auto;
+  }
+}
+
+.ellipsis {
+  /* Typically required for ellipses within the flex container */
+  min-width: 0;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
