@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import type { ReactNode } from 'react';
+import { type ReactNode, forwardRef } from 'react';
 import { Text as RACText } from 'react-aria-components';
 
 import style from './Text.module.css';
@@ -15,14 +15,17 @@ export interface HeadingProps extends HeadingVariants {
   children: ReactNode;
 }
 
-export function Heading(props: HeadingProps) {
-  const { className, level = 2, children } = props;
+export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
+  function Heading(props, ref) {
+    const { className, level = 2, children } = props;
 
-  return (
-    <RACText
-      elementType={`h${level}`}
-      className={clsx('Heading', style.heading, className)}
-      children={children}
-    />
-  );
-}
+    return (
+      <RACText
+        ref={ref}
+        elementType={`h${level}`}
+        className={clsx('Heading', style.heading, className)}
+        children={children}
+      />
+    );
+  }
+);
