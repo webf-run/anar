@@ -1,23 +1,24 @@
 import clsx from 'clsx';
+import type { ReactNode } from 'react';
 import {
-  Dialog,
   Popover as RiaPopover,
   PopoverProps as RiaPopoverProps,
 } from 'react-aria-components';
 
 import styles from './Popover.module.css';
 
-export interface PopoverProps extends Omit<RiaPopoverProps, 'children'> {
-  children: React.ReactNode;
+export interface PopoverProps extends RiaPopoverProps {
+  className?: string;
+  children: ReactNode;
 }
 
 export function Popover(props: PopoverProps) {
   const { className, children, ...rest } = props;
 
-  const classes = clsx(styles.AnarPopover, className);
+  const classes = clsx(styles.root, className);
 
   return (
-    <RiaPopover className={classes} {...props}>
+    <RiaPopover className={classes} {...rest} >
       {children}
     </RiaPopover>
   );

@@ -22,7 +22,7 @@ export default meta;
 
 export type Story = StoryObj<typeof meta>;
 
-export const TextPopover: Story = {
+export const Primary: Story = {
   render: () => (
     <DialogTrigger>
       <Button label='Text' />
@@ -36,48 +36,6 @@ export const TextPopover: Story = {
       >
         <Heading>Help</Heading>
         <p>For help accessing your account, please contact support.</p>
-      </Popover>
-    </DialogTrigger>
-  ),
-};
-
-export const ListPopover: Story = {
-  render: (args: any) => (
-    <DialogTrigger>
-      <Button label='List' />
-      <Popover>
-        <ListBox aria-label='Ice cream flavor' {...args}>
-          <ListBoxItem>Chocolate</ListBoxItem>
-          <ListBoxItem>Mint</ListBoxItem>
-          <ListBoxItem>Strawberry</ListBoxItem>
-          <ListBoxItem>Vanilla</ListBoxItem>
-        </ListBox>
-      </Popover>
-    </DialogTrigger>
-  ),
-};
-
-export const CheckboxPopover: Story = {
-  render: (args: any) => (
-    <DialogTrigger>
-      <Button label='Checkbox' />
-      <Popover>
-        <CheckboxGroup {...args}>
-          <Checkbox value='soccer' label='Soccer' />
-          <Checkbox value='baseball' label='Baseball' />
-          <Checkbox value='basketball' label='Basketball' />
-        </CheckboxGroup>
-      </Popover>
-    </DialogTrigger>
-  ),
-};
-
-export const CalendarPopover: Story = {
-  render: () => (
-    <DialogTrigger>
-      <Button label='Calendar' />
-      <Popover>
-        <Calendar style={{ overflow: 'auto' }} />
       </Popover>
     </DialogTrigger>
   ),
