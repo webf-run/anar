@@ -48,10 +48,6 @@
     }
   }
 
-  .triggerContent {
-
-  }
-
   .popover {
     --AnarSelectColorBd: var(--gray-600);
     --AnarSelectDropdownColorBg: var(--gray-100);

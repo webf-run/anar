@@ -6,12 +6,7 @@ import {
 } from 'react-aria-components';
 
 export interface DryButtonProps extends RiaButtonProps {
-  classContent?: string;
-
-  lead?: ReactNode;
-  main?: ReactNode;
-  tail?: ReactNode;
-  children?: undefined;
+  children?: ReactNode;
 }
 
 /**
@@ -22,24 +17,12 @@ export const DryButton = forwardRef(function Button(
   ref: Ref<HTMLButtonElement>
 ) {
   const {
-    lead,
-    main,
-    tail,
     className,
-    classContent,
-    children,
     ...buttonProps
   } = props;
   const classes = clsx('AnarDryButton', className);
-  const contentClasses = clsx('AnarDryButtonContent', classContent);
 
   return (
-    <RiaButton ref={ref} className={classes} {...buttonProps}>
-      <span className={contentClasses}>
-        {lead}
-        <span>{main}</span>
-        {tail}
-      </span>
-    </RiaButton>
+    <RiaButton ref={ref} className={classes} {...buttonProps} />
   );
 });

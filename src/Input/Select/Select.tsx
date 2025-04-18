@@ -33,12 +33,10 @@ export function Select<T extends object>(props: SelectProps<T>) {
   return (
     <RiaSelect className={classes} {...rest}>
       {label && <Label>{label}</Label>}
-      <DryButton
-        className={style.trigger}
-        classContent={style.triggerContent}
-        main={<SelectValue />}
-        tail={<ChevronDown size={20} strokeWidth={2} />}
-      />
+      <DryButton className={style.trigger}>
+        <SelectValue />
+        <ChevronDown size={20} strokeWidth={2} />
+      </DryButton>
       <FieldError>{errorMessage}</FieldError>
       <Popover className={style.popover}>
         <ListBox className={style.list} items={items}>

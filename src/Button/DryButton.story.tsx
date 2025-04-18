@@ -17,8 +17,6 @@ export type Story = StoryObj<typeof meta>;
 
 export const Example: Story = {
   args: {
-    lead: 'lead',
-    main: 'main',
-    tail: 'tail',
+    children: 'Dry/Unstyled Button',
   },
 };

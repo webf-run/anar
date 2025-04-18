@@ -12,12 +12,13 @@ export const Button = forwardRef(function Button(
 ) {
   const { left, right, label, ...buttonProps } = getProps(props);
 
-  const dryButtonProps: DryButtonProps = {
-    lead: left,
-    main: label,
-    tail: right,
-    ...buttonProps,
-  };
+  const dryButtonProps: DryButtonProps = buttonProps;
 
-  return <DryButton ref={ref} {...dryButtonProps} />;
+  return (
+    <DryButton ref={ref} {...dryButtonProps}>
+      {left}
+      {label}
+      {right}
+    </DryButton>
+  );
 });
