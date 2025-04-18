@@ -1,36 +1,48 @@
+import clsx from 'clsx';
+import { Minus, Plus } from 'lucide-react';
 import {
-  Button,
-  FieldError,
   Group,
   Input,
-  Label,
   NumberField as RiaNumberField,
   NumberFieldProps as RiaNumberFieldProps,
-  Text,
-  ValidationResult,
 } from 'react-aria-components';
 
-export interface NumberFieldProps extends RiaNumberFieldProps {
-  label?: string;
-  description?: string;
-  errorMessage?: string | ((validation: ValidationResult) => string);
-}
+import { ActionButton } from '../../Button/ActionButton';
+import { Flex } from '../../Layout/Flex';
+import { FieldError } from '../../Text/FieldError';
+import { Label } from '../../Text/Label';
+import { Text } from '../../Text/Text';
+import { InputFieldBaseProps } from '../Field.prop';
+import styles from './NumberField.module.css';
 
-export function NumberField({
-  label,
-  description,
-  errorMessage,
-  ...props
-}: NumberFieldProps) {
+export interface NumberFieldProps
+  extends InputFieldBaseProps<number>,
+    RiaNumberFieldProps {}
+
+export function NumberField(props: NumberFieldProps) {
+  const { label, description, errorMessage, ...rest } = props;
+
+  const className = clsx('NumberField', styles.field);
+
   return (
-    <RiaNumberField {...props}>
-      <Label>{label}</Label>
-      <Group>
-        <Button slot='decrement'>-</Button>
-        <Input />
-        <Button slot='increment'>+</Button>
+    <RiaNumberField {...rest} className={className}>
+      {label && <Label isDisabled={rest.isDisabled}>{label}</Label>}
+      <Group className={styles.group}>
+        <Flex gap='0'>
+          <Flex.Child adjustment='occupy'>
+            <Input className={styles.input} />
+          </Flex.Child>
+          <ActionButton slot='decrement' aria-label='Decrement' icon={Minus} />
+          <ActionButton slot='increment' aria-label='Increment' icon={Plus} />
+        </Flex>
       </Group>
-      {description && <Text slot='description'>{description}</Text>}
+      {description && !rest.isInvalid && (
+        <Text
+          slot='description'
+          isDisabled={rest.isDisabled}
+          text={description}
+        />
+      )}
       <FieldError>{errorMessage}</FieldError>
     </RiaNumberField>
   );

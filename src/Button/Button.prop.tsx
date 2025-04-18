@@ -10,7 +10,7 @@ export type ButtonVariants = {
 
   size?: TShirtSize;
   radius?: 'none' | TShirtSize;
-  pending?: boolean;
+  isPending?: boolean;
 };
 
 export type ButtonBaseProps = ButtonVariants & {
@@ -27,7 +27,6 @@ export function getProps(props: ButtonBaseProps) {
     size = 'md',
     emphasis = 'fill',
     radius,
-    pending,
     label,
     left: Left,
     right: Right,

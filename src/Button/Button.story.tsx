@@ -3,14 +3,14 @@ import { ArrowBigRight, Database } from 'lucide-react';
 
 import { Button } from './Button.js';
 
-const meta: Meta<typeof Button> = {
+const meta = {
   title: 'Buttons/Button',
   component: Button,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
-};
+} satisfies Meta<typeof Button>;
 
 export default meta;
 

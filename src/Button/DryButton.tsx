@@ -16,13 +16,8 @@ export const DryButton = forwardRef(function Button(
   props: DryButtonProps,
   ref: Ref<HTMLButtonElement>
 ) {
-  const {
-    className,
-    ...buttonProps
-  } = props;
+  const { className, ...buttonProps } = props;
   const classes = clsx('AnarDryButton', className);
 
-  return (
-    <RiaButton ref={ref} className={classes} {...buttonProps} />
-  );
+  return <RiaButton ref={ref} className={classes} {...buttonProps} />;
 });

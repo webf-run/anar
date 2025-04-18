@@ -1,0 +1,16 @@
+@layer anar {
+  .button {
+    --DryButtonPadding: 0.25rem 0.5rem;
+    --DryButtonRadius: 0.25rem;
+
+    --DryButtonColorBd: var(--gray-200);
+    --DryButtonColorBg: var(--gray-200);
+    --DryButtonColorText: var(--gray-800);
+
+    --DryButtonHoverColorBd: var(--gray-300);
+    --DryButtonHoverColorBg: var(--gray-300);
+
+    --DryButtonPressedColorBd: var(--gray-400);
+    --DryButtonPressedColorBg: var(--gray-400);
+  }
+}

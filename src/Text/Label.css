@@ -1,10 +1,10 @@
 @layer anar {
   .anar-label {
     font-weight: 500;
-    color: var(--color, --color-text-subdued);
+    color: var(--AnarColorSubdued);
 
     &[data-disabled] {
-      --color: var(--color-text-disabled);
+      color: var(--AnarColorTextDisabled);
     }
   }
 }

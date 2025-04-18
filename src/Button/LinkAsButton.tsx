@@ -4,7 +4,7 @@ import type {
 } from 'react';
 import { Link as AriaLink } from 'react-aria-components';
 
-import { type ButtonBaseProps, getProps } from './ButtonProps.js';
+import { type ButtonBaseProps, getProps } from './Button.prop.js';
 
 export interface ButtonAsLinkProps extends ButtonBaseProps {
   href: string;
@@ -27,7 +27,7 @@ export function ButtonAsLink(props: ButtonAsLinkProps) {
       {...linkProps}
     >
       {left}
-      <span>{label}</span>
+      {label}
       {right}
     </AriaLink>
   );

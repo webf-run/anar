@@ -10,15 +10,8 @@
     gap: 0.25rem;
     flex-direction: column;
 
-    /* Applies to internal .anar-input */
-    [data-hovered] {
-      --border: var(--border-color-hover);
-    }
-
-    /* Applies to internal .anar-input */
-    [data-focused],
-    [data-focus-visible] {
-      outline-width: 2px;
+    &:has([data-hovered]) {
+      --border: var(--AnarBorderColorHover);
     }
 
     &[data-disabled] {
@@ -31,8 +24,8 @@
       --border: var(--AnarColorError);
     }
 
+    /* TODO: Pending styles */
     &[data-readonly] {}
-
     &[data-required] {}
 
     [slot=description] {
@@ -47,10 +40,16 @@
     background-color: var(--bg);
     color: var(--text);
 
-    border: 1px solid var(--border);
+    border: 2px solid var(--border);
     border-radius: 0.25rem;
 
-    outline: 0 solid var(--focus-ring-color);
+    outline: 0 solid var(--AnarFocusRing);
     outline-offset: -1px;
+
+    font-size: 16px;
+
+    &:where([data-focused], [data-focus-visible]) {
+      outline-width: 2px;
+    }
   }
 }

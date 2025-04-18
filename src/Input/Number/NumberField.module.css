@@ -1,0 +1,43 @@
+@layer anar {
+  .field {
+    --bg: transparent;
+    --border: var(--AnarBorderColor);
+    --text: var(--AnarColorText);
+    --outline: 0;
+
+    [slot=description] {
+      font-size: 14px;
+    }
+
+    :global(.ActionButton) {
+      --DryButtonRadius: 0;
+    }
+  }
+
+  .group {
+    border: 2px solid var(--border);
+    border-radius: 0.25rem;
+    outline: 0 solid var(--AnarFocusRing);
+    outline-offset: -1px;
+
+    &:where([data-focus-within]) {
+      outline-width: 2px;
+    }
+  }
+
+  .input {
+    border: 0;
+    outline: 0;
+
+    padding: 0 0.5rem;
+
+    background-color: var(--bg);
+    color: var(--text);
+
+    font-size: 16px;
+
+    &[data-focused] {
+      border: 0;
+    }
+  }
+}
