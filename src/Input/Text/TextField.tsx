@@ -10,6 +10,7 @@ import {
 import { FieldError } from '../../Text/FieldError.js';
 import { Label } from '../../Text/Label.js';
 import { Text } from '../../Text/Text.js';
+import styles from './TextField.module.css';
 
 export interface TextFieldProps extends RiaTextFieldProps {
   label?: ReactNode;
@@ -20,12 +21,12 @@ export interface TextFieldProps extends RiaTextFieldProps {
 export function TextField(props: TextFieldProps) {
   const { label, description, errorMessage, ...rest } = props;
 
-  const classname = clsx('anar-textfield');
+  const classname = clsx('TextField', styles.root);
 
   return (
     <RiaTextField className={classname} {...rest}>
       {label && <Label isDisabled={rest.isDisabled}>{label}</Label>}
-      <Input className={'anar-input'} />
+      <Input className={styles.input} />
       {description && !rest.isInvalid && (
         <Text
           slot='description'

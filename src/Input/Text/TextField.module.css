@@ -1,28 +1,14 @@
 @layer anar {
-  .anar-textfield {
+  .root {
     --bg: transparent;
-    --border: var(--border-color);
-    --text: var(--color-text);
+    --border: var(--AnarBorderColor);
+    --text: var(--AnarColorText);
     --outline: 0;
 
     display: flex;
     width: fit-content;
     gap: 0.25rem;
     flex-direction: column;
-
-    .anar-input {
-      margin: 0;
-      padding: 0.5rem;
-
-      background-color: var(--bg);
-      color: var(--text);
-
-      border: 1px solid var(--border);
-      border-radius: 0.25rem;
-
-      outline: 0 solid var(--focus-ring-color);
-      outline-offset: -1px;
-    }
 
     /* Applies to internal .anar-input */
     [data-hovered] {
@@ -36,9 +22,9 @@
     }
 
     &[data-disabled] {
-      --bg: var(--color-text-disabled-bg);
-      --border: var(--border-color-disabled);
-      --text: var(--color-text-disabled);
+      --bg: var(--AnarColorDisabledBg);
+      --border: var(--AnarBorderColorDisabled);
+      --text: var(--AnarColorTextDisabled);
     }
 
     &[data-invalid] {
@@ -52,5 +38,19 @@
     [slot=description] {
       font-size: 14px;
     }
+  }
+
+  .input {
+    margin: 0;
+    padding: 0.5rem;
+
+    background-color: var(--bg);
+    color: var(--text);
+
+    border: 1px solid var(--border);
+    border-radius: 0.25rem;
+
+    outline: 0 solid var(--focus-ring-color);
+    outline-offset: -1px;
   }
 }
