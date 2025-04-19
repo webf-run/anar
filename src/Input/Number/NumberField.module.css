@@ -12,6 +12,16 @@
     :global(.ActionButton) {
       --DryButtonRadius: 0;
     }
+
+    &[data-disabled] {
+      --bg: var(--AnarColorDisabledBg);
+      --border: var(--AnarBorderColorDisabled);
+      --text: var(--AnarColorTextDisabled);
+    }
+
+    &[data-invalid] {
+      --border: var(--AnarColorError);
+    }
   }
 
   .group {

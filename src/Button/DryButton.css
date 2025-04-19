@@ -47,9 +47,9 @@
     }
 
     &:where([data-disabled]) {
-      background: var(--DryButtonColorDisabledBg);
-      border-color: var(--DryButtonColorDisabledBd);
-      color: var(--DryButtonDisabledText);
+      background: var(--DryButtonDisabledColorBg);
+      border-color: var(--DryButtonDisabledColorBg);
+      color: var(--DryButtonDisabledColorText);
     }
   }
 

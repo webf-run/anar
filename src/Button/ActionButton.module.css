@@ -12,5 +12,9 @@
 
     --DryButtonPressedColorBd: var(--gray-400);
     --DryButtonPressedColorBg: var(--gray-400);
+
+    --DryButtonDisabledColorBd: var(--gray-200);
+    --DryButtonDisabledColorBg: var(--gray-200);
+    --DryButtonDisabledColorText: var(--gray-500);
   }
 }

@@ -6,6 +6,10 @@ import { ActionButton } from './ActionButton.js';
 const meta = {
   title: 'Buttons/ActionButton',
   component: ActionButton,
+  args: {
+    icon: Database,
+    'aria-label': 'Database',
+  },
   parameters: {
     layout: 'centered',
   },
@@ -16,9 +20,12 @@ export default meta;
 
 export type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Default: Story = {
+  args: {},
+};
+
+export const Disabled: Story = {
   args: {
-    icon: Database,
-    'aria-label': 'Database',
+    isDisabled: true,
   },
 };

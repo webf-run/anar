@@ -8,6 +8,6 @@ export function FieldError(props: FieldErrorProps) {
   const { className, ...rest } = props;
 
   return (
-    <RiaFieldError className={clsx('anar-field-error', className)} {...rest} />
+    <RiaFieldError className={clsx('AnarFieldError', className)} {...rest} />
   );
 }

@@ -1,5 +1,5 @@
 @layer anar {
-  .anar-field-error {
+  .AnarFieldError {
     color: var(--AnarColorError);
 
     font-size: 0.75rem;
