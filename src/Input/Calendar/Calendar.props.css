@@ -10,6 +10,12 @@
   initial-value: none;
 }
 
+@property --AnarCalendarRadius {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+
 @property --AnarCalendarColorText {
   syntax: '<color>';
   inherits: false;

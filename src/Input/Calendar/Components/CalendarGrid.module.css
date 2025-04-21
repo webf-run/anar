@@ -1,0 +1,41 @@
+@layer anar {
+  .root {
+    display: grid !important ;
+    column-gap: 30px;
+  }
+  
+  .sevenColumnGridLayout {
+    grid-template-columns: repeat(7, 1fr);
+  }
+  
+  .threeColumnGridLayout {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .CalendarGridCell {
+    --AnarCalendarColorText: var(--gray-800);
+
+    display: flex;
+    min-width: 45px;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0px;
+    color: var(--AnarCalendarColorText);
+  }
+  
+  .selected {
+    background: var(--purple-400);
+    border-radius: 5px;
+  }
+
+  .disabled {
+    --AnarCalendarColorTextDisabled: var(--gray-500);
+    --AnarCalendarColorText: var(--AnarCalendarColorTextDisabled);
+
+    cursor: default;
+  }
+
+  .invalid {
+    color: var(--red-1000);
+  }
+}

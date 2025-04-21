@@ -1,0 +1,42 @@
+@layer anar {
+  .YearCalendar {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    background-color: var(--gray-100);
+    gap: 5px;
+    padding: 20px 10px 20px 10px;
+  }
+
+  .YearControlHeader {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .divider {
+    --AnarCalendarColorDivider: #B1B2B5FF;
+    --AnarCalendarMarginDivider: 5px 0px;
+
+    margin: var(--AnarCalendarMarginDivider);
+    border: 1px solid var(--AnarCalendarColorDivider);
+  }
+
+  .YearGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 30px;
+  }
+
+  .YearGridCell {
+    display: flex;
+    min-width: 45px;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0px;
+  }
+  
+  .selected {
+    background: var(--purple-400);
+    border-radius: 5px;
+  }
+}

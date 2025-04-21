@@ -1,45 +1,217 @@
+import { parseDate } from '@internationalized/date';
+import { MappedDateValue } from '@react-types/datepicker';
 import clsx from 'clsx';
+import { addMonths, addYears, format, subMonths, subYears } from 'date-fns';
+import { StepBack, StepForward } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import {
-  CalendarCell,
-  CalendarGrid,
   DateValue,
   Group,
-  Heading,
-  Calendar as RiaCalendar,
   CalendarProps as RiaCalendarProps,
-  Text,
 } from 'react-aria-components';
 
 import { DryButton } from '../../Button/DryButton';
+import { Flex } from '../../Layout/Flex';
+import { Text } from '../../Text/Text';
 import styles from './Calendar.module.css';
+import { DateSelector } from './Components/DateSelector';
+import { MonthSelector } from './Components/MonthSelector';
+import { YearSelector } from './Components/YearSelector';
 
 export interface CalendarProps<T extends DateValue>
   extends RiaCalendarProps<T> {
   errorMessage?: string;
+  description?: string;
+}
+
+function getCalendarHeaderText(
+  currentState: 'Date' | 'Month' | 'Year',
+  value: Date
+): string {
+  if (currentState === 'Date') {
+    return `${format(value, 'MMMM yyy')}`;
+  } else if (currentState === 'Month') {
+    return `${format(value, 'yyy')}`;
+  } else {
+    const startYear = subYears(value, value.getFullYear() % 10);
+    const endYear = addYears(startYear, 9);
+
+    return `${format(startYear, 'yyy')} - ${format(endYear, 'yyy')}`;
+  }
 }
 
 export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
-  const { errorMessage, className, ...restProps } = props;
+  const {
+    errorMessage,
+    className,
+    value,
+    onChange,
+    isDisabled = false,
+    isInvalid = false,
+    description,
+    ...restProps
+  } = props;
 
-  const classes = clsx(styles.AnarCalendar, className);
+  const [currentState, setCurrentState] = useState<'Date' | 'Month' | 'Year'>(
+    'Date'
+  );
+
+  const [displayedDate, setDisplayedDate] = useState<Date>(new Date());
+  const [selectedYear, setSelectedYear] = useState<number>();
+  const [selectedMonth, setSelectedMonth] = useState<number>();
+  const [selectedDate, setSelectedDate] = useState<number>();
+
+  useEffect(() => {
+    if (currentState === 'Date' && selectedMonth) {
+      setDisplayedDate(
+        new Date(
+          displayedDate.getFullYear(),
+          selectedMonth,
+          displayedDate.getDate()
+        )
+      );
+    } else if (currentState === 'Month' && selectedYear) {
+      setDisplayedDate(
+        new Date(
+          selectedYear,
+          displayedDate.getMonth(),
+          displayedDate.getDate()
+        )
+      );
+    }
+  }, [currentState]);
+
+  useEffect(() => {
+    if (selectedDate) {
+      let year: number;
+      let month: number;
+      if (!selectedYear) {
+        year = displayedDate.getFullYear();
+      } else {
+        year = selectedYear;
+      }
+
+      if (!selectedMonth) {
+        month = displayedDate.getMonth();
+      } else {
+        month = selectedMonth;
+      }
+
+      const currentSelectedDate = parseDate(
+        `${year}-${month && month < 10 ? 0 : ''}${month}-${selectedDate && selectedDate < 10 ? 0 : ''}${selectedDate}`
+      );
+      if (currentSelectedDate && onChange) {
+        onChange(currentSelectedDate as MappedDateValue<T>);
+      }
+    }
+  }, [selectedDate]);
+
+  function setSelectedToUndefined() {
+    setSelectedDate(undefined);
+    setSelectedMonth(undefined);
+    setSelectedYear(undefined);
+  }
+
+  const onPrevious = () => {
+    setSelectedToUndefined();
+    if (currentState === 'Date') {
+      setDisplayedDate(subMonths(displayedDate, 1));
+    } else if (currentState === 'Month') {
+      setDisplayedDate(subYears(displayedDate, 1));
+    } else {
+      setDisplayedDate(subYears(displayedDate, 10));
+    }
+  };
+
+  const onNext = () => {
+    setSelectedToUndefined();
+    if (currentState === 'Date') {
+      setDisplayedDate(addMonths(displayedDate, 1));
+    } else if (currentState === 'Month') {
+      setDisplayedDate(addYears(displayedDate, 1));
+    } else {
+      setDisplayedDate(addYears(displayedDate, 10));
+    }
+  };
+
+  const onSelectDate = () => {
+    setCurrentState(currentState === 'Year' ? 'Month' : 'Date');
+  };
+
+  const classes = clsx(
+    'AnarCalendar',
+    styles.root,
+    isDisabled && styles.disableAll,
+    className
+  );
+
+  console.log(value, isInvalid);
 
   return (
-    <RiaCalendar className={classes} {...restProps}>
-      <Group className={styles.CalendarMonthLabel}>
+    <Flex className={classes}>
+      {description && <Text text={description} />}
+      <Group className={styles.CalendarHeader}>
         <DryButton
+          isDisabled={isDisabled}
           className={styles.arrowButtons}
           slot={'previous'}
-          main='◀'
+          onPress={onPrevious}
+          children={<StepBack />}
         />
-        <Heading />
-        <DryButton className={styles.arrowButtons} slot={'next'} main='▶' />
+        <DryButton
+          isDisabled={isDisabled}
+          onPress={() =>
+            setCurrentState(currentState === 'Date' ? 'Month' : 'Year')
+          }
+          className={styles.CalendarHeaderText}
+          children={
+            <Text text={getCalendarHeaderText(currentState, displayedDate)} />
+          }
+        />
+        <DryButton
+          isDisabled={isDisabled}
+          className={styles.arrowButtons}
+          slot={'next'}
+          onPress={onNext}
+          children={<StepForward />}
+        />
       </Group>
       <div className={styles.divider}></div>
-
-      <CalendarGrid className={styles.CalendarGrid}>
-        {(date) => <CalendarCell date={date} />}
-      </CalendarGrid>
-      {errorMessage && <Text slot='errorMessage'>{errorMessage}</Text>}
-    </RiaCalendar>
+      {currentState === 'Date' && (
+        <DateSelector
+          isInvalid={isInvalid}
+          isDisabled={isDisabled}
+          displayedDate={displayedDate}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          onSelectDate={onSelectDate}
+        />
+      )}
+      {currentState === 'Month' && (
+        <MonthSelector
+          isDisabled={isDisabled}
+          onSelectDate={onSelectDate}
+          displayedDate={displayedDate}
+          selectedMonth={selectedMonth}
+          setSelectedMonth={setSelectedMonth}
+        />
+      )}
+      {currentState === 'Year' && (
+        <YearSelector
+          isDisabled={isDisabled}
+          onSelectDate={onSelectDate}
+          displayedDate={displayedDate}
+          selectedYear={selectedYear}
+          setSelectedYear={setSelectedYear}
+        />
+      )}
+      {errorMessage && isInvalid && (
+        <Text
+          className={styles.error}
+          slot='errorMessage'
+          text={errorMessage}
+        />
+      )}
+    </Flex>
   );
 }
