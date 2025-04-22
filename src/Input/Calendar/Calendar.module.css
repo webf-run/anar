@@ -42,6 +42,13 @@
     border: 1px solid var(--AnarCalendarColorDivider);
   }
 
+  button{
+    &[data-pressed] {
+      border-radius: 5px;
+      background-color: var(--gray-200);
+    }
+  }
+  
   .error {
     color: var(--red-1000);
   }

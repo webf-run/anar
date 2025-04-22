@@ -24,7 +24,7 @@
   }
   
   .selected {
-    background: var(--purple-400);
+    background: var(--gray-200);
     border-radius: 5px;
   }
 

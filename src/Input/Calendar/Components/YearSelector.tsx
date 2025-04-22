@@ -63,7 +63,7 @@ export function YearSelector(props: YearSelectorProps) {
     <Flex className={classes}>
       {yearsToShow.map((value, index) => (
         <DryButton
-          isDisabled
+          isDisabled={isDisabled}
           key={index}
           className={clsx(
             styles.CalendarGridCell,

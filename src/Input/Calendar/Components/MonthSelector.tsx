@@ -60,7 +60,7 @@ export function MonthSelector(props: MonthSelectorProps) {
     <Flex className={classes}>
       {monthsToShow.map((value, index) => (
         <DryButton
-          isDisabled
+          isDisabled={isDisabled}
           key={index}
           className={clsx(
             styles.CalendarGridCell,

@@ -145,8 +145,6 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
     className
   );
 
-  console.log(value, isInvalid);
-
   return (
     <Flex className={classes}>
       {description && <Text text={description} />}
@@ -156,7 +154,7 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
           className={styles.arrowButtons}
           slot={'previous'}
           onPress={onPrevious}
-          children={<StepBack />}
+          children={<StepBack size={35} />}
         />
         <DryButton
           isDisabled={isDisabled}
@@ -173,7 +171,7 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
           className={styles.arrowButtons}
           slot={'next'}
           onPress={onNext}
-          children={<StepForward />}
+          children={<StepForward size={35} />}
         />
       </Group>
       <div className={styles.divider}></div>
