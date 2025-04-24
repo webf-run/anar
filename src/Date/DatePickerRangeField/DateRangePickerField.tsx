@@ -41,29 +41,23 @@ export function DatePickerRangeField<T extends DateValue>(
     >
       <Group className={styles.DateInputField}>
         <Label>{label1}</Label>
-        <DryButton
-          className={styles.button}
-          lead={
-            <TextField className={styles.DateInput}>
-              {value
-                ? `${value?.start.year}-${value.start.month < 10 ? '0' : ''}${value.start.month}-${value.start.day < 10 ? '0' : ''}${value.start.day}`
-                : ''}
-            </TextField>
-          }
-        />
+        <DryButton className={styles.button}>
+          <TextField className={styles.DateInput}>
+            {value
+              ? `${value?.start.year}-${value.start.month < 10 ? '0' : ''}${value.start.month}-${value.start.day < 10 ? '0' : ''}${value.start.day}`
+              : ''}
+          </TextField>
+        </DryButton>
       </Group>
       <Group className={styles.DateInputField}>
         <Label>{label2}</Label>
-        <DryButton
-          className={styles.button}
-          lead={
-            <TextField className={styles.DateInput}>
-              {value
-                ? `${value?.end.year}-${value.end.month < 10 ? '0' : ''}${value.end.month}-${value.end.day < 10 ? '0' : ''}${value.end.day}`
-                : ''}
-            </TextField>
-          }
-        />
+        <DryButton className={styles.button}>
+          <TextField className={styles.DateInput}>
+            {value
+              ? `${value?.end.year}-${value.end.month < 10 ? '0' : ''}${value.end.month}-${value.end.day < 10 ? '0' : ''}${value.end.day}`
+              : ''}
+          </TextField>
+        </DryButton>
       </Group>
       <Popover
         className={styles.DateRangePickerPopover}

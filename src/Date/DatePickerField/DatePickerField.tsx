@@ -1,16 +1,15 @@
-import { getLocalTimeZone, today } from '@internationalized/date';
 import clsx from 'clsx';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   DatePickerProps as AriaDatePickerProps,
   DateValue,
-  DatePicker as RiaDatePicker,
-  TextField,
-  ValidationResult,
 } from 'react-aria-components';
 
 import { DryButton } from '../../Button/DryButton';
-import { Popover } from '../../Popover/Popover';
+import { TextField } from '../../Input/Text/TextField';
+import { Flex } from '../../Layout/Flex';
+import { Popover } from '../../Overlay/Popover/Popover';
+import { FieldError } from '../../Text/FieldError';
 import { Label } from '../../Text/Label';
 import { Calendar } from '../Calendar/Calendar';
 import styles from './DatePickerField.module.css';
@@ -18,38 +17,48 @@ import styles from './DatePickerField.module.css';
 export interface DatePickerProps<T extends DateValue>
   extends AriaDatePickerProps<T> {
   label?: string;
-  errorMessage?: string | ((validation: ValidationResult) => string);
+  errorMessage?: string;
+  description?: string;
 }
 
 export function DatePickerField<T extends DateValue>(
   props: DatePickerProps<T>
 ) {
-  const { label, errorMessage, ...rest } = props;
+  const { label, errorMessage, description, ...rest } = props;
+
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const [value, setValue] = useState<DateValue>();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onCalendarValue = (value: DateValue) => {
+    setValue(value);
+    setIsOpen(false);
+  };
 
   return (
-    <RiaDatePicker className={clsx(styles.AnarDatePicker)}>
+    <Flex className={clsx(styles.AnarDatePicker)}>
       <Label>{label}</Label>
       <DryButton
-        ref={buttonRef}
         className={styles.button}
-        lead={
-          <TextField className={styles.DateInput}>{`${value ?? ''}`}</TextField>
-        }
-      />
+        ref={buttonRef}
+        onPress={() => setIsOpen(true)}
+      >
+        {<TextField className={styles.DateInput}>{`${value ?? ''}`}</TextField>}
+      </DryButton>
       <Popover
         className={styles.DatePickerPopover}
+        isOpen={isOpen}
         triggerRef={buttonRef}
         placement={'bottom'}
       >
         <Calendar
           className={styles.calendar}
-          onChange={setValue}
           value={value}
+          onChange={onCalendarValue}
         />
       </Popover>
-    </RiaDatePicker>
+      <FieldError>{errorMessage}</FieldError>
+    </Flex>
   );
 }

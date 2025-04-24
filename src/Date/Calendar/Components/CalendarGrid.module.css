@@ -1,9 +1,13 @@
 @layer anar {
   .root {
+    --AnarCalendarSelectorColumnGap: 30px;
+    --AnarCalendarSelectorRowGap: 1px;
+ 
     display: grid !important ;
-    column-gap: 30px;
+    column-gap: var(--AnarCalendarSelectorColumnGap);
+    row-gap: var(--AnarCalendarSelectorRowGap);
   }
-  
+
   .sevenColumnGridLayout {
     grid-template-columns: repeat(7, 1fr);
   }

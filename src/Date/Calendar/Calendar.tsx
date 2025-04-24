@@ -2,11 +2,10 @@ import { parseDate } from '@internationalized/date';
 import { MappedDateValue } from '@react-types/datepicker';
 import clsx from 'clsx';
 import { addMonths, addYears, format, subMonths, subYears } from 'date-fns';
-import { StepBack, StepForward } from 'lucide-react';
+import { ChevronLeft, ChevronRight, StepBack, StepForward } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import {
   DateValue,
-  Group,
   CalendarProps as RiaCalendarProps,
 } from 'react-aria-components';
 
@@ -148,16 +147,16 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
   return (
     <Flex className={classes}>
       {description && <Text text={description} />}
-      <Group className={styles.CalendarHeader}>
+      <Flex className={styles.CalendarHeader}>
         <DryButton
           isDisabled={isDisabled}
           className={styles.arrowButtons}
           slot={'previous'}
           onPress={onPrevious}
-          children={<StepBack size={35} />}
+          children={<ChevronLeft size={35} />}
         />
         <DryButton
-          isDisabled={isDisabled}
+          isDisabled={isDisabled || currentState === 'Year'}
           onPress={() =>
             setCurrentState(currentState === 'Date' ? 'Month' : 'Year')
           }
@@ -171,9 +170,9 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
           className={styles.arrowButtons}
           slot={'next'}
           onPress={onNext}
-          children={<StepForward size={35} />}
+          children={<ChevronRight size={35} />}
         />
-      </Group>
+      </Flex>
       <div className={styles.divider}></div>
       {currentState === 'Date' && (
         <DateSelector

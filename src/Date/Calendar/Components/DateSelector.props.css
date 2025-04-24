@@ -1,0 +1,25 @@
+@property --AnarCalendarSelectorRowGap {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --AnarCalendarSelectorColumnGap {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --AnarCalendarSelectorCellHeight {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --AnarCalendarSelectorCellWidth {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+
+
