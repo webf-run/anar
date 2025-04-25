@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { YearSelector } from './YearSelector';
 
 const meta: Meta<typeof YearSelector> = {
-  title: 'Inputs/YRGRid/Year',
+  title: 'Dates/YearGrid',
   component: YearSelector,
   parameters: {
     layout: 'centered',

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DateSelector } from './DateSelector';
 
 const meta: Meta<typeof DateSelector> = {
-  title: 'Inputs/YRGRid/Date',
+  title: 'Dates/DateGrid',
   component: DateSelector,
   parameters: {
     layout: 'centered',

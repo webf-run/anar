@@ -64,6 +64,7 @@ export function MonthSelector(props: MonthSelectorProps) {
           key={index}
           className={clsx(
             styles.CalendarGridCell,
+            styles.bigCalendarCell,
             selectedMonth &&
               value.getMonth() === selectedMonth &&
               styles.selected

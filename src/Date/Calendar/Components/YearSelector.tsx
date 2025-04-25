@@ -67,6 +67,7 @@ export function YearSelector(props: YearSelectorProps) {
           key={index}
           className={clsx(
             styles.CalendarGridCell,
+            styles.bigCalendarCell,
             selectedYear &&
               value.getFullYear() === selectedYear &&
               styles.selected

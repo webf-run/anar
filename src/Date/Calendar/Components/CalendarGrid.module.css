@@ -1,6 +1,6 @@
 @layer anar {
   .root {
-    --AnarCalendarSelectorColumnGap: 30px;
+    --AnarCalendarSelectorColumnGap: 1px;
     --AnarCalendarSelectorRowGap: 1px;
  
     display: grid !important ;
@@ -20,11 +20,14 @@
     --AnarCalendarColorText: var(--gray-800);
 
     display: flex;
-    min-width: 45px;
     justify-content: center;
     align-items: center;
-    padding: 15px 0px;
+    padding: 20px;
     color: var(--AnarCalendarColorText);
+  }
+  
+  .bigCalendarCell {
+    min-width: 82px !important;
   }
   
   .selected {

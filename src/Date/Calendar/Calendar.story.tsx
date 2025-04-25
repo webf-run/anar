@@ -8,7 +8,7 @@ import { DateValue } from 'react-aria-components';
 import { Calendar } from './Calendar';
 
 const meta: Meta<typeof Calendar> = {
-  title: 'Inputs/YRGRid/Calendar',
+  title: 'Dates/Calendar',
   component: Calendar,
   parameters: {
     layout: 'centered',

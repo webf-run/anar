@@ -11,6 +11,7 @@ import {
 
 import { DryButton } from '../../Button/DryButton';
 import { Flex } from '../../Layout/Flex';
+import { Heading } from '../../Text/Heading';
 import { Text } from '../../Text/Text';
 import styles from './Calendar.module.css';
 import { DateSelector } from './Components/DateSelector';
@@ -162,7 +163,9 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
           }
           className={styles.CalendarHeaderText}
           children={
-            <Text text={getCalendarHeaderText(currentState, displayedDate)} />
+            <Heading level={2}>
+              {getCalendarHeaderText(currentState, displayedDate)}
+            </Heading>
           }
         />
         <DryButton
