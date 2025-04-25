@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { format } from 'date-fns';
 import { useEffect, useRef, useState } from 'react';
 import {
   DatePickerProps as AriaDatePickerProps,
@@ -9,6 +10,7 @@ import { DryButton } from '../../Button/DryButton';
 import { TextField } from '../../Input/Text/TextField';
 import { Flex } from '../../Layout/Flex';
 import { Popover } from '../../Overlay/Popover/Popover';
+import { usePopover } from '../../Overlay/Popover/UsePopover';
 import { FieldError } from '../../Text/FieldError';
 import { Label } from '../../Text/Label';
 import { Calendar } from '../Calendar/Calendar';
@@ -26,14 +28,12 @@ export function DatePickerField<T extends DateValue>(
 ) {
   const { label, errorMessage, description, ...rest } = props;
 
-  const buttonRef = useRef<HTMLButtonElement>(null);
-
   const [value, setValue] = useState<DateValue>();
-  const [isOpen, setIsOpen] = useState(false);
+  const popover = usePopover(false);
 
   const onCalendarValue = (value: DateValue) => {
     setValue(value);
-    setIsOpen(false);
+    popover.toggle();
   };
 
   return (
@@ -41,15 +41,19 @@ export function DatePickerField<T extends DateValue>(
       <Label>{label}</Label>
       <DryButton
         className={styles.button}
-        ref={buttonRef}
-        onPress={() => setIsOpen(true)}
+        onPress={popover.toggle}
+        ref={popover.triggerRef}
       >
-        {<TextField className={styles.DateInput}>{`${value ?? ''}`}</TextField>}
+        {
+          <TextField
+            className={styles.DateInput}
+            value={`${value ? format(`${value.year}-${value.month}-${value.day}`, 'dd MMM yyy') : ''}`}
+          />
+        }
       </DryButton>
       <Popover
         className={styles.DatePickerPopover}
-        isOpen={isOpen}
-        triggerRef={buttonRef}
+        controller={popover}
         placement={'bottom'}
       >
         <Calendar

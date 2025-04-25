@@ -27,6 +27,8 @@
     --AnarDatePickerFieldCalendarBorder: var(--gray-200);
     --AnarDatePickerFieldCalendarRadius: 5px;
 
+    overflow: auto;
+
     border-radius: var(--AnarDatePickerFieldCalendarRadius);
     border: 1px solid var(--AnarDatePickerFieldCalendarBorder);
     background-color: var(--overlay-background);
