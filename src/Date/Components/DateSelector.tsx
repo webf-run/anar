@@ -66,8 +66,6 @@ export function DateSelector(props: DateSelectorProps) {
     }
   };
 
-  console.log(selectedDate);
-
   const classes = clsx(
     'MonthGrid',
     styles.root,

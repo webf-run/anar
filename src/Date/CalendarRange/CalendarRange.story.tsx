@@ -39,10 +39,6 @@ export const Invalid: Story = {
     });
     let isInvalid = range.end.compare(range.start) > 7;
 
-    console.log(range);
-    console.log(range.end.compare(range.start));
-    console.log(isInvalid);
-
     return (
       <div>
         <CalendarRange
