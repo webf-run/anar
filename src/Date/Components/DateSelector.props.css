@@ -22,4 +22,10 @@
   initial-value: 0;
 }
 
+@property --AnarCalendarSelectorCellPadding {
+  syntax: '<length>+';
+  inherits: false;
+  initial-value: 0;
+}
+
 

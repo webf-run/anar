@@ -2,7 +2,6 @@ import { getLocalTimeZone, today } from '@internationalized/date';
 import type { Meta, StoryObj } from '@storybook/react';
 import { isWeekend } from 'date-fns';
 import { useState } from 'react';
-import { useLocale } from 'react-aria';
 import { DateValue } from 'react-aria-components';
 
 import { Calendar } from './Calendar';

@@ -2,7 +2,7 @@ import { parseDate } from '@internationalized/date';
 import { MappedDateValue } from '@react-types/datepicker';
 import clsx from 'clsx';
 import { addMonths, addYears, format, subMonths, subYears } from 'date-fns';
-import { ChevronLeft, ChevronRight, StepBack, StepForward } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import {
   DateValue,
@@ -13,10 +13,10 @@ import { DryButton } from '../../Button/DryButton';
 import { Flex } from '../../Layout/Flex';
 import { Heading } from '../../Text/Heading';
 import { Text } from '../../Text/Text';
+import { DateSelector } from '../Components/DateSelector';
+import { MonthSelector } from '../Components/MonthSelector';
+import { YearSelector } from '../Components/YearSelector';
 import styles from './Calendar.module.css';
-import { DateSelector } from './Components/DateSelector';
-import { MonthSelector } from './Components/MonthSelector';
-import { YearSelector } from './Components/YearSelector';
 
 export interface CalendarProps<T extends DateValue>
   extends RiaCalendarProps<T> {
@@ -24,7 +24,7 @@ export interface CalendarProps<T extends DateValue>
   description?: string;
 }
 
-function getCalendarHeaderText(
+export function getCalendarHeaderText(
   currentState: 'Date' | 'Month' | 'Year',
   value: Date
 ): string {
@@ -106,14 +106,7 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
     }
   }, [selectedDate]);
 
-  function setSelectedToUndefined() {
-    setSelectedDate(undefined);
-    setSelectedMonth(undefined);
-    setSelectedYear(undefined);
-  }
-
   const onPrevious = () => {
-    setSelectedToUndefined();
     if (currentState === 'Date') {
       setDisplayedDate(subMonths(displayedDate, 1));
     } else if (currentState === 'Month') {
@@ -124,7 +117,6 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
   };
 
   const onNext = () => {
-    setSelectedToUndefined();
     if (currentState === 'Date') {
       setDisplayedDate(addMonths(displayedDate, 1));
     } else if (currentState === 'Month') {

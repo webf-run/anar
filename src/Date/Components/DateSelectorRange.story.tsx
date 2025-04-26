@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { DatePickerRangeField } from './DateRangePickerField';
+import { RangeDateSelector } from './DateSelectorRange';
 
-const meta: Meta<typeof DatePickerRangeField> = {
-  title: 'Dates/DateRangePickerField',
-  component: DatePickerRangeField,
+const meta: Meta<typeof RangeDateSelector> = {
+  title: 'Dates/RangeDateGrid',
+  component: RangeDateSelector,
   parameters: {
     layout: 'centered',
   },
@@ -17,7 +17,7 @@ export type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    label1: 'From',
-    label2: 'To',
+    displayedDate: new Date(),
+    setSelectedDate: () => {},
   },
 };

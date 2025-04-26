@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DatePickerField } from './DatePickerField';
 
 const meta: Meta<typeof DatePickerField> = {
-  title: 'Inputs/DatePickerField',
+  title: 'Dates/DatePickerField',
   component: DatePickerField,
   parameters: {
     layout: 'centered',

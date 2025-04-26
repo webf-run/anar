@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import { addYears, format, subYears } from 'date-fns';
 
-import { DryButton } from '../../../Button/DryButton';
-import { Flex } from '../../../Layout/Flex';
+import { DryButton } from '../../Button/DryButton';
+import { Flex } from '../../Layout/Flex';
 import styles from './CalendarGrid.module.css';
 
 export interface YearSelectorProps {

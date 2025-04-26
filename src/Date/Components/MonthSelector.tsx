@@ -2,8 +2,8 @@ import clsx from 'clsx';
 import { addMonths, format, formatDate } from 'date-fns';
 import { useState } from 'react';
 
-import { DryButton } from '../../../Button/DryButton';
-import { Flex } from '../../../Layout/Flex';
+import { DryButton } from '../../Button/DryButton';
+import { Flex } from '../../Layout/Flex';
 import styles from './CalendarGrid.module.css';
 
 export interface MonthSelectorProps {

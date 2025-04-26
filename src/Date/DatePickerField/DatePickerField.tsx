@@ -52,7 +52,7 @@ export function DatePickerField<T extends DateValue>(
         }
       </DryButton>
       <Popover
-        className={styles.DatePickerPopover}
+        className={styles.popover}
         controller={popover}
         placement={'bottom'}
       >

@@ -10,28 +10,23 @@
   }
 
   .button {
-    --AnarDatePickerFieldBorder: var(--gray-600);
-    --AnarDatePickerFieldPadding: 9px 10px;
-    --AnarDatePickerFieldRadius: 5px;
+    --DryButtonColorBd: var(--gray-600);
+    --DryButtonPressedColorBd: var(--primary-900);
+    --DryButtonBorderWidth: 2px;
+    --DryButtonPadding: 9px 10px;
+    --DryButtonRadius: 5px;
 
     display: flex;
     min-height: 46px;
     min-width: 126px;
-    padding: var(--AnarDatePickerFieldPadding);
-
-    border-radius: var(--AnarDatePickerFieldRadius);
-    border: 2px solid var(--AnarDatePickerFieldBorder);
   }
 
-  .DatePickerPopover {
-    --AnarDatePickerFieldCalendarBorder: var(--gray-200);
-    --AnarDatePickerFieldCalendarRadius: 5px;
+  .popover {
+    --AnarPopoverColorBd: var(--gray-200);
+    --AnarPopoverBorderRadius: 5px;
+    --AnarPopoverPadding: 0;
 
     overflow: auto;
-
-    border-radius: var(--AnarDatePickerFieldCalendarRadius);
-    border: 1px solid var(--AnarDatePickerFieldCalendarBorder);
-    background-color: var(--overlay-background);
   }
 
   .AnarDryButtonContent {

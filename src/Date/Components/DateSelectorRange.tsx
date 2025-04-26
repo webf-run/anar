@@ -8,15 +8,15 @@ import {
 } from 'date-fns';
 import { CalendarGridProps } from 'react-aria-components';
 
-import { DryButton } from '../../../Button/DryButton';
-import { Flex } from '../../../Layout/Flex';
+import { DryButton } from '../../Button/DryButton';
+import { Flex } from '../../Layout/Flex';
 import styles from './CalendarGrid.module.css';
 
-export interface DateSelectorProps extends CalendarGridProps {
+export interface RangeDateSelectorProps extends CalendarGridProps {
   className?: string;
 
-  selectedDate?: number;
-  setSelectedDate: (newDate?: number) => void;
+  selectedDate: { to?: number; from?: number };
+  setSelectedDate: (newDate: { to?: number; from?: number }) => void;
 
   displayedDate: Date;
   isDisabled?: boolean;
@@ -25,7 +25,7 @@ export interface DateSelectorProps extends CalendarGridProps {
   onSelectDate: () => void;
 }
 
-export function DateSelector(props: DateSelectorProps) {
+export function RangeDateSelector(props: RangeDateSelectorProps) {
   const {
     className,
     displayedDate,
@@ -54,15 +54,22 @@ export function DateSelector(props: DateSelectorProps) {
     visibleDates.push(addDays(displayStartDate, i));
   }
 
-  const onSelect = (value: Date) => {
+  const onSelect = (value?: number) => {
     if (!isDisabled) {
       const valueToSet =
-        !selectedDate || value.getDate() !== selectedDate ? value : undefined;
-      setSelectedDate(valueToSet?.getDate());
+        (selectedDate.from && selectedDate.to) || !selectedDate.from
+          ? { from: value, to: undefined }
+          : {
+              from: selectedDate.from,
+              to: value,
+            };
+      // !selectedDate || value.getDate() !== selectedDate ? value : undefined;
 
-      if (valueToSet) {
-        onSelectDate();
-      }
+      setSelectedDate(valueToSet);
+
+      // if (valueToSet) {
+      //   onSelectDate();
+      // }
     }
   };
 
@@ -86,11 +93,17 @@ export function DateSelector(props: DateSelectorProps) {
           isDisabled={!isSameMonth(displayedDate, value)}
           className={clsx(
             styles.CalendarGridCell,
-            selectedDate && value.getDate() === selectedDate && styles.selected,
+            styles.button,
+            selectedDate.from &&
+              selectedDate.to &&
+              isSameMonth(displayedDate, value) &&
+              value.getDate() >= selectedDate.from &&
+              value.getDate() <= selectedDate.to &&
+              styles.selected,
             (!isSameMonth(displayedDate, value) || isDisabled) &&
               styles.disabled
           )}
-          onPress={() => onSelect(value)}
+          onPress={() => onSelect(value.getDate())}
         >
           {formatDate(value, 'dd')}
         </DryButton>

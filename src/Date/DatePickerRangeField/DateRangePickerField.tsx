@@ -1,71 +1,86 @@
-import { getLocalTimeZone, today } from '@internationalized/date';
 import type { RangeValue } from '@react-types/shared';
 import clsx from 'clsx';
-import { useRef, useState } from 'react';
+import { format } from 'date-fns';
+import { useState } from 'react';
 import {
   DateRangePickerProps as AriaDateRangePickerProps,
   DateValue,
   Group,
-  Popover,
-  DateRangePicker as RiaDateRangePicker,
-  TextField,
-  ValidationResult,
 } from 'react-aria-components';
 
 import { DryButton } from '../../Button/DryButton';
+import { TextField } from '../../Input/Text/TextField';
+import { Flex } from '../../Layout/Flex';
+import { Popover } from '../../Overlay/Popover/Popover';
+import { usePopover } from '../../Overlay/Popover/UsePopover';
 import { Label } from '../../Text/Label';
 import { CalendarRange } from '../CalendarRange/CalendarRange';
-// import { Calendar } from '../Calendar/Calendar';
-
 import styles from './DateRangePickerField.module.css';
 
 export interface DatePickerProps<T extends DateValue>
   extends AriaDateRangePickerProps<T> {
   label1?: string;
   label2?: string;
-  errorMessage?: string | ((validation: ValidationResult) => string);
+  errorMessage?: string;
 }
 
 export function DatePickerRangeField<T extends DateValue>(
   props: DatePickerProps<T>
 ) {
   const { label1, label2, errorMessage, ...rest } = props;
-  const buttonRef = useRef<HTMLDivElement>(null);
+  const popover = usePopover(false);
 
   const [value, setValue] = useState<RangeValue<DateValue>>();
 
+  const onCalendarValue = (value: { start: DateValue; end: DateValue }) => {
+    setValue(value);
+    popover.toggle();
+  };
+
   return (
-    <RiaDateRangePicker
-      ref={buttonRef}
+    <Group
       className={clsx(styles.AnarDateRangePicker)}
+      ref={popover.triggerRef}
     >
-      <Group className={styles.DateInputField}>
+      <Flex className={styles.DateInputField} direction='column'>
         <Label>{label1}</Label>
-        <DryButton className={styles.button}>
-          <TextField className={styles.DateInput}>
-            {value
-              ? `${value?.start.year}-${value.start.month < 10 ? '0' : ''}${value.start.month}-${value.start.day < 10 ? '0' : ''}${value.start.day}`
-              : ''}
-          </TextField>
+        <DryButton className={styles.button} onPress={popover.open}>
+          <TextField
+            className={styles.DateInput}
+            value={
+              value
+                ? format(
+                    `${value?.start.year}-${value.start.month < 10 ? '0' : ''}${value.start.month}-${value.start.day < 10 ? '0' : ''}${value.start.day}`,
+                    'dd MMM yyy'
+                  )
+                : ''
+            }
+          />
         </DryButton>
-      </Group>
-      <Group className={styles.DateInputField}>
+      </Flex>
+      <Flex className={styles.DateInputField} direction='column'>
         <Label>{label2}</Label>
-        <DryButton className={styles.button}>
-          <TextField className={styles.DateInput}>
-            {value
-              ? `${value?.end.year}-${value.end.month < 10 ? '0' : ''}${value.end.month}-${value.end.day < 10 ? '0' : ''}${value.end.day}`
-              : ''}
-          </TextField>
+        <DryButton className={styles.button} onPress={popover.open}>
+          <TextField
+            className={styles.DateInput}
+            value={
+              value
+                ? format(
+                    `${value?.end.year}-${value.end.month < 10 ? '0' : ''}${value.end.month}-${value.end.day < 10 ? '0' : ''}${value.end.day}`,
+                    'dd MMM yyy'
+                  )
+                : ''
+            }
+          />
         </DryButton>
-      </Group>
+      </Flex>
       <Popover
         className={styles.DateRangePickerPopover}
-        triggerRef={buttonRef}
+        controller={popover}
         placement={'bottom'}
       >
-        <CalendarRange onChange={setValue} />
+        <CalendarRange value={value} onChange={onCalendarValue} />
       </Popover>
-    </RiaDateRangePicker>
+    </Group>
   );
 }
