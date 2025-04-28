@@ -1,3 +1,4 @@
+import { MappedDateValue } from '@react-types/datepicker';
 import type { RangeValue } from '@react-types/shared';
 import clsx from 'clsx';
 import { format } from 'date-fns';
@@ -8,12 +9,12 @@ import {
   Group,
 } from 'react-aria-components';
 
-import { DryButton } from '../../Button/DryButton';
-import { TextField } from '../../Input/Text/TextField';
+import { Button } from '../../Button/Button';
 import { Flex } from '../../Layout/Flex';
 import { Popover } from '../../Overlay/Popover/Popover';
 import { usePopover } from '../../Overlay/Popover/UsePopover';
 import { Label } from '../../Text/Label';
+import { Text } from '../../Text/Text';
 import { CalendarRange } from '../CalendarRange/CalendarRange';
 import styles from './DateRangePickerField.module.css';
 
@@ -27,60 +28,104 @@ export interface DatePickerProps<T extends DateValue>
 export function DatePickerRangeField<T extends DateValue>(
   props: DatePickerProps<T>
 ) {
-  const { label1, label2, errorMessage, ...rest } = props;
+  const {
+    label1,
+    label2,
+    errorMessage,
+    isDisabled,
+    isInvalid,
+    value,
+    onChange,
+    minValue,
+    maxValue,
+    ...rest
+  } = props;
   const popover = usePopover(false);
 
-  const [value, setValue] = useState<RangeValue<DateValue>>();
+  const [selectedDate, setSelectedDate] = useState<
+    RangeValue<DateValue> | undefined
+  >(value ? value : undefined);
 
   const onCalendarValue = (value: { start: DateValue; end: DateValue }) => {
-    setValue(value);
-    popover.toggle();
+    setSelectedDate(value);
+    if (onChange) {
+      onChange({
+        start: value.start as MappedDateValue<T>,
+        end: value.end as MappedDateValue<T>,
+      });
+    }
+    popover.close();
   };
 
   return (
-    <Group
-      className={clsx(styles.AnarDateRangePicker)}
-      ref={popover.triggerRef}
-    >
-      <Flex className={styles.DateInputField} direction='column'>
-        <Label>{label1}</Label>
-        <DryButton className={styles.button} onPress={popover.open}>
-          <TextField
-            className={styles.DateInput}
-            value={
-              value
+    <Flex direction='column'>
+      <Group className={clsx(styles.root)} ref={popover.triggerRef}>
+        <Flex className={styles.DateInputField} direction='column'>
+          <Label>{label1}</Label>
+          <Button
+            variant='calm'
+            label={
+              selectedDate
                 ? format(
-                    `${value?.start.year}-${value.start.month < 10 ? '0' : ''}${value.start.month}-${value.start.day < 10 ? '0' : ''}${value.start.day}`,
+                    new Date(
+                      selectedDate?.start.year,
+                      selectedDate.start.month,
+                      selectedDate.start.day
+                    ),
                     'dd MMM yyy'
                   )
                 : ''
             }
+            isDisabled={isDisabled}
+            className={styles.button}
+            onPress={popover.toggle}
+            ref={popover.triggerRef}
           />
-        </DryButton>
-      </Flex>
-      <Flex className={styles.DateInputField} direction='column'>
-        <Label>{label2}</Label>
-        <DryButton className={styles.button} onPress={popover.open}>
-          <TextField
-            className={styles.DateInput}
-            value={
-              value
+        </Flex>
+        <Flex className={styles.DateInputField} direction='column'>
+          <Label>{label2}</Label>
+          <Button
+            variant='calm'
+            label={
+              selectedDate
                 ? format(
-                    `${value?.end.year}-${value.end.month < 10 ? '0' : ''}${value.end.month}-${value.end.day < 10 ? '0' : ''}${value.end.day}`,
+                    new Date(
+                      selectedDate?.end.year,
+                      selectedDate.end.month,
+                      selectedDate.end.day
+                    ),
                     'dd MMM yyy'
                   )
                 : ''
             }
+            isDisabled={isDisabled}
+            className={styles.button}
+            onPress={popover.toggle}
+            ref={popover.triggerRef}
           />
-        </DryButton>
-      </Flex>
+        </Flex>
+      </Group>
       <Popover
-        className={styles.DateRangePickerPopover}
+        className={styles.popover}
         controller={popover}
         placement={'bottom'}
       >
-        <CalendarRange value={value} onChange={onCalendarValue} />
+        <CalendarRange
+          maxValue={maxValue}
+          minValue={minValue}
+          isInvalid={isInvalid}
+          isDisabled={isDisabled}
+          value={selectedDate}
+          onChange={onCalendarValue}
+        />
       </Popover>
-    </Group>
+      {errorMessage && isInvalid && (
+        <Text
+          className={styles.error}
+          slot='errorMessage'
+          text={errorMessage}
+        />
+      )}
+    </Flex>
   );
 }

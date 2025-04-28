@@ -1,5 +1,5 @@
 @layer anar {
-  .AnarDateRangePicker {
+  .root {
     --AnarDateRangePickerFieldGap: 10px;
     
     outline: none;
@@ -17,26 +17,30 @@
   }
 
   .button {
-    --AnarDateRangePickerFieldBorder: var(--gray-600);
-    --AnarDateRangePickerFieldPadding: 9px 10px;
-    --AnarDateRangePickerFieldRadius: 5px;
+    --DryButtonColorBd: var(--gray-600);
+    --DryButtonPressedColorBd: var(--primary-900);
+    --DryButtonBorderWidth: 2px;
+    --DryButtonPadding: 9px 10px;
+    --DryButtonRadius: 5px;
 
     display: flex;
-    min-height: 46px;
-    min-width: 126px;
-    padding: var(--AnarDateRangePickerFieldPadding);
-
-    border-radius: var(--AnarDateRangePickerFieldRadius);
-    border: 2px solid var(--AnarDateRangePickerFieldBorder);
+    min-height: 46px !important;
+    min-width: 126px !important;
   }
 
-  .DateRangePickerPopover {
-    --AnarDateRangePickerFieldCalendarBorder: var(--gray-200);
-    --AnarDateRangePickerFieldCalendarRadius: 5px;
+  .popover {
+    --AnarPopoverColorBd: var(--gray-200);
+    --AnarPopoverBorderRadius: 5px;
+    --AnarPopoverPadding: 0;
 
-    border-radius: var(--AnarDateRangePickerFieldCalendarRadius);
-    border: 1px solid var(--AnarDateRangePickerFieldCalendarBorder);
-    background-color: var(--overlay-background);
+    overflow: auto;
+  }
 
+  .AnarDryButtonContent {
+    font-weight: 400;
+  }
+
+  .error {
+    color: var(--red-1000) !important;
   }
 }

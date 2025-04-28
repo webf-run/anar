@@ -1,8 +1,9 @@
 import clsx from 'clsx';
-import { addYears, format, subYears } from 'date-fns';
+import { addYears, subYears } from 'date-fns';
 
-import { DryButton } from '../../Button/DryButton';
+import { Button } from '../../Button/Button';
 import { Flex } from '../../Layout/Flex';
+import { SelectedDate } from '../Calendar/Calendar';
 import styles from './CalendarGrid.module.css';
 
 export interface YearSelectorProps {
@@ -10,12 +11,14 @@ export interface YearSelectorProps {
 
   displayedDate: Date;
 
-  selectedYear?: number;
-  setSelectedYear: (newYear?: number) => void;
+  selectedDate: SelectedDate;
+  setSelectedDate: (newYear: SelectedDate) => void;
 
   onSelectDate: () => void;
 
   isDisabled?: boolean;
+  minValue?: Date;
+  maxValue?: Date;
 
   startYear?: Date;
 }
@@ -23,11 +26,13 @@ export interface YearSelectorProps {
 export function YearSelector(props: YearSelectorProps) {
   const {
     className,
-    selectedYear,
-    setSelectedYear,
+    selectedDate,
+    setSelectedDate,
     displayedDate,
     onSelectDate,
     isDisabled,
+    maxValue,
+    minValue,
     startYear,
   } = props;
 
@@ -48,34 +53,47 @@ export function YearSelector(props: YearSelectorProps) {
   );
 
   const onSelect = (value: Date) => {
-    // const valueToSet =
-    //   !selectedYear || value.getFullYear() !== selectedYear ? value : undefined;
-    //   setSelectedYear(valueToSet?.getFullYear());
-    setSelectedYear(value.getFullYear());
+    const valueToSet =
+      selectedDate.year === value.getFullYear()
+        ? undefined
+        : value.getFullYear();
 
-    // if (valueToSet) {
-    //   onSelectDate();
-    // }
-    onSelectDate();
+    setSelectedDate({
+      day: selectedDate.day,
+      month: selectedDate.month,
+      year: valueToSet,
+    });
+
+    if (valueToSet) {
+      onSelectDate();
+    }
   };
+
+  function isDateDisabled(value: Date) {
+    return (
+      isDisabled ||
+      (minValue && value < minValue) ||
+      (maxValue && value > maxValue)
+    );
+  }
 
   return (
     <Flex className={classes}>
       {yearsToShow.map((value, index) => (
-        <DryButton
-          isDisabled={isDisabled}
+        <Button
           key={index}
+          variant='ghost'
+          label={`${value.getFullYear()}`}
+          isDisabled={isDateDisabled(value)}
+          onPress={() => onSelect(value)}
           className={clsx(
-            styles.CalendarGridCell,
+            styles.button,
             styles.bigCalendarCell,
-            selectedYear &&
-              value.getFullYear() === selectedYear &&
+            selectedDate.year &&
+              value.getFullYear() === selectedDate.year &&
               styles.selected
           )}
-          onPress={() => onSelect(value)}
-        >
-          {value.getFullYear()}
-        </DryButton>
+        />
       ))}
     </Flex>
   );

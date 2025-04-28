@@ -16,8 +16,18 @@ export default meta;
 export type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  args: {
-    displayedDate: new Date(),
-    setSelectedDate: () => {},
+  render: () => {
+    const displayedDate = new Date();
+
+    return (
+      <div>
+        <DateSelector
+          displayedDate={displayedDate}
+          selectedDate={{}}
+          setSelectedDate={() => {}}
+          onSelectDate={() => {}}
+        />
+      </div>
+    );
   },
 };

@@ -23,6 +23,7 @@ export type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   render: () => {
     const [date, setDate] = useState<RangeValue<DateValue>>();
+
     return (
       <div>
         <CalendarRange value={date} onChange={setDate} />

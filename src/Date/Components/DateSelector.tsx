@@ -1,28 +1,34 @@
 import clsx from 'clsx';
 import {
   addDays,
-  formatDate,
+  format,
   getWeeksInMonth,
   isSameMonth,
   subDays,
 } from 'date-fns';
 import { CalendarGridProps } from 'react-aria-components';
 
-import { DryButton } from '../../Button/DryButton';
+import { Button } from '../../Button/Button';
 import { Flex } from '../../Layout/Flex';
+import { Text } from '../../Text/Text';
+import { SelectedDate } from '../Calendar/Calendar';
 import styles from './CalendarGrid.module.css';
 
 export interface DateSelectorProps extends CalendarGridProps {
   className?: string;
 
-  selectedDate?: number;
-  setSelectedDate: (newDate?: number) => void;
-
   displayedDate: Date;
-  isDisabled?: boolean;
-  isInvalid?: boolean;
+
+  selectedDate: SelectedDate;
+  setSelectedDate: (newYear: SelectedDate) => void;
 
   onSelectDate: () => void;
+
+  isInvalid?: boolean;
+  isDisabled?: boolean;
+
+  minValue?: Date;
+  maxValue?: Date;
 }
 
 export function DateSelector(props: DateSelectorProps) {
@@ -34,9 +40,10 @@ export function DateSelector(props: DateSelectorProps) {
     onSelectDate,
     isInvalid = false,
     isDisabled = false,
+    minValue,
+    maxValue,
   } = props;
 
-  const days = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
   const numberOfWeeks = getWeeksInMonth(displayedDate, { weekStartsOn: 1 });
   const firstOfMonth = new Date(
     displayedDate.getFullYear(),
@@ -54,11 +61,30 @@ export function DateSelector(props: DateSelectorProps) {
     visibleDates.push(addDays(displayStartDate, i));
   }
 
+  const days: string[] = [];
+  for (let i = 0; i < 7; i++) {
+    days.push(format(visibleDates[i], 'eeeeee'));
+  }
+
+  function isDateDisabled(value: Date) {
+    return (
+      isDisabled ||
+      (minValue && value < minValue) ||
+      (maxValue && value > maxValue) ||
+      !isSameMonth(displayedDate, value)
+    );
+  }
+
   const onSelect = (value: Date) => {
     if (!isDisabled) {
       const valueToSet =
-        !selectedDate || value.getDate() !== selectedDate ? value : undefined;
-      setSelectedDate(valueToSet?.getDate());
+        selectedDate.day === value.getDate() ? undefined : value.getDate();
+
+      setSelectedDate({
+        day: valueToSet,
+        month: selectedDate.month,
+        year: selectedDate.year,
+      });
 
       if (valueToSet) {
         onSelectDate();
@@ -76,29 +102,27 @@ export function DateSelector(props: DateSelectorProps) {
   return (
     <Flex className={classes}>
       {days.map((val, index) => (
-        <div key={index} className={styles.CalendarGridCell}>
-          {val}
-        </div>
+        <Text text={val} key={index} className={styles.header} />
       ))}
-      {visibleDates.map((value, index) => (
-        <DryButton
-          key={index}
-          isDisabled={!isSameMonth(displayedDate, value)}
-          className={clsx(
-            styles.CalendarGridCell,
-            styles.button,
-            selectedDate &&
-              isSameMonth(displayedDate, value) &&
-              value.getDate() === selectedDate &&
-              styles.selected,
-            (!isSameMonth(displayedDate, value) || isDisabled) &&
-              styles.disabled
-          )}
-          onPress={() => onSelect(value)}
-        >
-          {formatDate(value, 'dd')}
-        </DryButton>
-      ))}
+      {visibleDates.map((value, index) => {
+        return (
+          <Button
+            key={index}
+            variant='ghost'
+            label={`${format(value, 'dd')}`}
+            isDisabled={isDateDisabled(value)}
+            onPress={() => onSelect(value)}
+            className={clsx(
+              styles.button,
+              selectedDate.day &&
+                isSameMonth(displayedDate, value) &&
+                value.getDate() === selectedDate.day &&
+                styles.selected,
+              isDateDisabled(value) && styles.disabled
+            )}
+          />
+        );
+      })}
     </Flex>
   );
 }

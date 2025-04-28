@@ -1,5 +1,5 @@
 @layer anar {
-  .AnarDatePicker {
+  .root {
     --AnarDatePickerFieldGap: 10px;
     
     outline: none;
@@ -17,8 +17,8 @@
     --DryButtonRadius: 5px;
 
     display: flex;
-    min-height: 46px;
-    min-width: 126px;
+    min-height: 46px !important;
+    min-width: 126px !important;
   }
 
   .popover {
@@ -31,5 +31,9 @@
 
   .AnarDryButtonContent {
     font-weight: 400;
+  }
+
+  .error {
+    color: var(--red-1000) !important;
   }
 }

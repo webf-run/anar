@@ -8,7 +8,7 @@
     display: inline-flex;
     flex-flow: column !important;
     gap: 5px;
-    max-width: 310px;
+    width: 310px;
     
     padding:var(--AnarCalendarPadding);
     
@@ -16,18 +16,18 @@
 
     color: var(--AnarCalendarColorText);
     background-color: var(--AnarCalendarColorBg);
-
   }
 
   .CalendarHeader {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    width: 290px;
   }
 
   .arrowButtons {
-    --AnarCalendarColorArrowButton: var(--gray-500);
-
-    color: var(--AnarCalendarColorArrowButton);
+    --DryButtonColorText: var(--gray-500);
+    --DryButtonColorBg: transparent;
+    --DryButtonDisabledColorBg: transparent;
   }
 
   .CalendarHeaderText {
@@ -42,7 +42,7 @@
     border: 1px solid var(--AnarCalendarColorDivider);
   }
 
-  button{
+  .button{
     &[data-pressed] {
       border-radius: 5px;
       background-color: var(--gray-200);

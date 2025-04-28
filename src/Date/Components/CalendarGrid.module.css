@@ -15,21 +15,30 @@
   .threeColumnGridLayout {
     grid-template-columns: repeat(3, 1fr);
   }
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   
-  .CalendarGridCell {
-    --AnarCalendarColorText: var(--gray-800);
-    --AnarCalendarSelectorCellPadding: 20px;
+  .button {
+    --DryButtonColorText: var(--gray-800);
+    --DryButtonRadius: 5px;
+    --DryButtonPadding: 20px;
+    --DryButtonBorderWidth: 1px;
+    --DryButtonColorBd: transparent;
 
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: var(--AnarCalendarSelectorCellPadding);
-    color: var(--AnarCalendarColorText);
-    border-radius: 5px;
-    border: 1px solid transparent;
 
     &[data-hovered] {
-      background: var(--gray-200);
+      --DryButtonColorBg: var(--gray-200);
+    }
+
+    &[data-disabled] {
+      --DryButtonDisabledColorBg: transparent;
+      --DryButtonColorText: var(--gray-500)
     }
   }
   

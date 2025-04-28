@@ -8,7 +8,7 @@
     display: inline-flex;
     flex-flow: column !important;
     gap: 5px;
-    max-width: 310px;
+    width: 310px;
     
     padding:var(--AnarCalendarPadding);
     
@@ -16,12 +16,19 @@
 
     color: var(--AnarCalendarColorText);
     background-color: var(--AnarCalendarColorBg);
-
   }
 
   .CalendarHeader {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+
+    width: 290px;
+  }
+
+  .arrowButtons {
+    --DryButtonColorText: var(--gray-500);
+    --DryButtonColorBg: transparent;
+    --DryButtonDisabledColorBg: transparent;
   }
 
   .CalendarHeaderText {

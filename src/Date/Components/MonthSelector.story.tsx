@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { MonthSelector } from './MonthSelector';
 
 const meta: Meta<typeof MonthSelector> = {
-  title: 'Dates/MonthGrid',
+  title: 'Dates/MonthSelector',
   component: MonthSelector,
   parameters: {
     layout: 'centered',
@@ -16,9 +16,18 @@ export default meta;
 export type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  args: {
-    displayedDate: new Date(),
-    setSelectedMonth: () => {},
-    onSelectDate: () => {},
+  render: () => {
+    const displayedDate = new Date();
+
+    return (
+      <div>
+        <MonthSelector
+          displayedDate={displayedDate}
+          selectedDate={{}}
+          setSelectedDate={() => {}}
+          onSelectDate={() => {}}
+        />
+      </div>
+    );
   },
 };

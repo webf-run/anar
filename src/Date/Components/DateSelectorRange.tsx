@@ -1,28 +1,31 @@
 import clsx from 'clsx';
 import {
   addDays,
-  formatDate,
+  format,
   getWeeksInMonth,
   isSameMonth,
   subDays,
 } from 'date-fns';
 import { CalendarGridProps } from 'react-aria-components';
 
-import { DryButton } from '../../Button/DryButton';
+import { Button } from '../../Button/Button';
 import { Flex } from '../../Layout/Flex';
+import { Text } from '../../Text/Text';
+import { SelectedDate } from '../Calendar/Calendar';
 import styles from './CalendarGrid.module.css';
 
 export interface RangeDateSelectorProps extends CalendarGridProps {
   className?: string;
 
-  selectedDate: { to?: number; from?: number };
-  setSelectedDate: (newDate: { to?: number; from?: number }) => void;
+  selectedDate: { to: SelectedDate; from: SelectedDate };
+  setSelectedDate: (newDate: { to: SelectedDate; from: SelectedDate }) => void;
 
   displayedDate: Date;
   isDisabled?: boolean;
   isInvalid?: boolean;
 
-  onSelectDate: () => void;
+  minValue?: Date;
+  maxValue?: Date;
 }
 
 export function RangeDateSelector(props: RangeDateSelectorProps) {
@@ -31,12 +34,12 @@ export function RangeDateSelector(props: RangeDateSelectorProps) {
     displayedDate,
     selectedDate,
     setSelectedDate,
-    onSelectDate,
     isInvalid = false,
     isDisabled = false,
+    maxValue,
+    minValue,
   } = props;
 
-  const days = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
   const numberOfWeeks = getWeeksInMonth(displayedDate, { weekStartsOn: 1 });
   const firstOfMonth = new Date(
     displayedDate.getFullYear(),
@@ -54,23 +57,63 @@ export function RangeDateSelector(props: RangeDateSelectorProps) {
     visibleDates.push(addDays(displayStartDate, i));
   }
 
-  const onSelect = (value?: number) => {
-    if (!isDisabled) {
-      const valueToSet =
-        (selectedDate.from && selectedDate.to) || !selectedDate.from
-          ? { from: value, to: undefined }
-          : {
-              from: selectedDate.from,
-              to: value,
-            };
-      // !selectedDate || value.getDate() !== selectedDate ? value : undefined;
+  const days: string[] = [];
+  for (let i = 0; i < 7; i++) {
+    days.push(format(visibleDates[i], 'eeeeee'));
+  }
 
-      setSelectedDate(valueToSet);
+  function isDateDisabled(value: Date) {
+    return (
+      isDisabled ||
+      (minValue && value < minValue) ||
+      (maxValue && value > maxValue) ||
+      !isSameMonth(displayedDate, value)
+    );
+  }
 
-      // if (valueToSet) {
-      //   onSelectDate();
-      // }
+  const onSelect = (value: Date) => {
+    const getDateParts = (date: Date) => ({
+      year: date.getFullYear(),
+      month: date.getMonth(),
+      day: date.getDate(),
+    });
+
+    let valueToSet = {
+      from: { ...selectedDate.from },
+      to: { ...selectedDate.to },
+    };
+
+    const hasFrom = !!selectedDate.from.day;
+    const hasTo = !!selectedDate.to.day;
+
+    if (!hasFrom || hasTo) {
+      valueToSet = {
+        from: getDateParts(value),
+        to: { year: undefined, month: undefined, day: undefined },
+      };
+    } else {
+      const fromDate = new Date(
+        selectedDate.from.year,
+        selectedDate.from.month,
+        selectedDate.from.day
+      );
+
+      const valueParts = getDateParts(value);
+
+      if (value < fromDate) {
+        valueToSet = {
+          from: valueParts,
+          to: selectedDate.from,
+        };
+      } else if (value >= fromDate) {
+        valueToSet = {
+          from: selectedDate.from,
+          to: valueParts,
+        };
+      }
     }
+
+    setSelectedDate(valueToSet);
   };
 
   const classes = clsx(
@@ -83,30 +126,27 @@ export function RangeDateSelector(props: RangeDateSelectorProps) {
   return (
     <Flex className={classes}>
       {days.map((val, index) => (
-        <div key={index} className={styles.CalendarGridCell}>
-          {val}
-        </div>
+        <Text text={val} key={index} className={styles.header} />
       ))}
       {visibleDates.map((value, index) => (
-        <DryButton
+        <Button
           key={index}
-          isDisabled={!isSameMonth(displayedDate, value)}
+          variant='ghost'
+          isDisabled={isDateDisabled(value)}
+          label={`${format(value, 'dd')}`}
           className={clsx(
-            styles.CalendarGridCell,
             styles.button,
-            selectedDate.from &&
-              selectedDate.to &&
-              isSameMonth(displayedDate, value) &&
-              value.getDate() >= selectedDate.from &&
-              value.getDate() <= selectedDate.to &&
+
+            isSameMonth(displayedDate, value) &&
+              selectedDate.from.day &&
+              selectedDate.to.day &&
+              value.getDate() >= selectedDate.from.day &&
+              value.getDate() <= selectedDate.to.day &&
               styles.selected,
-            (!isSameMonth(displayedDate, value) || isDisabled) &&
-              styles.disabled
+            isDateDisabled(value) && styles.disabled
           )}
-          onPress={() => onSelect(value.getDate())}
-        >
-          {formatDate(value, 'dd')}
-        </DryButton>
+          onPress={() => onSelect(value)}
+        />
       ))}
     </Flex>
   );

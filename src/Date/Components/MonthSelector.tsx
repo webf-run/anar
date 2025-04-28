@@ -1,36 +1,43 @@
 import clsx from 'clsx';
-import { addMonths, format, formatDate } from 'date-fns';
-import { useState } from 'react';
+import { addMonths, format } from 'date-fns';
 
-import { DryButton } from '../../Button/DryButton';
+import { Button } from '../../Button/Button';
 import { Flex } from '../../Layout/Flex';
+import { SelectedDate } from '../Calendar/Calendar';
 import styles from './CalendarGrid.module.css';
 
 export interface MonthSelectorProps {
   className?: string;
 
-  selectedMonth?: number;
-  setSelectedMonth: (newMonth?: number) => void;
+  selectedDate: SelectedDate;
+  setSelectedDate: (newYear: SelectedDate) => void;
+
+  onSelectDate: () => void;
 
   displayedDate: Date;
 
   isDisabled?: boolean;
+  minValue?: Date;
+  maxValue?: Date;
 
-  onSelectDate: () => void;
+  startMonth?: Date;
 }
 
 export function MonthSelector(props: MonthSelectorProps) {
   const {
-    selectedMonth,
-    setSelectedMonth,
+    selectedDate,
+    setSelectedDate,
     displayedDate,
     onSelectDate,
     isDisabled,
+    maxValue,
+    minValue,
     className,
+    startMonth,
   } = props;
-  const rangeStartMonth = selectedMonth
-    ? new Date(selectedMonth, 0, 1)
-    : new Date(displayedDate.getFullYear(), 0, 1);
+  const rangeStartMonth = startMonth
+    ? new Date(displayedDate.getFullYear(), startMonth.getMonth(), 0)
+    : new Date(displayedDate.getFullYear(), 1, 0);
 
   const monthsToShow: Date[] = [];
   for (let i = 0; i < 12; i++) {
@@ -38,15 +45,18 @@ export function MonthSelector(props: MonthSelectorProps) {
   }
 
   const onSelect = (value: Date) => {
-    // const valueToSet =
-    //   !selectedMonth || value.getMonth() !== selectedMonth ? value : undefined;
-    // setSelectedMonth(valueToSet?.getMonth());
-    setSelectedMonth(value.getMonth());
+    const valueToSet =
+      selectedDate.month === value.getMonth() ? undefined : value.getMonth();
 
-    // if (valueToSet) {
-    //   onSelectDate();
-    // }
-    onSelectDate();
+    setSelectedDate({
+      day: selectedDate.day,
+      month: valueToSet,
+      year: selectedDate.month,
+    });
+
+    if (valueToSet) {
+      onSelectDate();
+    }
   };
 
   const classes = clsx(
@@ -56,23 +66,31 @@ export function MonthSelector(props: MonthSelectorProps) {
     className
   );
 
+  function isDateDisabled(value: Date) {
+    return (
+      isDisabled ||
+      (minValue && value < minValue) ||
+      (maxValue && value > maxValue)
+    );
+  }
+
   return (
     <Flex className={classes}>
       {monthsToShow.map((value, index) => (
-        <DryButton
-          isDisabled={isDisabled}
+        <Button
           key={index}
+          variant='ghost'
+          label={`${format(value, 'MMM')}`}
+          isDisabled={isDateDisabled(value)}
+          onPress={() => onSelect(value)}
           className={clsx(
-            styles.CalendarGridCell,
+            styles.button,
             styles.bigCalendarCell,
-            selectedMonth &&
-              value.getMonth() === selectedMonth &&
+            selectedDate.month &&
+              value.getMonth() === selectedDate.month &&
               styles.selected
           )}
-          onPress={() => onSelect(value)}
-        >
-          {formatDate(value, 'MMM')}
-        </DryButton>
+        />
       ))}
     </Flex>
   );

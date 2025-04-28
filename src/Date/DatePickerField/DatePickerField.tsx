@@ -1,18 +1,18 @@
+import { MappedDateValue } from '@react-types/datepicker';
 import clsx from 'clsx';
 import { format } from 'date-fns';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import {
   DatePickerProps as AriaDatePickerProps,
   DateValue,
 } from 'react-aria-components';
 
-import { DryButton } from '../../Button/DryButton';
-import { TextField } from '../../Input/Text/TextField';
+import { Button } from '../../Button/Button';
 import { Flex } from '../../Layout/Flex';
 import { Popover } from '../../Overlay/Popover/Popover';
 import { usePopover } from '../../Overlay/Popover/UsePopover';
-import { FieldError } from '../../Text/FieldError';
 import { Label } from '../../Text/Label';
+import { Text } from '../../Text/Text';
 import { Calendar } from '../Calendar/Calendar';
 import styles from './DatePickerField.module.css';
 
@@ -26,43 +26,75 @@ export interface DatePickerProps<T extends DateValue>
 export function DatePickerField<T extends DateValue>(
   props: DatePickerProps<T>
 ) {
-  const { label, errorMessage, description, ...rest } = props;
+  const {
+    label,
+    errorMessage,
+    description,
+    isDisabled,
+    isInvalid,
+    value,
+    onChange,
+    minValue,
+    maxValue,
+    ...rest
+  } = props;
 
-  const [value, setValue] = useState<DateValue>();
+  const [selectedDate, setSelectedDate] = useState<DateValue | undefined>(
+    value ?? undefined
+  );
   const popover = usePopover(false);
 
-  const onCalendarValue = (value: DateValue) => {
-    setValue(value);
-    popover.toggle();
+  const onCalendarValue = (newValue: DateValue) => {
+    setSelectedDate(newValue);
+    if (onChange) onChange(newValue as MappedDateValue<T>);
+    popover.close();
   };
 
+  console.log(isInvalid);
+
   return (
-    <Flex className={clsx(styles.AnarDatePicker)}>
-      <Label>{label}</Label>
-      <DryButton
-        className={styles.button}
+    <Flex className={clsx(styles.root)}>
+      <Label isDisabled={isDisabled}>{label}</Label>
+      <Button
+        variant='calm'
+        label={
+          selectedDate
+            ? format(
+                new Date(
+                  selectedDate.year,
+                  selectedDate.month,
+                  selectedDate.day
+                ),
+                'dd MMM yyy'
+              )
+            : ''
+        }
+        isDisabled={isDisabled}
         onPress={popover.toggle}
         ref={popover.triggerRef}
-      >
-        {
-          <TextField
-            className={styles.DateInput}
-            value={`${value ? format(`${value.year}-${value.month}-${value.day}`, 'dd MMM yyy') : ''}`}
-          />
-        }
-      </DryButton>
+        className={styles.button}
+      />
       <Popover
         className={styles.popover}
         controller={popover}
         placement={'bottom'}
       >
         <Calendar
-          className={styles.calendar}
-          value={value}
+          value={selectedDate}
           onChange={onCalendarValue}
+          maxValue={maxValue}
+          minValue={minValue}
+          isInvalid={isInvalid}
+          className={styles.calendar}
         />
       </Popover>
-      <FieldError>{errorMessage}</FieldError>
+      {errorMessage && isInvalid && (
+        <Text
+          className={styles.error}
+          slot='errorMessage'
+          text={errorMessage}
+        />
+      )}
     </Flex>
   );
 }
