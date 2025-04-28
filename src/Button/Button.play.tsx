@@ -5,7 +5,7 @@ export const ButtonPlayground = withPlayground<ButtonProps>({
   defaultProps: {
     label: 'Button',
     isDisabled: false,
-    variant: 'primary',
+    variant: 'accent',
   },
   component: Button,
 });

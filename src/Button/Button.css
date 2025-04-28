@@ -7,7 +7,7 @@
     --DryButtonDisabledColorBg: var(--gray-200);
     --DryButtonDisabledColorText: var(--gray-500);
 
-    &:where([data-primary-fill]) {
+    &:where([data-accent]) {
       --DryButtonColorBd: var(--primary-900);
       --DryButtonColorBg: var(--primary-900);
       --DryButtonColorText: var(--gray-50);
@@ -19,31 +19,7 @@
       --DryButtonPressedColorBg: var(--primary-1100);
     }
 
-    &:where([data-primary-outline]) {
-      --DryButtonColorBd: var(--primary-900);
-      --DryButtonColorBg: transparent;
-      --DryButtonColorText: var(--primary-900);
-
-      --DryButtonHoverColorBd: var(--primary-1000);
-      --DryButtonHoverColorBg: var(--primary-1000);
-      --DryButtonHoverColorText: var(--gray-50);
-
-      --DryButtonPressedColorBd: var(--primary-1100);
-      --DryButtonPressedColorBg: var(--primary-1100);
-      --DryButtonPressedColorText: var(--gray-50);
-    }
-
-    &:where([data-primary-quiet]) {
-      --DryButtonColorBd: transparent;
-      --DryButtonColorBg: transparent;
-
-      --DryButtonColorText: var(--primary-900);
-      --DryButtonHoverColorText: var(--primary-1000);
-      --DryButtonPressedColorText: var(--primary-1100);
-
-    }
-
-    &:where([data-secondary-fill]) {
+    &:where([data-main]) {
       --DryButtonColorBd: var(--gray-200);
       --DryButtonColorBg: var(--gray-200);
       --DryButtonColorText: var(--gray-800);
@@ -55,7 +31,7 @@
       --DryButtonPressedColorBg: var(--gray-400);
     }
 
-    &:where([data-secondary-outline]) {
+    &:where([data-calm]) {
       --DryButtonColorBd: var(--gray-200);
       --DryButtonColorBg: transparent;
       --DryButtonColorText: var(--gray-800);
@@ -67,7 +43,7 @@
       --DryButtonPressedColorBg: var(--gray-400);
     }
 
-    &:where([data-secondary-quiet]) {
+    &:where([data-ghost]) {
       --DryButtonColorBd: transparent;
       --DryButtonColorBg: transparent;
 
@@ -76,13 +52,9 @@
       --DryButtonPressedColorText: var(--gray-1000);
     }
 
-
     /* Negative */
     &:where([data-negative]) {
       --AnarFocusRing: var(--red-900);
-    }
-
-    &:where([data-negative-fill]) {
       --DryButtonColorBd: var(--red-900);
       --DryButtonColorBg: var(--red-900);
       --DryButtonColorText: var(--gray-50);
@@ -94,32 +66,9 @@
       --DryButtonPressedColorBg: var(--red-1100);
     }
 
-    &:where([data-negative-outline]) {
-      --DryButtonColorBd: var(--red-900);
-      --DryButtonColorBg: transparent;
-      --DryButtonColorText: var(--red-900);
-
-      --DryButtonHoverColorBd: var(--red-1000);
-      --DryButtonHoverColorBg: var(--red-1000);
-      --DryButtonHoverColorText: var(--gray-50);
-
-      --DryButtonPressedColorBd: var(--red-1100);
-      --DryButtonPressedColorBg: var(--red-1100);
-      --DryButtonPressedColorText: var(--gray-50);
-    }
-
-    &:where([data-negative-quiet]) {
-      --DryButtonColorBd: transparent;
-      --DryButtonColorBg: transparent;
-
-      --DryButtonColorText: var(--red-900);
-      --DryButtonHoverColorText: var(--red-1000);
-      --DryButtonPressedColorText: var(--red-1100);
-    }
-
     &:where([data-sm]) {
-      --DryButtonHeight: 32px;
-      --DryButtonFont: 0.875rem;
+      --DryButtonHeight: 27px;
+      --DryButtonFont: 12px;
       --DryButtonPadding: 0.25rem 0.5rem;
     }
 
@@ -127,18 +76,6 @@
       --DryButtonHeight: 36px;
       --DryButtonFont: 14px;
       --DryButtonPadding: 0.5rem 0.75rem;
-    }
-
-    &:where([data-lg]) {
-      --DryButtonHeight: 40px;
-      --DryButtonFont: 1.125rem;
-      --DryButtonPadding: 0.75rem 1rem;
-    }
-
-    &:where([data-xl]) {
-      --DryButtonHeight: 44px;
-      --DryButtonFont: 1.25rem;
-      --DryButtonPadding: 0.75rem 1.25rem;
     }
   }
 }

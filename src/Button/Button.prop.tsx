@@ -5,9 +5,9 @@ import { iconSizes } from '../Util/Icon.js';
 import { type TShirtSize, toDataAttrs } from '../Util/Style.js';
 
 export type ButtonVariants = {
-  variant?: 'primary' | 'secondary' | 'negative';
-  emphasis?: 'fill' | 'outline' | 'quiet';
+  variant?: 'accent' | 'main' | 'calm' | 'ghost' | 'negative';
 
+  compact?: boolean;
   size?: TShirtSize;
   radius?: 'none' | TShirtSize;
   isPending?: boolean;
@@ -23,9 +23,9 @@ export type ButtonBaseProps = ButtonVariants & {
 export function getProps(props: ButtonBaseProps) {
   const {
     className,
-    variant = 'primary',
+    variant = 'main',
     size = 'md',
-    emphasis = 'fill',
+    compact,
     radius,
     label,
     left: Left,
@@ -34,7 +34,7 @@ export function getProps(props: ButtonBaseProps) {
   } = props;
 
   const classes = clsx('AnarButton', className);
-  const data = toDataAttrs([variant, toOneDataAttr([variant, emphasis]), size]);
+  const data = toDataAttrs([variant, compact ? 'sm' : 'md']);
   const [strokeWidth, iconSize] = iconSizes[size];
 
   const left = Left && <Left strokeWidth={strokeWidth} size={iconSize} />;
@@ -48,8 +48,4 @@ export function getProps(props: ButtonBaseProps) {
     ...data,
     ...racProps,
   };
-}
-
-function toOneDataAttr(attrs: string[]): string {
-  return `${attrs.join('-')}`;
 }
