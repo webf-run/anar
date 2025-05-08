@@ -36,24 +36,33 @@ export const Disabled: Story = {
   },
 };
 
-export const Invalid: Story = {
+export const ActiveAndDisabled: Story = {
   render: () => {
-    const [date, setDate] = useState<CalendarDate | null>(
-      today(getLocalTimeZone())
-    );
+    const date: DateValue = today(getLocalTimeZone());
 
-    const isInvalid = isWeekend(new Date(date.year, date.month - 1, date.day));
+    return <DatePickerField label='Select Date' value={date} isReadOnly />;
+  },
+};
+
+export const Today: Story = {
+  render: () => {
+    const date: DateValue = today(getLocalTimeZone());
+
+    return <DatePickerField label='Select Date' placeholderValue={date} />;
+  },
+};
+
+export const Error: Story = {
+  render: () => {
+    const date: DateValue = today(getLocalTimeZone());
 
     return (
-      <div>
-        <DatePickerField
-          label='Select Date'
-          value={date}
-          onChange={setDate}
-          isInvalid={isInvalid}
-          errorMessage='Error here'
-        />
-      </div>
+      <DatePickerField
+        value={date}
+        label='Select Date'
+        errorMessage='Invalid'
+        placeholderValue={date}
+      />
     );
   },
 };

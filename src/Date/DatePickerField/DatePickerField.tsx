@@ -31,11 +31,11 @@ export function DatePickerField<T extends DateValue>(
     errorMessage,
     description,
     isDisabled,
-    isInvalid,
     value,
     onChange,
     minValue,
     maxValue,
+    placeholderValue,
     ...rest
   } = props;
 
@@ -46,11 +46,10 @@ export function DatePickerField<T extends DateValue>(
 
   const onCalendarValue = (newValue: DateValue) => {
     setSelectedDate(newValue);
+
     if (onChange) onChange(newValue as MappedDateValue<T>);
     popover.close();
   };
-
-  console.log(isInvalid);
 
   return (
     <Flex className={clsx(styles.root)}>
@@ -72,23 +71,25 @@ export function DatePickerField<T extends DateValue>(
         isDisabled={isDisabled}
         onPress={popover.toggle}
         ref={popover.triggerRef}
-        className={styles.button}
+        className={clsx(styles.button, errorMessage && styles.errorButton)}
       />
       <Popover
+        isOpen={rest.isReadOnly}
         className={styles.popover}
         controller={popover}
         placement={'bottom'}
       >
         <Calendar
+          placeHolderValue={placeholderValue}
           value={selectedDate}
           onChange={onCalendarValue}
           maxValue={maxValue}
           minValue={minValue}
-          isInvalid={isInvalid}
+          isDisabled={isDisabled || rest.isReadOnly}
           className={styles.calendar}
         />
       </Popover>
-      {errorMessage && isInvalid && (
+      {errorMessage && (
         <Text
           className={styles.error}
           slot='errorMessage'

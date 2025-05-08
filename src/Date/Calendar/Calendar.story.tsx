@@ -59,25 +59,6 @@ export const MinMaxValue: Story = {
   },
 };
 
-export const Invalid: Story = {
-  render: () => {
-    const [date, setDate] = useState<DateValue>(today(getLocalTimeZone()));
-
-    const isInvalid = isWeekend(new Date(date.year, date.month, date.day));
-
-    return (
-      <div>
-        <Calendar
-          value={date}
-          onChange={setDate}
-          isInvalid={isInvalid}
-          errorMessage='Error here'
-        />
-      </div>
-    );
-  },
-};
-
 export const Disabled: Story = {
   args: {
     isDisabled: true,

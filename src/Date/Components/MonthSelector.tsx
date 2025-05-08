@@ -12,15 +12,14 @@ export interface MonthSelectorProps {
   selectedDate: SelectedDate;
   setSelectedDate: (newYear: SelectedDate) => void;
 
-  onSelectDate: () => void;
+  onSelectDate: (newDate: Date) => void;
 
   displayedDate: Date;
 
   isDisabled?: boolean;
   minValue?: Date;
   maxValue?: Date;
-
-  startMonth?: Date;
+  placeHolderValue?: Date;
 }
 
 export function MonthSelector(props: MonthSelectorProps) {
@@ -28,34 +27,44 @@ export function MonthSelector(props: MonthSelectorProps) {
     selectedDate,
     setSelectedDate,
     displayedDate,
+    placeHolderValue,
     onSelectDate,
     isDisabled,
     maxValue,
     minValue,
     className,
-    startMonth,
   } = props;
-  const rangeStartMonth = startMonth
-    ? new Date(displayedDate.getFullYear(), startMonth.getMonth(), 0)
-    : new Date(displayedDate.getFullYear(), 1, 0);
+  const rangeStartMonth = new Date(displayedDate.getFullYear(), 1, 0);
 
   const monthsToShow: Date[] = [];
   for (let i = 0; i < 12; i++) {
     monthsToShow.push(addMonths(rangeStartMonth, i));
   }
 
+  function isDateDisabled(value: Date) {
+    return (
+      isDisabled ||
+      (minValue &&
+        value.getMonth() < minValue.getMonth() &&
+        value.getFullYear() === minValue.getFullYear()) ||
+      (maxValue &&
+        value.getMonth() > maxValue.getMonth() &&
+        value.getFullYear() === maxValue.getFullYear())
+    );
+  }
+
   const onSelect = (value: Date) => {
     const valueToSet =
-      selectedDate.month === value.getMonth() ? undefined : value.getMonth();
+      selectedDate.month === value.getMonth() ? undefined : value;
 
     setSelectedDate({
-      day: selectedDate.day,
-      month: valueToSet,
-      year: selectedDate.month,
+      day: undefined,
+      month: valueToSet?.getMonth(),
+      year: selectedDate.year,
     });
 
     if (valueToSet) {
-      onSelectDate();
+      onSelectDate(value);
     }
   };
 
@@ -65,14 +74,6 @@ export function MonthSelector(props: MonthSelectorProps) {
     styles.threeColumnGridLayout,
     className
   );
-
-  function isDateDisabled(value: Date) {
-    return (
-      isDisabled ||
-      (minValue && value < minValue) ||
-      (maxValue && value > maxValue)
-    );
-  }
 
   return (
     <Flex className={classes}>
@@ -86,6 +87,10 @@ export function MonthSelector(props: MonthSelectorProps) {
           className={clsx(
             styles.button,
             styles.bigCalendarCell,
+            placeHolderValue &&
+              value.getFullYear() === placeHolderValue.getFullYear() &&
+              value.getMonth() === placeHolderValue.getMonth() &&
+              styles.placeHolder,
             selectedDate.month &&
               value.getMonth() === selectedDate.month &&
               styles.selected

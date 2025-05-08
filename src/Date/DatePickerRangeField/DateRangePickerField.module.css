@@ -40,7 +40,11 @@
     font-weight: 400;
   }
 
+  .errorButton {
+    --DryButtonColorBd: var(--red-1000);
+  }
+
   .error {
-    color: var(--red-1000) !important;
+    color: var(--AnarColorError) !important;
   }
 }

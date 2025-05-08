@@ -10,34 +10,33 @@ export interface YearSelectorProps {
   className?: string;
 
   displayedDate: Date;
+  placeHolderValue?: Date;
 
   selectedDate: SelectedDate;
   setSelectedDate: (newYear: SelectedDate) => void;
 
-  onSelectDate: () => void;
+  onSelectDate: (newDate: Date) => void;
 
   isDisabled?: boolean;
   minValue?: Date;
   maxValue?: Date;
-
-  startYear?: Date;
 }
 
 export function YearSelector(props: YearSelectorProps) {
   const {
     className,
     selectedDate,
+    placeHolderValue,
     setSelectedDate,
     displayedDate,
     onSelectDate,
     isDisabled,
     maxValue,
     minValue,
-    startYear,
   } = props;
 
-  const rangeStartYear = startYear
-    ? startYear
+  const rangeStartYear = minValue
+    ? new Date(minValue.getFullYear(), minValue.getMonth(), minValue.getDate())
     : subYears(displayedDate, displayedDate.getFullYear() % 10);
 
   const yearsToShow: Date[] = [];
@@ -54,18 +53,16 @@ export function YearSelector(props: YearSelectorProps) {
 
   const onSelect = (value: Date) => {
     const valueToSet =
-      selectedDate.year === value.getFullYear()
-        ? undefined
-        : value.getFullYear();
+      selectedDate.year === value.getFullYear() ? undefined : value;
 
     setSelectedDate({
-      day: selectedDate.day,
-      month: selectedDate.month,
-      year: valueToSet,
+      day: undefined,
+      month: undefined,
+      year: valueToSet?.getFullYear(),
     });
 
     if (valueToSet) {
-      onSelectDate();
+      onSelectDate(value);
     }
   };
 
@@ -89,6 +86,9 @@ export function YearSelector(props: YearSelectorProps) {
           className={clsx(
             styles.button,
             styles.bigCalendarCell,
+            placeHolderValue &&
+              value.getFullYear() === placeHolderValue.getFullYear() &&
+              styles.placeHolder,
             selectedDate.year &&
               value.getFullYear() === selectedDate.year &&
               styles.selected

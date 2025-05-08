@@ -22,7 +22,7 @@
   }
   
   .button {
-    --DryButtonColorText: var(--gray-800);
+    --DryButtonColorText: var(--AnarColorText);
     --DryButtonRadius: 5px;
     --DryButtonPadding: 20px;
     --DryButtonBorderWidth: 1px;
@@ -38,12 +38,16 @@
 
     &[data-disabled] {
       --DryButtonDisabledColorBg: transparent;
-      --DryButtonColorText: var(--gray-500)
+      --DryButtonColorText: var(--AnarColorTextDisabled)
     }
   }
   
   .bigCalendarCell {
     min-width: 82px !important;
+  }
+
+  .placeHolder {
+    --DryButtonColorBg: var(--gray-200);
   }
   
   .selected {
@@ -52,13 +56,8 @@
   }
 
   .disabled {
-    --AnarCalendarColorTextDisabled: var(--gray-500);
-    --AnarCalendarColorText: var(--AnarCalendarColorTextDisabled);
+    --AnarCalendarColorText: var(--AnarColorTextDisabled);
 
     cursor: default;
-  }
-
-  .invalid {
-    color: var(--red-1000);
   }
 }

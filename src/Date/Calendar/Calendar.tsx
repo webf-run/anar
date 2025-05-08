@@ -1,7 +1,15 @@
 import { CalendarDate } from '@internationalized/date';
 import { MappedDateValue } from '@react-types/datepicker';
 import clsx from 'clsx';
-import { addMonths, addYears, format, subMonths, subYears } from 'date-fns';
+import {
+  addMonths,
+  addYears,
+  endOfMonth,
+  format,
+  startOfMonth,
+  subMonths,
+  subYears,
+} from 'date-fns';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import {
@@ -20,8 +28,7 @@ import styles from './Calendar.module.css';
 
 export interface CalendarProps<T extends DateValue>
   extends RiaCalendarProps<T> {
-  errorMessage?: string;
-  description?: string;
+  placeHolderValue?: DateValue | null;
 }
 
 export type SelectedDate = { year?: number; month?: number; day?: number };
@@ -44,17 +51,23 @@ export function getCalendarHeaderText(
 
 export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
   const {
-    errorMessage,
     className,
     value,
     onChange,
     isDisabled = false,
-    isInvalid = false,
-    description,
     minValue,
     maxValue,
+    placeHolderValue,
     ...restProps
   } = props;
+
+  const placeHolder = placeHolderValue
+    ? new Date(
+        placeHolderValue.year,
+        placeHolderValue.month - 1,
+        placeHolderValue.day
+      )
+    : undefined;
 
   const [currentState, setCurrentState] = useState<'Date' | 'Month' | 'Year'>(
     'Date'
@@ -97,14 +110,16 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
   }
 
   function isPreviousDisabled(currentDate: Date) {
-    if (minDate && currentDate <= minDate) {
+    const startMonth = startOfMonth(currentDate);
+    if (minDate && startMonth <= minDate) {
       return true;
     }
     return false;
   }
 
   function isNextDisabled(currentDate: Date) {
-    if (maxDate && currentDate >= maxDate) {
+    const endMonth = endOfMonth(currentDate);
+    if (maxDate && endMonth >= maxDate) {
       return true;
     }
     return false;
@@ -130,21 +145,21 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
     }
   };
 
-  const onSelectDate = () => {
+  const onSelectDate = (newSelectedDate: Date) => {
     setCurrentState(currentState === 'Year' ? 'Month' : 'Date');
 
-    if (currentState === 'Date' && selectedDate.month) {
+    if (currentState === 'Month') {
       setDisplayedDate(
         new Date(
           displayedDate.getFullYear(),
-          selectedDate.month,
+          newSelectedDate.getMonth(),
           displayedDate.getDate()
         )
       );
-    } else if (currentState === 'Month' && selectedDate.year) {
+    } else if (currentState === 'Year') {
       setDisplayedDate(
         new Date(
-          selectedDate.year,
+          newSelectedDate.getFullYear(),
           displayedDate.getMonth(),
           displayedDate.getDate()
         )
@@ -161,7 +176,6 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
 
   return (
     <Flex className={classes}>
-      {description && <Text text={description} />}
       <Flex className={styles.CalendarHeader}>
         <ActionButton
           icon={ChevronLeft}
@@ -191,12 +205,12 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
         <DateSelector
           maxValue={maxDate}
           minValue={minDate}
-          isInvalid={isInvalid}
           isDisabled={isDisabled}
           displayedDate={displayedDate}
           selectedDate={selectedDate}
           setSelectedDate={handleSetSelectedDate}
           onSelectDate={onSelectDate}
+          placeHolderValue={placeHolder}
         />
       )}
       {currentState === 'Month' && (
@@ -208,10 +222,12 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
           displayedDate={displayedDate}
           selectedDate={selectedDate}
           setSelectedDate={handleSetSelectedDate}
+          placeHolderValue={placeHolder}
         />
       )}
       {currentState === 'Year' && (
         <YearSelector
+          placeHolderValue={placeHolder}
           maxValue={maxDate}
           minValue={minDate}
           isDisabled={isDisabled}
@@ -219,13 +235,6 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
           displayedDate={displayedDate}
           selectedDate={selectedDate}
           setSelectedDate={handleSetSelectedDate}
-        />
-      )}
-      {errorMessage && isInvalid && (
-        <Text
-          className={styles.error}
-          slot='errorMessage'
-          text={errorMessage}
         />
       )}
     </Flex>

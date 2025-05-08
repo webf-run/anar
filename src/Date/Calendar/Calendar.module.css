@@ -1,7 +1,7 @@
 @layer anar {
   .root {
     --AnarCalendarColorBg: var(--gray-100 );
-    --AnarCalendarColorText: var(--gray-800);
+    --AnarCalendarColorText: var(--AnarColorText);
     --AnarCalendarPadding:   20px 10px;
     --AnarCalendarRadius: 5px;
 
@@ -35,7 +35,7 @@
   }
 
   .divider {
-    --AnarCalendarColorDivider: #B1B2B5FF;
+    --AnarCalendarColorDivider: var(--AnarDividerColor);
     --AnarCalendarMarginDivider: 0px 0px 15px 0px;
 
     margin: var(--AnarCalendarMarginDivider);
@@ -45,11 +45,15 @@
   .button{
     &[data-pressed] {
       border-radius: 5px;
-      background-color: var(--gray-200);
+      background-color: var(--AnarColorDisabledBg);
     }
   }
   
   .error {
-    color: var(--red-1000);
+    color: var(--AnarColorError);
+  }
+
+  .disableAll {
+    --AnarCalendarColorText: var(--AnarColorTextDisabled);
   }
 }

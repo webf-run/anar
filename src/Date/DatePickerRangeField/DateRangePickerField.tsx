@@ -61,7 +61,7 @@ export function DatePickerRangeField<T extends DateValue>(
     <Flex direction='column'>
       <Group className={clsx(styles.root)} ref={popover.triggerRef}>
         <Flex className={styles.DateInputField} direction='column'>
-          <Label>{label1}</Label>
+          <Label isDisabled={isDisabled}>{label1}</Label>
           <Button
             variant='calm'
             label={
@@ -77,13 +77,13 @@ export function DatePickerRangeField<T extends DateValue>(
                 : ''
             }
             isDisabled={isDisabled}
-            className={styles.button}
+            className={clsx(styles.button, errorMessage && styles.errorButton)}
             onPress={popover.toggle}
             ref={popover.triggerRef}
           />
         </Flex>
         <Flex className={styles.DateInputField} direction='column'>
-          <Label>{label2}</Label>
+          <Label isDisabled={isDisabled}>{label2}</Label>
           <Button
             variant='calm'
             label={
@@ -99,7 +99,7 @@ export function DatePickerRangeField<T extends DateValue>(
                 : ''
             }
             isDisabled={isDisabled}
-            className={styles.button}
+            className={clsx(styles.button, errorMessage && styles.errorButton)}
             onPress={popover.toggle}
             ref={popover.triggerRef}
           />

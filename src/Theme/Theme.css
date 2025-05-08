@@ -30,6 +30,8 @@
     --AnarBorderColorPressed: var(--gray-500);
     --AnarBorderColorDisabled: var(--gray-500);
 
+    --AnarDividerColor: #B1B2B5FF;
+
     /* Control borders like switch, radio and checkbox */
     --AnarBorderControlColor: var(--gray-600);
     --AnarBorderControlHover: var(--gray-700);

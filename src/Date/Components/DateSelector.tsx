@@ -3,6 +3,7 @@ import {
   addDays,
   format,
   getWeeksInMonth,
+  isSameDay,
   isSameMonth,
   subDays,
 } from 'date-fns';
@@ -22,13 +23,13 @@ export interface DateSelectorProps extends CalendarGridProps {
   selectedDate: SelectedDate;
   setSelectedDate: (newYear: SelectedDate) => void;
 
-  onSelectDate: () => void;
+  onSelectDate: (newDate: Date) => void;
 
-  isInvalid?: boolean;
   isDisabled?: boolean;
 
   minValue?: Date;
   maxValue?: Date;
+  placeHolderValue?: Date;
 }
 
 export function DateSelector(props: DateSelectorProps) {
@@ -36,9 +37,9 @@ export function DateSelector(props: DateSelectorProps) {
     className,
     displayedDate,
     selectedDate,
+    placeHolderValue,
     setSelectedDate,
     onSelectDate,
-    isInvalid = false,
     isDisabled = false,
     minValue,
     maxValue,
@@ -78,18 +79,31 @@ export function DateSelector(props: DateSelectorProps) {
   const onSelect = (value: Date) => {
     if (!isDisabled) {
       const valueToSet =
-        selectedDate.day === value.getDate() ? undefined : value.getDate();
+        selectedDate.day === value.getDate() ? undefined : value;
 
       setSelectedDate({
-        day: valueToSet,
+        day: valueToSet?.getDate(),
         month: selectedDate.month,
         year: selectedDate.year,
       });
 
       if (valueToSet) {
-        onSelectDate();
+        onSelectDate(value);
       }
     }
+  };
+
+  const isSelected = (value: Date) => {
+    if (selectedDate.year && selectedDate.month && selectedDate.day) {
+      const selected = new Date(
+        selectedDate.year,
+        selectedDate.month,
+        selectedDate.day
+      );
+
+      return isSameDay(value, selected);
+    }
+    return false;
   };
 
   const classes = clsx(
@@ -104,25 +118,23 @@ export function DateSelector(props: DateSelectorProps) {
       {days.map((val, index) => (
         <Text text={val} key={index} className={styles.header} />
       ))}
-      {visibleDates.map((value, index) => {
-        return (
-          <Button
-            key={index}
-            variant='ghost'
-            label={`${format(value, 'dd')}`}
-            isDisabled={isDateDisabled(value)}
-            onPress={() => onSelect(value)}
-            className={clsx(
-              styles.button,
-              selectedDate.day &&
-                isSameMonth(displayedDate, value) &&
-                value.getDate() === selectedDate.day &&
-                styles.selected,
-              isDateDisabled(value) && styles.disabled
-            )}
-          />
-        );
-      })}
+      {visibleDates.map((value, index) => (
+        <Button
+          key={index}
+          variant='ghost'
+          label={`${format(value, 'dd')}`}
+          isDisabled={isDateDisabled(value)}
+          onPress={() => onSelect(value)}
+          className={clsx(
+            styles.button,
+            placeHolderValue &&
+              isSameDay(value, placeHolderValue) &&
+              styles.placeHolder,
+            isSelected(value) && styles.selected,
+            isDateDisabled(value) && styles.disabled
+          )}
+        />
+      ))}
     </Flex>
   );
 }
