@@ -21,11 +21,23 @@ export const Primary: Story = {
 
     return (
       <div>
+        <YearSelector onChange={() => {}} changeViewState={() => {}} />
+      </div>
+    );
+  },
+};
+
+export const MinMax: Story = {
+  render: () => {
+    const displayedDate = new Date();
+
+    return (
+      <div>
         <YearSelector
-          displayedDate={displayedDate}
-          selectedDate={{}}
-          setSelectedDate={() => {}}
-          onSelectDate={() => {}}
+          minValue={2022}
+          maxValue={2026}
+          onChange={() => {}}
+          changeViewState={() => {}}
         />
       </div>
     );

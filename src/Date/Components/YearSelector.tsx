@@ -1,47 +1,53 @@
 import clsx from 'clsx';
-import { addYears, subYears } from 'date-fns';
+import { KeyboardEvent, useEffect, useRef, useState } from 'react';
 
 import { Button } from '../../Button/Button';
 import { Flex } from '../../Layout/Flex';
-import { SelectedDate } from '../Calendar/Calendar';
 import styles from './CalendarGrid.module.css';
 
 export interface YearSelectorProps {
   className?: string;
 
-  displayedDate: Date;
-  placeHolderValue?: Date;
+  value?: number;
+  onChange: (newYear?: number) => void;
 
-  selectedDate: SelectedDate;
-  setSelectedDate: (newYear: SelectedDate) => void;
+  placeHolderValue?: number;
 
-  onSelectDate: (newDate: Date) => void;
+  changeViewState: (newNumber: number) => void;
 
   isDisabled?: boolean;
-  minValue?: Date;
-  maxValue?: Date;
+  minValue?: number;
+  maxValue?: number;
 }
 
 export function YearSelector(props: YearSelectorProps) {
   const {
     className,
-    selectedDate,
+    value,
     placeHolderValue,
-    setSelectedDate,
-    displayedDate,
-    onSelectDate,
+    onChange,
+    changeViewState,
     isDisabled,
     maxValue,
     minValue,
   } = props;
 
-  const rangeStartYear = minValue
-    ? new Date(minValue.getFullYear(), minValue.getMonth(), minValue.getDate())
-    : subYears(displayedDate, displayedDate.getFullYear() % 10);
+  const [focusedIndex, setFocusedIndex] = useState<number>(-1);
+  const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const yearsToShow: Date[] = [];
+  useEffect(() => {
+    if (focusedIndex >= 0 && buttonsRef.current[focusedIndex]) {
+      buttonsRef.current[focusedIndex]?.focus();
+    }
+  }, [focusedIndex]);
+
+  const initialYear = minValue ?? value ?? new Date().getFullYear();
+
+  const rangeStartYear = initialYear - (initialYear % 10);
+
+  const yearsToShow: number[] = [];
   for (let i = 0; i < 10; i++) {
-    yearsToShow.push(addYears(rangeStartYear, i));
+    yearsToShow.push(rangeStartYear + i);
   }
 
   const classes = clsx(
@@ -51,47 +57,79 @@ export function YearSelector(props: YearSelectorProps) {
     className
   );
 
-  const onSelect = (value: Date) => {
-    const valueToSet =
-      selectedDate.year === value.getFullYear() ? undefined : value;
+  const onSelect = (date: number) => {
+    const valueToSet = date === value ? undefined : date;
 
-    setSelectedDate({
-      day: undefined,
-      month: undefined,
-      year: valueToSet?.getFullYear(),
-    });
+    onChange(valueToSet);
 
     if (valueToSet) {
-      onSelectDate(value);
+      changeViewState(valueToSet);
     }
   };
 
-  function isDateDisabled(value: Date) {
+  function isDateDisabled(value: number) {
     return (
       isDisabled ||
-      (minValue && value < minValue) ||
-      (maxValue && value > maxValue)
+      (minValue !== undefined && value < minValue) ||
+      (maxValue !== undefined && value > maxValue)
     );
   }
 
+  const columns = 3;
+
+  function handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      e.preventDefault();
+    }
+
+    let delta = 0;
+    switch (e.key) {
+      case 'ArrowLeft':
+        delta = -1;
+        break;
+      case 'ArrowRight':
+        delta = 1;
+        break;
+      case 'ArrowUp':
+        delta = -columns;
+        break;
+      case 'ArrowDown':
+        delta = columns;
+        break;
+    }
+
+    const newIndex = Math.min(
+      Math.max(0, focusedIndex + delta),
+      yearsToShow.length - 1
+    );
+
+    setFocusedIndex(newIndex);
+  }
+
   return (
-    <Flex className={classes}>
-      {yearsToShow.map((value, index) => (
+    <Flex
+      className={classes}
+      tabIndex={0}
+      onFocus={() => {
+        if (focusedIndex === -1) {
+          setFocusedIndex(0);
+        }
+      }}
+      onKeyDown={handleKeyDown}
+    >
+      {yearsToShow.map((year, index) => (
         <Button
+          ref={(el) => (buttonsRef.current[index] = el)}
           key={index}
           variant='ghost'
-          label={`${value.getFullYear()}`}
-          isDisabled={isDateDisabled(value)}
-          onPress={() => onSelect(value)}
+          label={`${year}`}
+          isDisabled={isDateDisabled(year)}
+          onPress={() => onSelect(year)}
           className={clsx(
             styles.button,
             styles.bigCalendarCell,
-            placeHolderValue &&
-              value.getFullYear() === placeHolderValue.getFullYear() &&
-              styles.placeHolder,
-            selectedDate.year &&
-              value.getFullYear() === selectedDate.year &&
-              styles.selected
+            placeHolderValue && year === placeHolderValue && styles.placeHolder,
+            year && year === value && styles.selected
           )}
         />
       ))}

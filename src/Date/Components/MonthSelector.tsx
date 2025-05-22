@@ -1,72 +1,99 @@
 import clsx from 'clsx';
-import { addMonths, format } from 'date-fns';
+import { format } from 'date-fns';
+import { KeyboardEvent, useEffect, useRef, useState } from 'react';
 
 import { Button } from '../../Button/Button';
 import { Flex } from '../../Layout/Flex';
-import { SelectedDate } from '../Calendar/Calendar';
 import styles from './CalendarGrid.module.css';
 
 export interface MonthSelectorProps {
   className?: string;
 
-  selectedDate: SelectedDate;
-  setSelectedDate: (newYear: SelectedDate) => void;
+  value?: number;
+  onChange: (newYear?: number) => void;
 
-  onSelectDate: (newDate: Date) => void;
-
-  displayedDate: Date;
+  changeViewState: (newNumber: number) => void;
 
   isDisabled?: boolean;
-  minValue?: Date;
-  maxValue?: Date;
-  placeHolderValue?: Date;
+  minValue?: number;
+  maxValue?: number;
+  placeHolderValue?: number;
 }
 
 export function MonthSelector(props: MonthSelectorProps) {
   const {
-    selectedDate,
-    setSelectedDate,
-    displayedDate,
+    value,
+    onChange,
     placeHolderValue,
-    onSelectDate,
+    changeViewState,
     isDisabled,
     maxValue,
     minValue,
     className,
   } = props;
-  const rangeStartMonth = new Date(displayedDate.getFullYear(), 1, 0);
 
-  const monthsToShow: Date[] = [];
+  const [focusedIndex, setFocusedIndex] = useState<number>(-1);
+  const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
+
+  useEffect(() => {
+    if (focusedIndex >= 0 && buttonsRef.current[focusedIndex]) {
+      buttonsRef.current[focusedIndex]?.focus();
+    }
+  }, [focusedIndex]);
+
+  const monthsToShow: string[] = [];
   for (let i = 0; i < 12; i++) {
-    monthsToShow.push(addMonths(rangeStartMonth, i));
+    monthsToShow.push(format(new Date(new Date().getFullYear(), i, 1), 'MMM'));
   }
 
-  function isDateDisabled(value: Date) {
+  function isDateDisabled(value: number) {
     return (
       isDisabled ||
-      (minValue &&
-        value.getMonth() < minValue.getMonth() &&
-        value.getFullYear() === minValue.getFullYear()) ||
-      (maxValue &&
-        value.getMonth() > maxValue.getMonth() &&
-        value.getFullYear() === maxValue.getFullYear())
+      (minValue !== undefined && value < minValue) ||
+      (maxValue !== undefined && value > maxValue)
     );
   }
 
-  const onSelect = (value: Date) => {
-    const valueToSet =
-      selectedDate.month === value.getMonth() ? undefined : value;
+  const onSelect = (month: number) => {
+    const valueToSet = value === month ? undefined : month;
 
-    setSelectedDate({
-      day: undefined,
-      month: valueToSet?.getMonth(),
-      year: selectedDate.year,
-    });
+    onChange(valueToSet);
 
     if (valueToSet) {
-      onSelectDate(value);
+      changeViewState(valueToSet);
     }
   };
+
+  const columns = 3;
+
+  function handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      e.preventDefault();
+    }
+
+    let delta = 0;
+    switch (e.key) {
+      case 'ArrowLeft':
+        delta = -1;
+        break;
+      case 'ArrowRight':
+        delta = 1;
+        break;
+      case 'ArrowUp':
+        delta = -columns;
+        break;
+      case 'ArrowDown':
+        delta = columns;
+        break;
+    }
+
+    const newIndex = Math.min(
+      Math.max(0, focusedIndex + delta),
+      monthsToShow.length - 1
+    );
+
+    setFocusedIndex(newIndex);
+  }
 
   const classes = clsx(
     'MonthGrid',
@@ -76,24 +103,31 @@ export function MonthSelector(props: MonthSelectorProps) {
   );
 
   return (
-    <Flex className={classes}>
-      {monthsToShow.map((value, index) => (
+    <Flex
+      className={classes}
+      tabIndex={0}
+      onFocus={() => {
+        if (focusedIndex === -1) {
+          setFocusedIndex(0);
+        }
+      }}
+      onKeyDown={handleKeyDown}
+    >
+      {monthsToShow.map((date, index) => (
         <Button
+          ref={(el) => (buttonsRef.current[index] = el)}
           key={index}
           variant='ghost'
-          label={`${format(value, 'MMM')}`}
-          isDisabled={isDateDisabled(value)}
-          onPress={() => onSelect(value)}
+          label={date}
+          isDisabled={isDateDisabled(index)}
+          onPress={() => onSelect(index)}
           className={clsx(
             styles.button,
             styles.bigCalendarCell,
             placeHolderValue &&
-              value.getFullYear() === placeHolderValue.getFullYear() &&
-              value.getMonth() === placeHolderValue.getMonth() &&
+              index === placeHolderValue &&
               styles.placeHolder,
-            selectedDate.month &&
-              value.getMonth() === selectedDate.month &&
-              styles.selected
+            value && index === value && styles.selected
           )}
         />
       ))}

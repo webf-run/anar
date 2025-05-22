@@ -1,140 +1,110 @@
 import clsx from 'clsx';
+import { isSameDay, isSameMonth } from 'date-fns';
 import {
-  addDays,
-  format,
-  getWeeksInMonth,
-  isSameDay,
-  isSameMonth,
-  subDays,
-} from 'date-fns';
-import { CalendarGridProps } from 'react-aria-components';
+  DateValue,
+  Calendar as RiaCalendar,
+  CalendarCell as RiaCalendarCell,
+  CalendarGrid as RiaCalendarGrid,
+  CalendarGridBody as RiaCalendarGridBody,
+  CalendarGridHeader as RiaCalendarGridHeader,
+  CalendarGridProps as RiaCalendarGridProps,
+  CalendarHeaderCell as RiaCalendarHeaderCell,
+} from 'react-aria-components';
 
-import { Button } from '../../Button/Button';
-import { Flex } from '../../Layout/Flex';
-import { Text } from '../../Text/Text';
-import { SelectedDate } from '../Calendar/Calendar';
-import styles from './CalendarGrid.module.css';
+import styles from './DateSelector.module.css';
 
-export interface DateSelectorProps extends CalendarGridProps {
+export interface DateSelectorProps extends RiaCalendarGridProps {
   className?: string;
 
-  displayedDate: Date;
+  value?: DateValue;
+  onChange: (newYear: DateValue) => void;
 
-  selectedDate: SelectedDate;
-  setSelectedDate: (newYear: SelectedDate) => void;
-
-  onSelectDate: (newDate: Date) => void;
+  displayedDate: DateValue;
 
   isDisabled?: boolean;
 
-  minValue?: Date;
-  maxValue?: Date;
-  placeHolderValue?: Date;
+  minValue?: DateValue;
+  maxValue?: DateValue;
+
+  placeHolderValue?: DateValue;
 }
 
 export function DateSelector(props: DateSelectorProps) {
   const {
     className,
-    displayedDate,
-    selectedDate,
+    value,
     placeHolderValue,
-    setSelectedDate,
-    onSelectDate,
+    displayedDate,
+    onChange,
     isDisabled = false,
     minValue,
     maxValue,
   } = props;
 
-  const numberOfWeeks = getWeeksInMonth(displayedDate, { weekStartsOn: 1 });
-  const firstOfMonth = new Date(
-    displayedDate.getFullYear(),
-    displayedDate.getMonth(),
-    1
-  );
-  const firstDayOfTheMonth = firstOfMonth.getDay();
-  const displayStartDate = subDays(
-    firstOfMonth,
-    firstDayOfTheMonth - 1 > 0 ? firstDayOfTheMonth - 1 : 6
-  );
-
-  const visibleDates: Date[] = [];
-  for (let i = 0; i < 7 * numberOfWeeks; i++) {
-    visibleDates.push(addDays(displayStartDate, i));
-  }
-
-  const days: string[] = [];
-  for (let i = 0; i < 7; i++) {
-    days.push(format(visibleDates[i], 'eeeeee'));
-  }
-
-  function isDateDisabled(value: Date) {
+  function isDateDisabled(date: DateValue) {
     return (
       isDisabled ||
-      (minValue && value < minValue) ||
-      (maxValue && value > maxValue) ||
-      !isSameMonth(displayedDate, value)
+      (minValue && date < minValue) ||
+      (maxValue && date > maxValue) ||
+      !isSameMonth(
+        new Date(
+          displayedDate.year,
+          displayedDate.month - 1,
+          displayedDate.day
+        ),
+        new Date(date.year, date.month - 1, date.day)
+      )
     );
   }
 
-  const onSelect = (value: Date) => {
-    if (!isDisabled) {
-      const valueToSet =
-        selectedDate.day === value.getDate() ? undefined : value;
+  const isSelected = (date: DateValue) => {
+    if (value && value.year && value.month && value.day) {
+      const selected = new Date(value.year, value.month - 1, value.day);
 
-      setSelectedDate({
-        day: valueToSet?.getDate(),
-        month: selectedDate.month,
-        year: selectedDate.year,
-      });
-
-      if (valueToSet) {
-        onSelectDate(value);
-      }
-    }
-  };
-
-  const isSelected = (value: Date) => {
-    if (selectedDate.year && selectedDate.month && selectedDate.day) {
-      const selected = new Date(
-        selectedDate.year,
-        selectedDate.month,
-        selectedDate.day
-      );
-
-      return isSameDay(value, selected);
+      return isSameDay(new Date(date.year, date.month - 1, date.day), selected);
     }
     return false;
   };
 
-  const classes = clsx(
-    'MonthGrid',
-    styles.root,
-    styles.sevenColumnGridLayout,
-    className
-  );
+  const classes = clsx('MonthGrid', styles.root, className);
 
   return (
-    <Flex className={classes}>
-      {days.map((val, index) => (
-        <Text text={val} key={index} className={styles.header} />
-      ))}
-      {visibleDates.map((value, index) => (
-        <Button
-          key={index}
-          variant='ghost'
-          label={`${format(value, 'dd')}`}
-          isDisabled={isDateDisabled(value)}
-          onPress={() => onSelect(value)}
-          className={clsx(
-            styles.button,
-            placeHolderValue &&
-              isSameDay(value, placeHolderValue) &&
-              styles.placeHolder,
-            isSelected(value) && styles.selected,
-            isDateDisabled(value) && styles.disabled
+    <RiaCalendar
+      value={value}
+      onChange={onChange}
+      defaultFocusedValue={displayedDate}
+      minValue={minValue}
+      maxValue={maxValue}
+      defaultValue={placeHolderValue}
+      isDisabled={isDisabled}
+    >
+      <RiaCalendarGrid className={classes}>
+        <RiaCalendarGridHeader className={styles.header}>
+          {(day) => <RiaCalendarHeaderCell>{day}</RiaCalendarHeaderCell>}
+        </RiaCalendarGridHeader>
+        <RiaCalendarGridBody>
+          {(date) => (
+            <RiaCalendarCell
+              className={clsx(
+                styles.calendarCell,
+                placeHolderValue &&
+                  isSameDay(
+                    new Date(date.year, date.month - 1, date.day),
+                    new Date(
+                      placeHolderValue.year,
+                      placeHolderValue.month - 1,
+                      placeHolderValue.day
+                    )
+                  ) &&
+                  styles.placeHolder,
+                isSelected(date) && styles.selected,
+                isDateDisabled(date) && styles.disabled
+              )}
+              date={date}
+            />
           )}
-        />
-      ))}
-    </Flex>
+        </RiaCalendarGridBody>
+      </RiaCalendarGrid>
+    </RiaCalendar>
   );
 }

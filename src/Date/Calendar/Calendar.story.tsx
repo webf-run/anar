@@ -36,13 +36,13 @@ export const MinMaxValue: Story = {
 
     const min = new CalendarDate(
       new Date().getFullYear(),
-      new Date().getMonth(),
+      new Date().getMonth() + 1,
       new Date().getDay() + 20
     );
 
     const max = new CalendarDate(
       new Date().getFullYear(),
-      new Date().getMonth(),
+      new Date().getMonth() + 1,
       new Date().getDay() + 25
     );
 

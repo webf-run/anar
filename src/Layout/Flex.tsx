@@ -15,6 +15,11 @@ export type FlexProps = {
   style?: CSSProperties;
   children?: ReactNode;
 
+  tabIndex?: number;
+
+  onFocus?: React.FocusEventHandler<HTMLDivElement> | undefined;
+  onKeyDown?: React.KeyboardEventHandler<HTMLDivElement> | undefined;
+
   /**
    * The child placement strategy.
    * @default 'fixed'

@@ -11,7 +11,7 @@ import {
   subYears,
 } from 'date-fns';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   DateValue,
   CalendarProps as RiaCalendarProps,
@@ -20,7 +20,6 @@ import {
 import { ActionButton } from '../../Button/ActionButton';
 import { DryButton } from '../../Button/DryButton';
 import { Flex } from '../../Layout/Flex';
-import { Text } from '../../Text/Text';
 import { DateSelector } from '../Components/DateSelector';
 import { MonthSelector } from '../Components/MonthSelector';
 import { YearSelector } from '../Components/YearSelector';
@@ -28,10 +27,12 @@ import styles from './Calendar.module.css';
 
 export interface CalendarProps<T extends DateValue>
   extends RiaCalendarProps<T> {
-  placeHolderValue?: DateValue | null;
+  placeHolderValue?: DateValue;
 }
 
 export type SelectedDate = { year?: number; month?: number; day?: number };
+
+export function useCalendar() {}
 
 export function getCalendarHeaderText(
   currentState: 'Date' | 'Month' | 'Year',
@@ -61,29 +62,26 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
     ...restProps
   } = props;
 
-  const placeHolder = placeHolderValue
-    ? new Date(
-        placeHolderValue.year,
-        placeHolderValue.month - 1,
-        placeHolderValue.day
-      )
-    : undefined;
-
   const [currentState, setCurrentState] = useState<'Date' | 'Month' | 'Year'>(
     'Date'
   );
 
-  const [selectedDate, setSelectedDate] = useState<SelectedDate>({
-    year: value ? value.year : undefined,
-    month: value ? value.month : undefined,
-    day: value ? value.day : undefined,
-  });
+  const [selectedDate, setSelectedDate] = useState<DateValue | undefined>(
+    value ? value : undefined
+  );
+  const [selectedMonth, setSelectedMonth] = useState<number | undefined>(
+    value ? value.month : undefined
+  );
+  const [selectedYear, setSelectedYear] = useState<number | undefined>(
+    value ? value.year : undefined
+  );
 
+  // Indexing for type DateValue starts with 1 where as for type Date it starts with 0
   const minDate = minValue
-    ? new Date(minValue?.year, minValue?.month, minValue?.day)
+    ? new Date(minValue?.year, minValue?.month - 1, minValue?.day)
     : undefined;
   const maxDate = maxValue
-    ? new Date(maxValue?.year, maxValue?.month, maxValue?.day)
+    ? new Date(maxValue?.year, maxValue?.month - 1, maxValue?.day)
     : undefined;
 
   const initialDisplayValue = minDate
@@ -94,13 +92,19 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
 
   const [displayedDate, setDisplayedDate] = useState<Date>(initialDisplayValue);
 
-  function handleSetSelectedDate(date: SelectedDate) {
-    setSelectedDate(date);
+  function handleSetSelectedDate(date: DateValue) {
+    setSelectedDate(
+      new CalendarDate(
+        selectedYear ?? date.year,
+        selectedMonth ?? date.month,
+        date.day
+      )
+    );
 
     if (date.day !== undefined) {
-      const year = date.year ?? displayedDate.getFullYear();
-      const month = date.month ?? displayedDate.getMonth();
-      setSelectedDate({ day: date.day, month: month, year: year });
+      const year = date.year ?? value?.year;
+      const month = date.month ?? value?.month;
+      setSelectedDate(date);
 
       if (onChange) {
         const calendarDate = new CalendarDate(year, month, date.day);
@@ -145,25 +149,23 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
     }
   };
 
-  const onSelectDate = (newSelectedDate: Date) => {
+  const changeViewState = (toDisplay?: number) => {
     setCurrentState(currentState === 'Year' ? 'Month' : 'Date');
 
-    if (currentState === 'Month') {
-      setDisplayedDate(
-        new Date(
-          displayedDate.getFullYear(),
-          newSelectedDate.getMonth(),
-          displayedDate.getDate()
-        )
-      );
-    } else if (currentState === 'Year') {
-      setDisplayedDate(
-        new Date(
-          newSelectedDate.getFullYear(),
-          displayedDate.getMonth(),
-          displayedDate.getDate()
-        )
-      );
+    if (toDisplay) {
+      if (currentState === 'Month') {
+        setDisplayedDate(
+          new Date(
+            displayedDate.getFullYear(),
+            toDisplay,
+            displayedDate.getDate()
+          )
+        );
+      } else if (currentState === 'Year') {
+        setDisplayedDate(
+          new Date(toDisplay, displayedDate.getMonth(), displayedDate.getDate())
+        );
+      }
     }
   };
 
@@ -183,9 +185,14 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
           className={clsx(styles.arrowButtons, styles.button)}
           slot={'previous'}
           onPress={onPrevious}
+          onKeyDown={(e) => e.code === 'Enter' && onPrevious}
         />
         <DryButton
           isDisabled={isDisabled || currentState === 'Year'}
+          onKeyDown={(e) =>
+            e.code === 'Enter' &&
+            setCurrentState(currentState === 'Date' ? 'Month' : 'Year')
+          }
           onPress={() =>
             setCurrentState(currentState === 'Date' ? 'Month' : 'Year')
           }
@@ -193,48 +200,52 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
           children={getCalendarHeaderText(currentState, displayedDate)}
         />
         <ActionButton
+          icon={ChevronRight}
           isDisabled={isDisabled || isNextDisabled(displayedDate)}
           className={clsx(styles.arrowButtons, styles.button)}
           slot={'next'}
           onPress={onNext}
-          icon={ChevronRight}
+          onKeyDown={(e) => e.code === 'Enter' && onNext}
         />
       </Flex>
       <div className={styles.divider}></div>
       {currentState === 'Date' && (
         <DateSelector
-          maxValue={maxDate}
-          minValue={minDate}
+          displayedDate={
+            new CalendarDate(
+              displayedDate.getFullYear(),
+              displayedDate.getMonth() + 1,
+              displayedDate.getDate()
+            )
+          }
+          maxValue={maxValue ? maxValue : undefined}
+          minValue={minValue ? minValue : undefined}
           isDisabled={isDisabled}
-          displayedDate={displayedDate}
-          selectedDate={selectedDate}
-          setSelectedDate={handleSetSelectedDate}
-          onSelectDate={onSelectDate}
-          placeHolderValue={placeHolder}
+          value={selectedDate}
+          onChange={handleSetSelectedDate}
+          placeHolderValue={placeHolderValue}
         />
       )}
       {currentState === 'Month' && (
         <MonthSelector
-          maxValue={maxDate}
-          minValue={minDate}
+          maxValue={maxValue ? maxValue.month - 1 : undefined}
+          minValue={minValue ? minValue.month - 1 : undefined}
           isDisabled={isDisabled}
-          onSelectDate={onSelectDate}
-          displayedDate={displayedDate}
-          selectedDate={selectedDate}
-          setSelectedDate={handleSetSelectedDate}
-          placeHolderValue={placeHolder}
+          changeViewState={changeViewState}
+          value={selectedMonth ? selectedMonth - 1 : undefined}
+          onChange={setSelectedMonth}
+          placeHolderValue={placeHolderValue?.month}
         />
       )}
       {currentState === 'Year' && (
         <YearSelector
-          placeHolderValue={placeHolder}
-          maxValue={maxDate}
-          minValue={minDate}
+          placeHolderValue={placeHolderValue?.year}
+          maxValue={maxValue?.year}
+          minValue={minValue?.year}
           isDisabled={isDisabled}
-          onSelectDate={onSelectDate}
-          displayedDate={displayedDate}
-          selectedDate={selectedDate}
-          setSelectedDate={handleSetSelectedDate}
+          changeViewState={changeViewState}
+          value={selectedYear}
+          onChange={setSelectedYear}
         />
       )}
     </Flex>
