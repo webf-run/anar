@@ -53,4 +53,8 @@
   .error {
     color: var(--AnarColorError);
   }
+
+  .disableAll {
+    --AnarCalendarColorText: var(--AnarColorTextDisabled);
+  }
 }
