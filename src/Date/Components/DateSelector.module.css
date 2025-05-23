@@ -51,7 +51,7 @@
   }
 
   .placeHolder {
-    --AnarDateSelectorColorText: var(--gray-200);
+    --AnarDateSelectorCellColorBg: var(--purple-500);
   }
   
   .selected {
