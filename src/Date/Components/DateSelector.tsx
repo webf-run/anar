@@ -26,20 +26,22 @@ export interface DateSelectorProps extends RiaCalendarGridProps {
   minValue?: DateValue;
   maxValue?: DateValue;
 
-  placeHolderValue?: DateValue;
+  highlightedValue?: DateValue;
 }
 
 export function DateSelector(props: DateSelectorProps) {
   const {
     className,
     value,
-    placeHolderValue,
+    highlightedValue,
     displayedDate,
     onChange,
     isDisabled = false,
     minValue,
     maxValue,
   } = props;
+
+  const classes = clsx('MonthGrid', styles.root, className);
 
   function isDateDisabled(date: DateValue) {
     return (
@@ -66,16 +68,14 @@ export function DateSelector(props: DateSelectorProps) {
     return false;
   };
 
-  const classes = clsx('MonthGrid', styles.root, className);
-
   return (
     <RiaCalendar
       value={value}
       onChange={onChange}
-      defaultFocusedValue={displayedDate}
+      focusedValue={displayedDate}
       minValue={minValue}
       maxValue={maxValue}
-      defaultValue={placeHolderValue}
+      defaultValue={highlightedValue}
       isDisabled={isDisabled}
     >
       <RiaCalendarGrid className={classes}>
@@ -87,13 +87,13 @@ export function DateSelector(props: DateSelectorProps) {
             <RiaCalendarCell
               className={clsx(
                 styles.calendarCell,
-                placeHolderValue &&
+                highlightedValue &&
                   isSameDay(
                     new Date(date.year, date.month - 1, date.day),
                     new Date(
-                      placeHolderValue.year,
-                      placeHolderValue.month - 1,
-                      placeHolderValue.day
+                      highlightedValue.year,
+                      highlightedValue.month - 1,
+                      highlightedValue.day
                     )
                   ) &&
                   styles.placeHolder,

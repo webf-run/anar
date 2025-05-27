@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { KeyboardEvent, useEffect, useRef, useState } from 'react';
+import { useKeyboard } from 'react-aria';
 
 import { Button } from '../../Button/Button';
 import { Flex } from '../../Layout/Flex';
@@ -11,9 +12,7 @@ export interface YearSelectorProps {
   value?: number;
   onChange: (newYear?: number) => void;
 
-  placeHolderValue?: number;
-
-  changeViewState: (newNumber: number) => void;
+  highlightedValue?: number;
 
   isDisabled?: boolean;
   minValue?: number;
@@ -24,22 +23,22 @@ export function YearSelector(props: YearSelectorProps) {
   const {
     className,
     value,
-    placeHolderValue,
+    highlightedValue,
     onChange,
-    changeViewState,
     isDisabled,
     maxValue,
     minValue,
   } = props;
 
-  const [focusedIndex, setFocusedIndex] = useState<number>(-1);
-  const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
+  const classes = clsx(
+    'YearGrid',
+    styles.root,
+    styles.threeColumnGridLayout,
+    className
+  );
 
-  useEffect(() => {
-    if (focusedIndex >= 0 && buttonsRef.current[focusedIndex]) {
-      buttonsRef.current[focusedIndex]?.focus();
-    }
-  }, [focusedIndex]);
+  const [focusedIndex, setFocusedIndex] = useState<number>(-1);
+  const flexRef = useRef<HTMLDivElement | null>(null);
 
   const initialYear = minValue ?? value ?? new Date().getFullYear();
 
@@ -50,22 +49,37 @@ export function YearSelector(props: YearSelectorProps) {
     yearsToShow.push(rangeStartYear + i);
   }
 
-  const classes = clsx(
-    'YearGrid',
-    styles.root,
-    styles.threeColumnGridLayout,
-    className
-  );
-
   const onSelect = (date: number) => {
     const valueToSet = date === value ? undefined : date;
 
     onChange(valueToSet);
-
-    if (valueToSet) {
-      changeViewState(valueToSet);
-    }
   };
+
+  const moveFocus = (delta: number) => {
+    const newIndex = Math.min(Math.max(0, focusedIndex + delta), 11);
+    setFocusedIndex(newIndex);
+
+    const button = flexRef.current?.querySelector<HTMLButtonElement>(
+      `[data-year="${newIndex}"]`
+    );
+    button?.focus();
+  };
+
+  const { keyboardProps } = useKeyboard({
+    onKeyDown(e) {
+      const handlers: Partial<Record<string, () => void>> = {
+        ArrowLeft: () => moveFocus(-1),
+        ArrowRight: () => moveFocus(1),
+        ArrowUp: () => moveFocus(-3),
+        ArrowDown: () => moveFocus(3),
+      };
+
+      if (handlers[e.key]) {
+        e.preventDefault();
+        handlers[e.key]!();
+      }
+    },
+  });
 
   function isDateDisabled(value: number) {
     return (
@@ -75,39 +89,9 @@ export function YearSelector(props: YearSelectorProps) {
     );
   }
 
-  const columns = 3;
-
-  function handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
-    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-      e.preventDefault();
-    }
-
-    let delta = 0;
-    switch (e.key) {
-      case 'ArrowLeft':
-        delta = -1;
-        break;
-      case 'ArrowRight':
-        delta = 1;
-        break;
-      case 'ArrowUp':
-        delta = -columns;
-        break;
-      case 'ArrowDown':
-        delta = columns;
-        break;
-    }
-
-    const newIndex = Math.min(
-      Math.max(0, focusedIndex + delta),
-      yearsToShow.length - 1
-    );
-
-    setFocusedIndex(newIndex);
-  }
-
   return (
     <Flex
+      {...keyboardProps}
       className={classes}
       tabIndex={0}
       onFocus={() => {
@@ -115,11 +99,11 @@ export function YearSelector(props: YearSelectorProps) {
           setFocusedIndex(0);
         }
       }}
-      onKeyDown={handleKeyDown}
+      ref={flexRef}
     >
       {yearsToShow.map((year, index) => (
         <Button
-          ref={(el) => (buttonsRef.current[index] = el)}
+          data-year={index}
           key={index}
           variant='ghost'
           label={`${year}`}
@@ -128,7 +112,7 @@ export function YearSelector(props: YearSelectorProps) {
           className={clsx(
             styles.button,
             styles.bigCalendarCell,
-            placeHolderValue && year === placeHolderValue && styles.placeHolder,
+            highlightedValue && year === highlightedValue && styles.placeHolder,
             year && year === value && styles.selected
           )}
         />

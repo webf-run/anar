@@ -1,15 +1,11 @@
-import { CalendarDate } from '@internationalized/date';
+import {
+  CalendarDate,
+  endOfMonth,
+  startOfMonth,
+} from '@internationalized/date';
 import { MappedDateValue } from '@react-types/datepicker';
 import clsx from 'clsx';
-import {
-  addMonths,
-  addYears,
-  endOfMonth,
-  format,
-  startOfMonth,
-  subMonths,
-  subYears,
-} from 'date-fns';
+import { format } from 'date-fns';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import {
@@ -21,32 +17,41 @@ import { ActionButton } from '../../Button/ActionButton';
 import { DryButton } from '../../Button/DryButton';
 import { Flex } from '../../Layout/Flex';
 import { DateSelector } from '../Components/DateSelector';
-import { MonthSelector } from '../Components/MonthSelector';
+import { MonthGrid } from '../Components/MonthSelector';
 import { YearSelector } from '../Components/YearSelector';
 import styles from './Calendar.module.css';
 
 export interface CalendarProps<T extends DateValue>
   extends RiaCalendarProps<T> {
-  placeHolderValue?: DateValue;
+  highlightedValue?: DateValue;
 }
 
-export type SelectedDate = { year?: number; month?: number; day?: number };
-
-export function useCalendar() {}
+export type SelectedDate = {
+  currentView: 'Date' | 'Month' | 'Year';
+  selectedDate?: DateValue;
+  selectedMonth?: number;
+  selectedYear?: number;
+  displayedDate: DateValue;
+};
 
 export function getCalendarHeaderText(
   currentState: 'Date' | 'Month' | 'Year',
-  value: Date
+  value: DateValue
 ): string {
-  if (currentState === 'Date') {
-    return `${format(value, 'MMMM yyy')}`;
-  } else if (currentState === 'Month') {
-    return `${format(value, 'yyy')}`;
-  } else {
-    const startYear = subYears(value, value.getFullYear() % 10);
-    const endYear = addYears(startYear, 9);
+  const date = new Date(value.year, value.month - 1, value.day);
 
-    return `${format(startYear, 'yyy')} - ${format(endYear, 'yyy')}`;
+  if (currentState === 'Date') {
+    return `${format(date, 'MMMM yyy')}`;
+  } else if (currentState === 'Month') {
+    return `${format(date, 'yyy')}`;
+  } else {
+    const startYear = value.subtract({ years: value.year % 10 });
+    const endYear = startYear.subtract({ years: 9 });
+
+    const start = new Date(startYear.year, startYear.month, startYear.day);
+    const end = new Date(endYear.year, endYear.month, endYear.day);
+
+    return `${format(start, 'yyy')} - ${format(end, 'yyy')}`;
   }
 }
 
@@ -58,116 +63,9 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
     isDisabled = false,
     minValue,
     maxValue,
-    placeHolderValue,
+    highlightedValue,
     ...restProps
   } = props;
-
-  const [currentState, setCurrentState] = useState<'Date' | 'Month' | 'Year'>(
-    'Date'
-  );
-
-  const [selectedDate, setSelectedDate] = useState<DateValue | undefined>(
-    value ? value : undefined
-  );
-  const [selectedMonth, setSelectedMonth] = useState<number | undefined>(
-    value ? value.month : undefined
-  );
-  const [selectedYear, setSelectedYear] = useState<number | undefined>(
-    value ? value.year : undefined
-  );
-
-  // Indexing for type DateValue starts with 1 where as for type Date it starts with 0
-  const minDate = minValue
-    ? new Date(minValue?.year, minValue?.month - 1, minValue?.day)
-    : undefined;
-  const maxDate = maxValue
-    ? new Date(maxValue?.year, maxValue?.month - 1, maxValue?.day)
-    : undefined;
-
-  const initialDisplayValue = minDate
-    ? minDate
-    : maxDate && new Date() > maxDate
-      ? maxDate
-      : new Date();
-
-  const [displayedDate, setDisplayedDate] = useState<Date>(initialDisplayValue);
-
-  function handleSetSelectedDate(date: DateValue) {
-    setSelectedDate(
-      new CalendarDate(
-        selectedYear ?? date.year,
-        selectedMonth ?? date.month,
-        date.day
-      )
-    );
-
-    if (date.day !== undefined) {
-      const year = date.year ?? value?.year;
-      const month = date.month ?? value?.month;
-      setSelectedDate(date);
-
-      if (onChange) {
-        const calendarDate = new CalendarDate(year, month, date.day);
-        onChange(calendarDate as MappedDateValue<T>);
-      }
-    }
-  }
-
-  function isPreviousDisabled(currentDate: Date) {
-    const startMonth = startOfMonth(currentDate);
-    if (minDate && startMonth <= minDate) {
-      return true;
-    }
-    return false;
-  }
-
-  function isNextDisabled(currentDate: Date) {
-    const endMonth = endOfMonth(currentDate);
-    if (maxDate && endMonth >= maxDate) {
-      return true;
-    }
-    return false;
-  }
-
-  const onPrevious = () => {
-    if (currentState === 'Date') {
-      setDisplayedDate(subMonths(displayedDate, 1));
-    } else if (currentState === 'Month') {
-      setDisplayedDate(subYears(displayedDate, 1));
-    } else {
-      setDisplayedDate(subYears(displayedDate, 10));
-    }
-  };
-
-  const onNext = () => {
-    if (currentState === 'Date') {
-      setDisplayedDate(addMonths(displayedDate, 1));
-    } else if (currentState === 'Month') {
-      setDisplayedDate(addYears(displayedDate, 1));
-    } else {
-      setDisplayedDate(addYears(displayedDate, 10));
-    }
-  };
-
-  const changeViewState = (toDisplay?: number) => {
-    setCurrentState(currentState === 'Year' ? 'Month' : 'Date');
-
-    if (toDisplay) {
-      if (currentState === 'Month') {
-        setDisplayedDate(
-          new Date(
-            displayedDate.getFullYear(),
-            toDisplay,
-            displayedDate.getDate()
-          )
-        );
-      } else if (currentState === 'Year') {
-        setDisplayedDate(
-          new Date(toDisplay, displayedDate.getMonth(), displayedDate.getDate())
-        );
-      }
-    }
-  };
 
   const classes = clsx(
     'AnarCalendar',
@@ -176,32 +74,185 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
     className
   );
 
+  // Try replacing this so that state isnt used
+  const [calendarState, setCalendarState] = useState<SelectedDate>(() => {
+    const minDate = minValue ? minValue : undefined;
+    const maxDate = maxValue ? maxValue : undefined;
+
+    const initialDisplayValue = minDate
+      ? minDate
+      : maxDate &&
+          new CalendarDate(
+            new Date().getFullYear(),
+            new Date().getMonth() + 1,
+            new Date().getDate()
+          ) > maxDate
+        ? maxDate
+        : new CalendarDate(
+            new Date().getFullYear(),
+            new Date().getMonth() + 1,
+            new Date().getDate()
+          );
+    return {
+      currentView: 'Date',
+      selectedDate: value ? value : undefined,
+      selectedMonth: value ? value.month : undefined,
+      selectedYear: value ? value.year : undefined,
+      displayedDate: initialDisplayValue,
+    };
+  });
+
+  const onMonthAndYearChange = (val?: number) => {
+    if (calendarState.currentView === 'Year') {
+      setCalendarState((prev) => ({
+        ...prev,
+        selectedYear: val,
+      }));
+    } else {
+      setCalendarState((prev) => ({
+        ...prev,
+        selectedMonth: val,
+      }));
+    }
+    if (val !== undefined) {
+      setCalendarState((prev) => ({
+        ...prev,
+        currentView: calendarState.currentView === 'Year' ? 'Month' : 'Date',
+      }));
+      if (calendarState.currentView === 'Month') {
+        setCalendarState((prev) => ({
+          ...prev,
+          displayedDate: calendarState.displayedDate.set({ month: val }),
+        }));
+      } else if (calendarState.currentView === 'Year') {
+        setCalendarState((prev) => ({
+          ...prev,
+          displayedDate: calendarState.displayedDate.set({ year: val }),
+        }));
+      }
+    }
+  };
+
+  function handleSetSelectedDate(date: DateValue) {
+    setCalendarState((prev) => ({
+      ...prev,
+      selectedDate: new CalendarDate(
+        calendarState.selectedYear ?? date.year,
+        calendarState.selectedMonth ?? date.month,
+        date.day
+      ),
+    }));
+
+    if (date.day !== undefined) {
+      const year = date.year ?? value?.year;
+      const month = date.month ?? value?.month;
+      setCalendarState((prev) => ({
+        ...prev,
+        selectedDate: new CalendarDate(date.year, date.month, date.day),
+      }));
+
+      if (onChange) {
+        const calendarDate = new CalendarDate(year, month, date.day);
+        onChange(calendarDate as MappedDateValue<T>);
+      }
+    }
+  }
+
+  function isPreviousDisabled(date: DateValue) {
+    const startMonth = startOfMonth(date);
+    if (minValue && startMonth <= minValue) {
+      return true;
+    }
+    return false;
+  }
+
+  function isNextDisabled(date: DateValue) {
+    const currentDate = endOfMonth(date);
+
+    const endMonth = endOfMonth(currentDate);
+    if (maxValue && endMonth >= maxValue) {
+      return true;
+    }
+    return false;
+  }
+
+  const onPrevious = () => {
+    if (calendarState.currentView === 'Date') {
+      setCalendarState((prev) => ({
+        ...prev,
+        displayedDate: calendarState.displayedDate.subtract({ months: 1 }),
+      }));
+    } else if (calendarState.currentView === 'Month') {
+      setCalendarState((prev) => ({
+        ...prev,
+        displayedDate: calendarState.displayedDate.subtract({ years: 1 }),
+      }));
+    } else {
+      setCalendarState((prev) => ({
+        ...prev,
+        displayedDate: calendarState.displayedDate.subtract({ years: 10 }),
+      }));
+    }
+  };
+
+  const onNext = () => {
+    if (calendarState.currentView === 'Date') {
+      setCalendarState((prev) => ({
+        ...prev,
+        displayedDate: calendarState.displayedDate.add({ months: 1 }),
+      }));
+    } else if (calendarState.currentView === 'Month') {
+      setCalendarState((prev) => ({
+        ...prev,
+        displayedDate: calendarState.displayedDate.add({ years: 1 }),
+      }));
+    } else {
+      setCalendarState((prev) => ({
+        ...prev,
+        displayedDate: calendarState.displayedDate.add({ years: 10 }),
+      }));
+    }
+  };
+
   return (
     <Flex className={classes}>
       <Flex className={styles.CalendarHeader}>
         <ActionButton
           icon={ChevronLeft}
-          isDisabled={isDisabled || isPreviousDisabled(displayedDate)}
+          isDisabled={
+            isDisabled || isPreviousDisabled(calendarState.displayedDate)
+          }
           className={clsx(styles.arrowButtons, styles.button)}
           slot={'previous'}
           onPress={onPrevious}
           onKeyDown={(e) => e.code === 'Enter' && onPrevious}
         />
         <DryButton
-          isDisabled={isDisabled || currentState === 'Year'}
+          isDisabled={isDisabled || calendarState.currentView === 'Year'}
           onKeyDown={(e) =>
             e.code === 'Enter' &&
-            setCurrentState(currentState === 'Date' ? 'Month' : 'Year')
+            setCalendarState({
+              ...calendarState,
+              currentView:
+                calendarState.currentView === 'Date' ? 'Month' : 'Year',
+            })
           }
           onPress={() =>
-            setCurrentState(currentState === 'Date' ? 'Month' : 'Year')
+            setCalendarState({
+              ...calendarState,
+              currentView:
+                calendarState.currentView === 'Date' ? 'Month' : 'Year',
+            })
           }
           className={clsx(styles.CalendarHeaderText, styles.button)}
-          children={getCalendarHeaderText(currentState, displayedDate)}
+          children={getCalendarHeaderText(
+            calendarState.currentView,
+            calendarState.displayedDate
+          )}
         />
         <ActionButton
           icon={ChevronRight}
-          isDisabled={isDisabled || isNextDisabled(displayedDate)}
+          isDisabled={isDisabled || isNextDisabled(calendarState.displayedDate)}
           className={clsx(styles.arrowButtons, styles.button)}
           slot={'next'}
           onPress={onNext}
@@ -209,43 +260,39 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
         />
       </Flex>
       <div className={styles.divider}></div>
-      {currentState === 'Date' && (
+      {calendarState.currentView === 'Date' && (
         <DateSelector
-          displayedDate={
-            new CalendarDate(
-              displayedDate.getFullYear(),
-              displayedDate.getMonth() + 1,
-              displayedDate.getDate()
-            )
-          }
+          displayedDate={calendarState.displayedDate}
           maxValue={maxValue ? maxValue : undefined}
           minValue={minValue ? minValue : undefined}
           isDisabled={isDisabled}
-          value={selectedDate}
+          value={calendarState.selectedDate}
           onChange={handleSetSelectedDate}
-          placeHolderValue={placeHolderValue}
+          highlightedValue={highlightedValue}
         />
       )}
-      {currentState === 'Month' && (
-        <MonthSelector
+      {calendarState.currentView === 'Month' && (
+        <MonthGrid
+          value={
+            calendarState.selectedMonth
+              ? calendarState.selectedMonth
+              : undefined
+          }
+          onChange={onMonthAndYearChange}
           maxValue={maxValue ? maxValue.month - 1 : undefined}
           minValue={minValue ? minValue.month - 1 : undefined}
           isDisabled={isDisabled}
-          changeViewState={changeViewState}
-          value={selectedMonth ? selectedMonth - 1 : undefined}
-          onChange={setSelectedMonth}
-          placeHolderValue={placeHolderValue?.month}
+          highlightedValue={highlightedValue?.month}
         />
       )}
-      {currentState === 'Year' && (
+      {calendarState.currentView === 'Year' && (
         <YearSelector
-          placeHolderValue={placeHolderValue?.year}
+          value={calendarState.selectedYear}
+          onChange={onMonthAndYearChange}
           maxValue={maxValue?.year}
           minValue={minValue?.year}
           isDisabled={isDisabled}
-          changeViewState={changeViewState}
-          value={selectedYear}
-          onChange={setSelectedYear}
+          highlightedValue={highlightedValue?.year}
         />
       )}
     </Flex>

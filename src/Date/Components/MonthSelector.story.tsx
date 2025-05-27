@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { MonthSelector } from './MonthSelector';
+import { MonthGrid } from './MonthSelector';
 
-const meta: Meta<typeof MonthSelector> = {
+const meta: Meta<typeof MonthGrid> = {
   title: 'Dates/MonthSelector',
-  component: MonthSelector,
+  component: MonthGrid,
   parameters: {
     layout: 'centered',
   },
@@ -21,7 +21,7 @@ export const Primary: Story = {
 
     return (
       <div>
-        <MonthSelector onChange={() => {}} changeViewState={() => {}} />
+        <MonthGrid onChange={() => {}} changeViewState={() => {}} />
       </div>
     );
   },
@@ -33,7 +33,7 @@ export const MinMax: Story = {
 
     return (
       <div>
-        <MonthSelector
+        <MonthGrid
           minValue={4}
           maxValue={6}
           onChange={() => {}}

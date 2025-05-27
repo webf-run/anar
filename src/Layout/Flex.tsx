@@ -1,5 +1,14 @@
 import clsx from 'clsx';
-import { CSSProperties, ReactNode, createContext, useContext } from 'react';
+import {
+  CSSProperties,
+  ForwardRefExoticComponent,
+  ReactNode,
+  Ref,
+  RefAttributes,
+  createContext,
+  forwardRef,
+  useContext,
+} from 'react';
 
 import styles from './Flex.module.css';
 import type {
@@ -44,13 +53,14 @@ export type FlexChildProps = {
   children?: ReactNode;
 };
 
-Flex.Child = FlexChild;
-
 const FlexContext = createContext({
   direction: 'row' as FlexDirection,
 });
 
-export function Flex(props: FlexProps) {
+export const FlexBase = forwardRef(function Flex(
+  props: FlexProps,
+  ref: Ref<HTMLDivElement>
+) {
   const { style, rest } = getFlexStyles(props);
   const { className, strategy, ...otherProps } = rest;
 
@@ -70,10 +80,11 @@ export function Flex(props: FlexProps) {
         {...attributes}
         className={clsx('Flex', styles.root, className)}
         style={mergedStyles}
+        ref={ref}
       />
     </FlexContext.Provider>
   );
-}
+});
 
 /** Fluid/adjustable child of flex layout */
 export function FlexChild(props: FlexChildProps) {
@@ -106,3 +117,13 @@ function getFlexStyles(props: FlexProps) {
 
   return { style, rest };
 }
+
+type FlexComponentType = ForwardRefExoticComponent<
+  FlexProps & RefAttributes<HTMLDivElement>
+> & {
+  Child: typeof FlexChild;
+};
+
+export const Flex = Object.assign(FlexBase, {
+  Child: FlexChild,
+}) as FlexComponentType;

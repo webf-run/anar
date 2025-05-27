@@ -26,9 +26,9 @@
   }
 
   .arrowButtons {
-    --DryButtonColorText: var(--gray-500);
-    --DryButtonColorBg: transparent;
-    --DryButtonDisabledColorBg: transparent;
+    --DryButtonColorText: var(--gray-500) !important;
+    --DryButtonColorBg: transparent !important;
+    --DryButtonDisabledColorBg: transparent !important;
   }
 
   .CalendarHeaderText {
@@ -43,7 +43,7 @@
     border: 1px solid var(--AnarCalendarColorDivider);
   }
 
-  button{
+  .button{
     &[data-pressed] {
       border-radius: 5px;
       background-color: var(--AnarColorDisabledBg);

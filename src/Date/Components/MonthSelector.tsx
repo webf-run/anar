@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { format } from 'date-fns';
 import { KeyboardEvent, useEffect, useRef, useState } from 'react';
+import { useKeyboard } from 'react-aria';
 
 import { Button } from '../../Button/Button';
 import { Flex } from '../../Layout/Flex';
@@ -10,90 +11,24 @@ export interface MonthSelectorProps {
   className?: string;
 
   value?: number;
-  onChange: (newYear?: number) => void;
-
-  changeViewState: (newNumber: number) => void;
+  onChange: (value?: number) => void;
 
   isDisabled?: boolean;
   minValue?: number;
   maxValue?: number;
-  placeHolderValue?: number;
+  highlightedValue?: number;
 }
 
-export function MonthSelector(props: MonthSelectorProps) {
+export function MonthGrid(props: MonthSelectorProps) {
   const {
     value,
     onChange,
-    placeHolderValue,
-    changeViewState,
+    highlightedValue,
     isDisabled,
     maxValue,
     minValue,
     className,
   } = props;
-
-  const [focusedIndex, setFocusedIndex] = useState<number>(-1);
-  const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
-
-  useEffect(() => {
-    if (focusedIndex >= 0 && buttonsRef.current[focusedIndex]) {
-      buttonsRef.current[focusedIndex]?.focus();
-    }
-  }, [focusedIndex]);
-
-  const monthsToShow: string[] = [];
-  for (let i = 0; i < 12; i++) {
-    monthsToShow.push(format(new Date(new Date().getFullYear(), i, 1), 'MMM'));
-  }
-
-  function isDateDisabled(value: number) {
-    return (
-      isDisabled ||
-      (minValue !== undefined && value < minValue) ||
-      (maxValue !== undefined && value > maxValue)
-    );
-  }
-
-  const onSelect = (month: number) => {
-    const valueToSet = value === month ? undefined : month;
-
-    onChange(valueToSet);
-
-    if (valueToSet) {
-      changeViewState(valueToSet);
-    }
-  };
-
-  const columns = 3;
-
-  function handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
-    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-      e.preventDefault();
-    }
-
-    let delta = 0;
-    switch (e.key) {
-      case 'ArrowLeft':
-        delta = -1;
-        break;
-      case 'ArrowRight':
-        delta = 1;
-        break;
-      case 'ArrowUp':
-        delta = -columns;
-        break;
-      case 'ArrowDown':
-        delta = columns;
-        break;
-    }
-
-    const newIndex = Math.min(
-      Math.max(0, focusedIndex + delta),
-      monthsToShow.length - 1
-    );
-
-    setFocusedIndex(newIndex);
-  }
 
   const classes = clsx(
     'MonthGrid',
@@ -102,8 +37,57 @@ export function MonthSelector(props: MonthSelectorProps) {
     className
   );
 
+  const [focusedIndex, setFocusedIndex] = useState<number>(-1);
+  const flexRef = useRef<HTMLDivElement | null>(null);
+
+  const monthsToShow: string[] = [];
+  for (let i = 0; i < 12; i++) {
+    monthsToShow.push(format(new Date(new Date().getFullYear(), i, 1), 'MMM'));
+  }
+
+  const isDateDisabled = (value: number) => {
+    return (
+      isDisabled ||
+      (minValue !== undefined && value < minValue) ||
+      (maxValue !== undefined && value > maxValue)
+    );
+  };
+
+  const onSelect = (month: number) => {
+    const valueToSet = value === month + 1 ? undefined : month + 1;
+
+    onChange(valueToSet);
+  };
+
+  const moveFocus = (delta: number) => {
+    const newIndex = Math.min(Math.max(0, focusedIndex + delta), 11);
+    setFocusedIndex(newIndex);
+
+    const button = flexRef.current?.querySelector<HTMLButtonElement>(
+      `[data-month="${newIndex}"]`
+    );
+    button?.focus();
+  };
+
+  const { keyboardProps } = useKeyboard({
+    onKeyDown(e) {
+      const handlers: Partial<Record<string, () => void>> = {
+        ArrowLeft: () => moveFocus(-1),
+        ArrowRight: () => moveFocus(1),
+        ArrowUp: () => moveFocus(-3),
+        ArrowDown: () => moveFocus(3),
+      };
+
+      if (handlers[e.key]) {
+        e.preventDefault();
+        handlers[e.key]!();
+      }
+    },
+  });
+
   return (
     <Flex
+      {...keyboardProps}
       className={classes}
       tabIndex={0}
       onFocus={() => {
@@ -111,11 +95,11 @@ export function MonthSelector(props: MonthSelectorProps) {
           setFocusedIndex(0);
         }
       }}
-      onKeyDown={handleKeyDown}
+      ref={flexRef}
     >
       {monthsToShow.map((date, index) => (
         <Button
-          ref={(el) => (buttonsRef.current[index] = el)}
+          data-month={index}
           key={index}
           variant='ghost'
           label={date}
@@ -124,10 +108,10 @@ export function MonthSelector(props: MonthSelectorProps) {
           className={clsx(
             styles.button,
             styles.bigCalendarCell,
-            placeHolderValue &&
-              index === placeHolderValue &&
+            highlightedValue &&
+              index === highlightedValue &&
               styles.placeHolder,
-            value && index === value && styles.selected
+            value !== undefined && index + 1 === value && styles.selected
           )}
         />
       ))}

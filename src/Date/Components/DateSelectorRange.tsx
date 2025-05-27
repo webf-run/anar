@@ -68,19 +68,11 @@ export function RangeDateSelector(props: RangeDateSelectorProps) {
 
   const isSelected = (date: DateValue) => {
     return (
-      isSameMonth(
-        new Date(
-          displayedDate.year,
-          displayedDate.month - 1,
-          displayedDate.day
-        ),
-        new Date(date.year, date.month - 1, date.day)
-      ) &&
       value &&
       value.start.day &&
       value.end.day &&
-      date.day >= value.start.day &&
-      date.day <= value.end.day
+      date.compare(value.start) >= 0 &&
+      date.compare(value.end) <= 0
     );
   };
 
@@ -90,7 +82,7 @@ export function RangeDateSelector(props: RangeDateSelectorProps) {
     <RiaRangeCalendar
       value={value}
       onChange={onChange}
-      defaultFocusedValue={displayedDate}
+      focusedValue={displayedDate}
       minValue={minValue}
       maxValue={maxValue}
       isDisabled={isDisabled}

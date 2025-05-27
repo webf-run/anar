@@ -80,7 +80,7 @@ export function DatePickerField<T extends DateValue>(
         placement={'bottom'}
       >
         <Calendar
-          placeHolderValue={placeholderValue ? placeholderValue : undefined}
+          highlightedValue={placeholderValue ? placeholderValue : undefined}
           value={selectedDate}
           onChange={onCalendarValue}
           maxValue={maxValue}
