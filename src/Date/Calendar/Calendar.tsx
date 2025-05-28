@@ -74,7 +74,6 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
     className
   );
 
-  // Try replacing this so that state isnt used
   const [calendarState, setCalendarState] = useState<SelectedDate>(() => {
     const minDate = minValue ? minValue : undefined;
     const maxDate = maxValue ? maxValue : undefined;

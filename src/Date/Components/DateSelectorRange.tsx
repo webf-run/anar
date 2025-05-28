@@ -106,32 +106,4 @@ export function RangeDateSelector(props: RangeDateSelectorProps) {
       </RiaCalendarGrid>
     </RiaRangeCalendar>
   );
-
-  // return (
-  //   <Flex className={classes}>
-  //     {days.map((val, index) => (
-  //       <Text text={val} key={index} className={styles.header} />
-  //     ))}
-  //     {visibleDates.map((value, index) => (
-  //       <Button
-  //         key={index}
-  //         variant='ghost'
-  //         isDisabled={isDateDisabled(value)}
-  //         label={`${format(value, 'dd')}`}
-  //         className={clsx(
-  //           styles.button,
-
-  //           isSameMonth(displayedDate, value) &&
-  //             selectedDate.from.day &&
-  //             selectedDate.to.day &&
-  //             value.getDate() >= selectedDate.from.day &&
-  //             value.getDate() <= selectedDate.to.day &&
-  //             styles.selected,
-  //           isDateDisabled(value) && styles.disabled
-  //         )}
-  //         onPress={() => onSelect(value)}
-  //       />
-  //     ))}
-  //   </Flex>
-  // );
 }
