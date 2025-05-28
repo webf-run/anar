@@ -18,7 +18,7 @@ import { DryButton } from '../../Button/DryButton';
 import { Flex } from '../../Layout/Flex';
 import { DateSelector } from '../Components/DateSelector';
 import { MonthGrid } from '../Components/MonthSelector';
-import { YearSelector } from '../Components/YearSelector';
+import { YearPicker } from '../YearPicker';
 import styles from './Calendar.module.css';
 
 export interface CalendarProps<T extends DateValue>
@@ -285,7 +285,7 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
         />
       )}
       {calendarState.currentView === 'Year' && (
-        <YearSelector
+        <YearPicker
           value={calendarState.selectedYear}
           onChange={onMonthAndYearChange}
           maxValue={maxValue?.year}

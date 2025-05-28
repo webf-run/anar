@@ -20,7 +20,7 @@ import { Text } from '../../Text/Text';
 import { getCalendarHeaderText } from '../Calendar/Calendar';
 import { RangeDateSelector } from '../Components/DateSelectorRange';
 import { MonthGrid } from '../Components/MonthSelector';
-import { YearSelector } from '../Components/YearSelector';
+import { YearPicker } from '../YearPicker';
 import styles from './CalendarRange.module.css';
 
 export interface CalendarProps<T extends DateValue>
@@ -263,7 +263,7 @@ export function CalendarRange<T extends DateValue>(props: CalendarProps<T>) {
         />
       )}
       {calendarState.currentView === 'Year' && (
-        <YearSelector
+        <YearPicker
           maxValue={maxValue?.year}
           minValue={minValue?.year}
           isDisabled={isDisabled}
