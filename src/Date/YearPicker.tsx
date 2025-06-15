@@ -1,10 +1,20 @@
 import clsx from 'clsx';
-import { useRef } from 'react';
+import {
+  Ref,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 
 import { Button } from '../Button/Button.js';
 import { useGridKeyboardNavigation } from '../Util/Keyboard.js';
-
 import styles from './Components/CalendarGrid.module.css';
+
+export interface YearPickerRef {
+  focus: () => void;
+}
 
 export interface YearPickerProps {
   className?: string;
@@ -17,9 +27,13 @@ export interface YearPickerProps {
   highlightedValue?: number;
 
   isDisabled?: boolean;
+  disabledYears?: number[];
 }
 
-export function YearPicker(props: YearPickerProps) {
+export const YearPicker = forwardRef(function YearPicker(
+  props: YearPickerProps,
+  ref: Ref<YearPickerRef>
+) {
   const {
     className,
     value,
@@ -28,6 +42,7 @@ export function YearPicker(props: YearPickerProps) {
     isDisabled,
     endYear,
     startYear,
+    disabledYears,
   } = props;
 
   const rootElmRef = useRef<HTMLDivElement>(null);
@@ -43,34 +58,51 @@ export function YearPicker(props: YearPickerProps) {
     .fill(startYear)
     .map((start, index) => start + index);
 
-  const onKeyDown = useGridKeyboardNavigation(
-    rootElmRef,
-    '[data-year]',
-    3
-  );
+  const onKeyDown = useGridKeyboardNavigation(rootElmRef, '[data-year]', 3);
 
-  const isDateDisabled = (value: number) => {
+  const isYearDisabled = (value: number) => {
     return (
       isDisabled ||
-      (value < startYear) ||
-      (value > endYear)
+      value < startYear ||
+      value > endYear ||
+      (disabledYears && disabledYears.includes(value))
     );
-  }
+  };
+
+  const firstEnabledIndex = yearsToShow.findIndex(
+    (year) => !isYearDisabled(year)
+  );
+
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      const el = rootElmRef.current;
+      if (!el) return;
+
+      const buttons = el.querySelectorAll<HTMLButtonElement>('[data-year]');
+
+      for (const btn of buttons) {
+        if (
+          !btn.hasAttribute('disabled') &&
+          btn.getAttribute('aria-disabled') !== 'true'
+        ) {
+          btn.focus();
+          break;
+        }
+      }
+    },
+  }));
 
   return (
-    <div
-      className={classes}
-      ref={rootElmRef}
-      role='grid'
-    >
+    <div className={classes} ref={rootElmRef} role='grid'>
       {yearsToShow.map((year, index) => (
         <Button
           data-year={index}
+          excludeFromTabOrder={index !== firstEnabledIndex}
           key={index}
           variant='ghost'
           label={`${year}`}
           onKeyDown={onKeyDown}
-          isDisabled={isDateDisabled(year) || index === 2}
+          isDisabled={isYearDisabled(year)}
           onPress={() => onChange?.(year === value ? null : year)}
           className={clsx(
             styles.button,
@@ -82,41 +114,4 @@ export function YearPicker(props: YearPickerProps) {
       ))}
     </div>
   );
-}
-
-
-// interface YearPickerGridProps {
-//   years: number[];
-//   value?: number;
-//   onChange?: (year: number | null) => void;
-// };
-
-// function YearPickerGrid(props: YearPickerGridProps) {
-//   const { years, value, onChange } = props;
-//   const manager = useFocusManager();
-
-//   const onKeyDown = useKeyHandler({
-//     ArrowLeft: () => manager?.focusPrevious(-1),
-//     ArrowRight: () => moveFocus(1),
-//     ArrowUp: () => moveFocus(-3),
-//     ArrowDown: () => moveFocus(3),
-//   });
-
-//   return years.map((year, index) => (
-//     <Button
-//       data-year={index}
-//       key={year}
-//       variant='ghost'
-//       onKeyDown={manager.}
-//       label={`${year}`}
-//       // isDisabled={isDateDisabled(year)}
-//       onPress={() => onChange?.(year === value ? null : year)}
-//       className={clsx(
-//         styles.button,
-//         styles.bigCalendarCell,
-//         // highlightedValue && year === highlightedValue && styles.placeHolder,
-//         year === value && styles.selected
-//       )}
-//     />
-//   ));
-// }
+});

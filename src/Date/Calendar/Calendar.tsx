@@ -17,7 +17,7 @@ import { ActionButton } from '../../Button/ActionButton';
 import { DryButton } from '../../Button/DryButton';
 import { Flex } from '../../Layout/Flex';
 import { DateSelector } from '../Components/DateSelector';
-import { MonthGrid } from '../Components/MonthSelector';
+import { MonthGrid } from '../Components/MonthPicker';
 import { YearPicker } from '../YearPicker';
 import styles from './Calendar.module.css';
 

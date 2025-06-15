@@ -19,7 +19,7 @@ import { Flex } from '../../Layout/Flex';
 import { Text } from '../../Text/Text';
 import { getCalendarHeaderText } from '../Calendar/Calendar';
 import { RangeDateSelector } from '../Components/DateSelectorRange';
-import { MonthGrid } from '../Components/MonthSelector';
+import { MonthGrid } from '../Components/MonthPicker';
 import { YearPicker } from '../YearPicker';
 import styles from './CalendarRange.module.css';
 
