@@ -1,0 +1,43 @@
+@layer anar {
+  .root {
+    --AnarDatePickerFieldGap: 10px;
+    
+    outline: none;
+
+    display: flex;
+    flex-flow: column !important;
+    gap: var(--AnarDatePickerFieldGap);
+  }
+
+  .button {
+    --DryButtonColorBd: var(--gray-600);
+    --DryButtonPressedColorBd: var(--primary-900);
+    --DryButtonBorderWidth: 2px;
+    --DryButtonPadding: 9px 10px;
+    --DryButtonRadius: 5px;
+
+    display: flex;
+    min-height: 46px !important;
+    min-width: 126px !important;
+  }
+
+  .popover {
+    --AnarPopoverColorBd: var(--gray-200);
+    --AnarPopoverBorderRadius: 5px;
+    --AnarPopoverPadding: 0;
+
+    overflow: auto;
+  }
+
+  .AnarDryButtonContent {
+    font-weight: 400;
+  }
+
+  .errorButton {
+    --DryButtonColorBd: var(--red-1000);
+  }
+
+  .error {
+    color: var(--AnarColorError) !important;
+  }
+}

@@ -1,0 +1,59 @@
+@layer anar {
+  .root {
+    --AnarCalendarColorBg: var(--gray-100 );
+    --AnarCalendarColorText: var(--AnarColorText);
+    --AnarCalendarPadding:   20px 10px;
+    --AnarCalendarRadius: 5px;
+
+    display: inline-flex;
+    flex-flow: column !important;
+    gap: 5px;
+    width: 310px;
+    
+    padding:var(--AnarCalendarPadding);
+    
+    border-radius: var(--AnarCalendarRadius);
+
+    color: var(--AnarCalendarColorText);
+    background-color: var(--AnarCalendarColorBg);
+  }
+
+  .CalendarHeader {
+    display: flex;
+    justify-content: space-between;
+    width: 290px;
+  }
+
+  .arrowButtons {
+    --DryButtonColorText: var(--gray-500);
+    --DryButtonColorBg: transparent;
+    --DryButtonDisabledColorBg: transparent;
+  }
+
+  .CalendarHeaderText {
+    padding: 12px 31px;
+  }
+
+  .divider {
+    --AnarCalendarColorDivider: var(--AnarDividerColor);
+    --AnarCalendarMarginDivider: 0px 0px 15px 0px;
+
+    margin: var(--AnarCalendarMarginDivider);
+    border: 1px solid var(--AnarCalendarColorDivider);
+  }
+
+  .button{
+    &[data-pressed] {
+      border-radius: 5px;
+      background-color: var(--AnarColorDisabledBg);
+    }
+  }
+  
+  .error {
+    color: var(--AnarColorError);
+  }
+
+  .disableAll {
+    --AnarCalendarColorText: var(--AnarColorTextDisabled);
+  }
+}

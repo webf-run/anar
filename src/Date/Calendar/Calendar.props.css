@@ -1,0 +1,62 @@
+@property --AnarCalendarPadding {
+  syntax: '<length>+';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --AnarCalendarColorBg {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: none;
+}
+
+@property --AnarCalendarRadius {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --AnarCalendarColorText {
+  syntax: '<color>';
+  inherits: false;
+}
+
+@property --AnarCalendarDisabledColorText {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: none;
+}
+
+@property --AnarCalendarErrorColorText {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: none;
+}
+
+@property --AnarCalendarColorSelected {
+  syntax: '<color>';
+  inherits: false;
+}
+
+@property --AnarCalendarColorDivider {
+  syntax: '<color>';
+  inherits: false;
+}
+
+@property --AnarCalendarMarginDivider {
+  syntax: '<length>+';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --AnarCalendarColorSelectedBorder {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: none;
+}
+
+@property --AnarCalendarColorArrowButton {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: none;
+}

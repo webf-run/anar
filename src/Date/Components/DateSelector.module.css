@@ -1,0 +1,67 @@
+@layer anar {
+  .root {
+    --AnarDateSelectorSelectorColumnGap: 1px;
+    --AnarDateSelectorSelectorRowGap: 1px;
+ 
+    display: grid !important ;
+    column-gap: var(--AnarDateSelectorSelectorColumnGap);
+    row-gap: var(--AnarDateSelectorSelectorRowGap);
+  }
+
+  .header tr {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .calendarCell {
+    --AnarDateSelectorColorText: var(--AnarColorText);
+    --AnarDateSelectorCellRadius: 5px;
+    --AnarDateSelectorCellPadding: 8px;
+    --AnarDateSelectorCellBd: 1px;
+    --AnarDateSelectorCellColorBd: transparent;
+    --AnarDateSelectorCellColorBg: transparent;
+
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    padding: var(--AnarDateSelectorCellPadding);
+
+    border: var(--AnarDateSelectorCellBd) solid var(--AnarDateSelectorCellColorBd);
+    border-radius: var(--AnarDateSelectorCellRadius);
+
+    color: var(--AnarDateSelectorColorText);
+    background: var(--AnarDateSelectorCellColorBg);
+    outline: none;
+
+    &[data-hovered] {
+      --AnarDateSelectorCellColorBg: var(--gray-200);
+    }
+
+    &[data-disabled] {
+      --AnarDateSelectorCellColorBg: transparent;
+      --AnarDateSelectorColorText: var(--AnarColorTextDisabled)
+    }
+
+    &[data-focus-visible] {
+      border: 1px solid var(--AnarFocusRing) !important;
+    }
+  }
+
+  .placeHolder {
+    --AnarDateSelectorCellColorBg: var(--purple-500);
+  }
+  
+  .selected {
+    background: var(--gray-200);
+    border:1px solid var(--indigo-400);
+  }
+
+  .disabled {
+    --AnarDateSelectorColorText: var(--AnarColorTextDisabled);
+
+    cursor: default;
+  }
+}

@@ -1,0 +1,63 @@
+@layer anar {
+  .root {
+    --AnarCalendarSelectorColumnGap: 1px;
+    --AnarCalendarSelectorRowGap: 1px;
+
+    display: grid !important ;
+    column-gap: var(--AnarCalendarSelectorColumnGap);
+    row-gap: var(--AnarCalendarSelectorRowGap);
+  }
+
+  .sevenColumnGridLayout {
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .threeColumnGridLayout {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .button {
+    --DryButtonColorText: var(--AnarColorText);
+    --DryButtonRadius: 5px;
+    --DryButtonPadding: 20px;
+    --DryButtonBorderWidth: 1px;
+    --DryButtonColorBd: transparent;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &[data-hovered] {
+      --DryButtonColorBg: var(--gray-200);
+    }
+
+    &[data-disabled] {
+      --DryButtonDisabledColorBg: transparent;
+      --DryButtonColorText: var(--AnarColorTextDisabled)
+    }
+  }
+
+  .bigCalendarCell {
+    min-width: 82px !important;
+  }
+
+  .placeHolder {
+    --DryButtonColorBg: var(--gray-200);
+  }
+
+  .selected {
+    background: var(--gray-200);
+    border:1px solid var(--indigo-400);
+  }
+
+  .disabled {
+    --AnarCalendarColorText: var(--AnarColorTextDisabled);
+
+    cursor: default;
+  }
+}

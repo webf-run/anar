@@ -50,6 +50,7 @@ const rollup = {
     postcss({
       plugins: [atImport()],
       extract: 'Style.css',
+      modules: true,
       sourceMap: true,
       autoModules: true,
     }),
