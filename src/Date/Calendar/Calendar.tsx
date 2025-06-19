@@ -13,12 +13,13 @@ import {
   CalendarProps as RiaCalendarProps,
 } from 'react-aria-components';
 
-import { ActionButton } from '../../Button/ActionButton';
-import { DryButton } from '../../Button/DryButton';
-import { Flex } from '../../Layout/Flex';
-import { DateSelector } from '../Components/DateSelector';
-import { MonthGrid } from '../Components/MonthPicker';
-import { YearPicker } from '../YearPicker';
+import { ActionButton } from '../../Button/ActionButton.js';
+import { DryButton } from '../../Button/DryButton.js';
+import { Flex } from '../../Layout/Flex.js';
+import { DateSelector } from '../Components/DateSelector.js';
+import { MonthPicker } from '../MonthPicker.js';
+import { YearPicker } from '../YearPicker.js';
+
 import styles from './Calendar.module.css';
 
 export interface CalendarProps<T extends DateValue>
@@ -271,7 +272,7 @@ export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
         />
       )}
       {calendarState.currentView === 'Month' && (
-        <MonthGrid
+        <MonthPicker
           value={
             calendarState.selectedMonth
               ? calendarState.selectedMonth

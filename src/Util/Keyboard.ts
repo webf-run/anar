@@ -22,25 +22,6 @@ export function useKeyHandler(
   };
 }
 
-function findNextEnabledIndex(
-  elements: (HTMLElement | null)[],
-  startIndex: number,
-  getNextIndex: (index: number) => number
-) {
-  let nextIndex = getNextIndex(startIndex);
-
-  while (nextIndex !== startIndex) {
-    if (
-      !elements[nextIndex]?.hasAttribute('disabled') &&
-      elements[nextIndex]?.getAttribute('aria-disabled') !== 'true'
-    ) {
-      return nextIndex;
-    }
-    nextIndex = getNextIndex(nextIndex);
-  }
-  return startIndex;
-}
-
 export function useGridKeyboardNavigation(
   ref: RefObject<HTMLElement>,
   selector: string,
@@ -95,4 +76,23 @@ function getElements(
 
 function findActiveIndex(elms: HTMLElement[], event: KeyboardEvent): number {
   return elms.findIndex((elm) => elm === event.target);
+}
+
+function findNextEnabledIndex(
+  elements: (HTMLElement | null)[],
+  startIndex: number,
+  getNextIndex: (index: number) => number
+) {
+  let nextIndex = getNextIndex(startIndex);
+
+  while (nextIndex !== startIndex) {
+    if (
+      !elements[nextIndex]?.hasAttribute('disabled') &&
+      elements[nextIndex]?.getAttribute('aria-disabled') !== 'true'
+    ) {
+      return nextIndex;
+    }
+    nextIndex = getNextIndex(nextIndex);
+  }
+  return startIndex;
 }

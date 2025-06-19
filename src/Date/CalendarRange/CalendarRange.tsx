@@ -13,14 +13,15 @@ import {
   RangeCalendarProps as RiaCalendarRangeProps,
 } from 'react-aria-components';
 
-import { ActionButton } from '../../Button/ActionButton';
-import { DryButton } from '../../Button/DryButton';
-import { Flex } from '../../Layout/Flex';
-import { Text } from '../../Text/Text';
-import { getCalendarHeaderText } from '../Calendar/Calendar';
-import { RangeDateSelector } from '../Components/DateSelectorRange';
-import { MonthGrid } from '../Components/MonthPicker';
-import { YearPicker } from '../YearPicker';
+import { ActionButton } from '../../Button/ActionButton.js';
+import { DryButton } from '../../Button/DryButton.js';
+import { Flex } from '../../Layout/Flex.js';
+import { Text } from '../../Text/Text.js';
+import { getCalendarHeaderText } from '../Calendar/Calendar.js';
+import { RangeDateSelector } from '../Components/DateSelectorRange.js';
+import { MonthPicker } from '../MonthPicker.js';
+import { YearPicker } from '../YearPicker.js';
+
 import styles from './CalendarRange.module.css';
 
 export interface CalendarProps<T extends DateValue>
@@ -254,7 +255,7 @@ export function CalendarRange<T extends DateValue>(props: CalendarProps<T>) {
         />
       )}
       {calendarState.currentView === 'Month' && (
-        <MonthGrid
+        <MonthPicker
           maxValue={maxValue ? maxValue.month - 1 : undefined}
           minValue={minValue ? minValue.month - 1 : undefined}
           isDisabled={isDisabled}

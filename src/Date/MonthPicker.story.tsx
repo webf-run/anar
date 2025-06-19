@@ -2,10 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import { useLayoutEffect, useRef } from 'react';
 
-import { MonthPicker, MonthPickerRef } from './MonthPicker';
+import { MonthPicker, MonthPickerRef } from './MonthPicker.js';
 
 const meta: Meta<typeof MonthPicker> = {
-  title: 'Dates/MonthSelector',
+  title: 'Dates/MonthPicker',
   component: MonthPicker,
   parameters: {
     layout: 'centered',
@@ -21,7 +21,7 @@ export const Primary: Story = {
   args: {
     onChange: fn(),
   },
-  render: (args) => {
+  render(_args) {
     const start = 2019;
 
     const pickerRef = useRef<MonthPickerRef>(null);
@@ -38,16 +38,7 @@ export const Disabled: Story = {
   args: {
     onChange: fn(),
   },
-  render: (args) => {
+  render(_args) {
     return <MonthPicker onChange={fn()} isDisabled />;
   },
 };
-
-// export const DisabledYears: Story = {
-//   args: {
-//     onChange: fn(),
-//   },
-//   render: (args) => {
-//     return <YearPicker onChange={fn()} />;
-//   },
-// };

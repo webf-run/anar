@@ -1,20 +1,16 @@
 import clsx from 'clsx';
 import { format } from 'date-fns';
 import {
-  KeyboardEvent,
   Ref,
   forwardRef,
-  useEffect,
   useImperativeHandle,
   useRef,
-  useState,
 } from 'react';
-import { useKeyboard } from 'react-aria';
 
-import { Button } from '../../Button/Button';
-import { Flex } from '../../Layout/Flex';
-import { useGridKeyboardNavigation } from '../../Util/Keyboard';
-import styles from './CalendarGrid.module.css';
+import { Button } from '../Button/Button.js';
+import { useGridKeyboardNavigation } from '../Util/Keyboard.js';
+
+import styles from './Grid.module.css';
 
 export interface MonthPickerProps {
   className?: string;
@@ -41,17 +37,13 @@ export const MonthPicker = forwardRef(function MonthPicker(
     value,
     onChange,
     highlightedValue,
-    isDisabled,
-    maxValue,
-    minValue,
     className,
-    disabledYears,
   } = props;
 
   const rootElmRef = useRef<HTMLDivElement>(null);
 
   const classes = clsx(
-    'MonthGrid',
+    'MonthPicker',
     styles.root,
     styles.threeColumnGridLayout,
     className
@@ -63,17 +55,8 @@ export const MonthPicker = forwardRef(function MonthPicker(
 
   const onKeyDown = useGridKeyboardNavigation(rootElmRef, '[data-month]', 3);
 
-  const isMonthDisabled = (value: number) => {
-    return (
-      isDisabled ||
-      (minValue !== undefined && value < minValue) ||
-      (maxValue !== undefined && value > maxValue)
-    );
-  };
-
-  const firstEnabledIndex = monthsToShow.findIndex(
-    (month) => !isMonthDisabled(month)
-  );
+  const disabledList = monthsToShow.map((year) => isMonthDisabled(year, props));
+  const firstEnabledIndex = disabledList.findIndex((disabled) => !disabled);
 
   useImperativeHandle(ref, () => ({
     focus: () => {
@@ -82,17 +65,9 @@ export const MonthPicker = forwardRef(function MonthPicker(
 
       const buttons = el.querySelectorAll<HTMLButtonElement>('[data-month]');
 
-      for (const btn of buttons) {
-        if (
-          !btn.hasAttribute('disabled') &&
-          btn.getAttribute('aria-disabled') !== 'true'
-        ) {
-          btn.focus();
-          break;
-        }
-      }
+      buttons[firstEnabledIndex]?.focus();
     },
-  }));
+  }), [firstEnabledIndex]);
 
   return (
     <div ref={rootElmRef} className={classes} role='grid'>
@@ -104,7 +79,7 @@ export const MonthPicker = forwardRef(function MonthPicker(
           variant='ghost'
           label={`${format(new Date(2025, month, 1), 'MMM')}`}
           onKeyDown={onKeyDown}
-          isDisabled={isMonthDisabled(index)}
+          isDisabled={disabledList[index]}
           onPress={() => onChange?.(month === value ? null : month)}
           className={clsx(
             styles.button,
@@ -119,3 +94,11 @@ export const MonthPicker = forwardRef(function MonthPicker(
     </div>
   );
 });
+
+export function isMonthDisabled(month: number, props: MonthPickerProps) {
+  return (
+    props.isDisabled ||
+    (props.minValue !== undefined && month < props.minValue) ||
+    (props.maxValue !== undefined && month > props.maxValue)
+  );
+};
