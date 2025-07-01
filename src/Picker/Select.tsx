@@ -26,24 +26,20 @@ import type { FieldProps } from '../Form/Field.js';
 import { Description, FieldError, Label } from '../Form/Field.js';
 import { PopoverContent } from '../Overlay/Popover.js';
 
-interface SelectProps<T extends object>
+export interface SelectProps<T extends object>
   extends SelectPrimitiveProps<T>,
     FieldProps {
   items?: Iterable<T>;
 }
 
-const Select = <T extends object>({
-  label,
-  children,
-  description,
-  errorMessage,
-  className,
-  ...props
-}: SelectProps<T>) => {
+export function Select<T extends object>(props: SelectProps<T>) {
+  const { label, children, description, errorMessage, className, ...rest } =
+    props;
+
   return (
     <SelectPrimitive
       data-slot='select'
-      {...props}
+      {...rest}
       className={composeTailwindRenderProps(
         className,
         'group/select flex w-full flex-col gap-y-1'
@@ -59,20 +55,17 @@ const Select = <T extends object>({
       )}
     </SelectPrimitive>
   );
-};
+}
 
-interface SelectListProps<T extends object>
+export interface SelectListProps<T extends object>
   extends Omit<ListBoxProps<T>, 'layout' | 'orientation'> {
   items?: Iterable<T>;
   popover?: Omit<PopoverProps, 'children'>;
 }
 
-const SelectList = <T extends object>({
-  items,
-  className,
-  popover,
-  ...props
-}: SelectListProps<T>) => {
+export function SelectList<T extends object>(props: SelectListProps<T>) {
+  const { items, className, popover, ...rest } = props;
+
   return (
     <PopoverContent
       className={composeTailwindRenderProps(
@@ -89,22 +82,21 @@ const SelectList = <T extends object>({
           "grid max-h-96 w-full grid-cols-[auto_1fr] flex-col gap-y-1 p-1 outline-hidden *:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1"
         )}
         items={items}
-        {...props}
+        {...rest}
       />
     </PopoverContent>
   );
-};
+}
 
-interface SelectTriggerProps extends React.ComponentProps<typeof Button> {
+export interface SelectTriggerProps
+  extends React.ComponentProps<typeof Button> {
   prefix?: React.ReactNode;
   className?: string;
 }
 
-const SelectTrigger = ({
-  children,
-  className,
-  ...props
-}: SelectTriggerProps) => {
+export function SelectTrigger(props: SelectTriggerProps) {
+  const { children, className, ...rest } = props;
+
   return (
     <Button
       className={composeTailwindRenderProps(
@@ -122,12 +114,11 @@ const SelectTrigger = ({
           className,
         ])
       )}
+      {...rest}
     >
       {(values) => (
         <>
-          {props.prefix && (
-            <span className='text-muted-fg'>{props.prefix}</span>
-          )}
+          {rest.prefix && <span className='text-muted-fg'>{rest.prefix}</span>}
           {typeof children === 'function' ? children(values) : children}
 
           {!children && (
@@ -151,7 +142,7 @@ const SelectTrigger = ({
       )}
     </Button>
   );
-};
+}
 
 const SelectSection = DropdownSection;
 const SelectSeparator = DropdownSeparator;
@@ -166,6 +157,3 @@ Select.Separator = SelectSeparator;
 Select.Section = SelectSection;
 Select.Trigger = SelectTrigger;
 Select.List = SelectList;
-
-export { Select };
-export type { SelectProps, SelectTriggerProps };

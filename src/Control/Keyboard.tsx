@@ -9,19 +9,15 @@ export interface KeyboardProps extends React.HTMLAttributes<HTMLElement> {
   };
 }
 
-export function Keyboard({
-  keys,
-  classNames,
-  className,
-  ...props
-}: KeyboardProps) {
+export function Keyboard(props: KeyboardProps) {
+  const { keys, classNames, className, ...rest } = props;
   return (
     <KeyboardPrimitive
       className={twMerge(
         'hidden font-mono text-current/60 group-hover:text-fg group-focus:text-fg group-focus:opacity-90 group-disabled:opacity-50 lg:inline-flex forced-colors:group-focus:text-[HighlightText] forced-colors:group-focus:text-[HighlightText]',
         classNames?.base
       )}
-      {...props}
+      {...rest}
     >
       {(Array.isArray(keys) ? keys : keys.split('')).map((char, index) => (
         <kbd

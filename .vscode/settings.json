@@ -5,8 +5,5 @@
   "editor.quickSuggestions": {
     "strings": "on"
   },
-  "tailwindCSS.classFunctions": [
-    "tv",
-    "clsx"
-  ]
+  "tailwindCSS.classFunctions": ["tv", "clsx"]
 }

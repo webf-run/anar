@@ -7,7 +7,7 @@ import {
   today,
 } from '@internationalized/date';
 import { useDateFormatter } from '@react-aria/i18n';
-import { use } from 'react';
+import { ComponentProps, use } from 'react';
 import type {
   CalendarProps as CalendarPrimitiveProps,
   CalendarState,
@@ -31,21 +31,22 @@ import { twMerge } from 'tailwind-merge';
 import { Button } from '../Button/Button';
 import { Select } from '../Picker/Select';
 
-interface CalendarProps<T extends DateValue>
+export interface CalendarProps<T extends DateValue>
   extends Omit<CalendarPrimitiveProps<T>, 'visibleDuration'> {
   errorMessage?: string;
   className?: string;
 }
 
-const Calendar = <T extends DateValue>({
-  errorMessage,
-  className,
-  ...props
-}: CalendarProps<T>) => {
+export interface CalendarHeaderProps extends ComponentProps<'header'> {
+  isRange?: boolean;
+}
+
+export function Calendar<T extends DateValue>(props: CalendarProps<T>) {
+  const { className, errorMessage, ...rest } = props;
   const now = today(getLocalTimeZone());
 
   return (
-    <CalendarPrimitive {...props}>
+    <CalendarPrimitive {...rest}>
       <CalendarHeader />
       <CalendarGrid>
         <CalendarGridHeader />
@@ -77,13 +78,10 @@ const Calendar = <T extends DateValue>({
       )}
     </CalendarPrimitive>
   );
-};
+}
 
-const CalendarHeader = ({
-  isRange,
-  className,
-  ...props
-}: React.ComponentProps<'header'> & { isRange?: boolean }) => {
+export function CalendarHeader(props: CalendarHeaderProps) {
+  const { isRange, className, ...rest } = props;
   const { direction } = useLocale();
   const state = use(CalendarStateContext)!;
 
@@ -94,7 +92,7 @@ const CalendarHeader = ({
         'flex w-full justify-between gap-1.5 pt-1 pr-1 pb-5 pl-1.5 sm:pb-4',
         className
       )}
-      {...props}
+      {...rest}
     >
       {!isRange && (
         <div className='flex items-center gap-1.5'>
@@ -131,9 +129,21 @@ const CalendarHeader = ({
       </div>
     </header>
   );
-};
+}
 
-const SelectMonth = ({ state }: { state: CalendarState }) => {
+export function CalendarGridHeader() {
+  return (
+    <CalendarGridHeaderPrimitive>
+      {(day) => (
+        <CalendarHeaderCell className='pb-2 text-center font-semibold text-muted-fg text-sm/6 sm:px-0 sm:py-0.5 lg:text-xs'>
+          {day}
+        </CalendarHeaderCell>
+      )}
+    </CalendarGridHeaderPrimitive>
+  );
+}
+
+function SelectMonth({ state }: { state: CalendarState }) {
   const months = [];
 
   const formatter = useDateFormatter({
@@ -176,9 +186,9 @@ const SelectMonth = ({ state }: { state: CalendarState }) => {
       </Select.List>
     </Select>
   );
-};
+}
 
-const SelectYear = ({ state }: { state: CalendarState }) => {
+function SelectYear({ state }: { state: CalendarState }) {
   const years: { value: CalendarDate; formatted: string }[] = [];
   const formatter = useDateFormatter({
     year: 'numeric',
@@ -210,19 +220,4 @@ const SelectYear = ({ state }: { state: CalendarState }) => {
       </Select.List>
     </Select>
   );
-};
-
-const CalendarGridHeader = () => {
-  return (
-    <CalendarGridHeaderPrimitive>
-      {(day) => (
-        <CalendarHeaderCell className='pb-2 text-center font-semibold text-muted-fg text-sm/6 sm:px-0 sm:py-0.5 lg:text-xs'>
-          {day}
-        </CalendarHeaderCell>
-      )}
-    </CalendarGridHeaderPrimitive>
-  );
-};
-
-export type { CalendarProps };
-export { Calendar, CalendarHeader, CalendarGridHeader };
+}
