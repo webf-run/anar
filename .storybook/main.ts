@@ -8,10 +8,7 @@ const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.story.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     '@storybook/addon-docs',
-    '@storybook/addon-onboarding',
     '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
     'storybook-addon-rslib',
   ],
   typescript: {
