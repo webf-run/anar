@@ -9,5 +9,6 @@ export interface FormProps extends FormPrimitiveProps {
 
 export function Form(props: FormProps) {
   const { ref, ...rest } = props;
+
   return <FormPrimitive ref={ref} {...rest} />;
 }
