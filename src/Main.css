@@ -178,7 +178,8 @@
     scrollbar-color: var(--border) transparent;
   }
 
-  body {
+  body,
+  .docs-story {
     background-color: var(--bg);
     color: var(--fg);
   }
