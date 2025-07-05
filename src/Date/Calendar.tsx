@@ -7,7 +7,7 @@ import {
   today,
 } from '@internationalized/date';
 import { useDateFormatter } from '@react-aria/i18n';
-import { ComponentProps, use } from 'react';
+import { type ComponentProps, use } from 'react';
 import type {
   CalendarProps as CalendarPrimitiveProps,
   CalendarState,
@@ -28,8 +28,8 @@ import {
 } from 'react-aria-components';
 import { twMerge } from 'tailwind-merge';
 
-import { Button } from '../Button/Button';
-import { Select } from '../Picker/Select';
+import { Button } from '../Button/Button.js';
+import { Select } from '../Picker/Select.js';
 
 export interface CalendarProps<T extends DateValue>
   extends Omit<CalendarPrimitiveProps<T>, 'visibleDuration'> {

@@ -11,9 +11,9 @@ import {
 } from 'react-aria-components';
 import { twMerge } from 'tailwind-merge';
 
-import { composeTailwindRenderProps } from '../Base/Primitive';
-import { useMediaQuery } from '../Base/UseQuery';
-import { Button, ButtonProps } from '../Button/Button';
+import { composeTailwindRenderProps } from '../Base/Primitive.js';
+import { useMediaQuery } from '../Base/UseQuery.js';
+import { Button, type ButtonProps } from '../Button/Button.js';
 
 const Dialog = ({
   role = 'dialog',

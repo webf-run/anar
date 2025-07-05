@@ -19,7 +19,7 @@ import {
 import { twMerge } from 'tailwind-merge';
 import { tv } from 'tailwind-variants';
 
-import { Keyboard } from '../Control/Keyboard';
+import { Keyboard } from '../Control/Keyboard.js';
 
 const dropdownItemStyles = tv({
   base: [

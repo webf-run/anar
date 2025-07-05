@@ -9,10 +9,10 @@
     "target": "ES2022",
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
+    "module": "nodenext",
 
     /* Bundler mode */
-    "moduleResolution": "Bundler",
+    "moduleResolution": "nodenext",
     "allowImportingTsExtensions": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -27,7 +27,7 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Interop Constraints */
-    "verbatimModuleSyntax": false,
+    "verbatimModuleSyntax": true,
     "allowSyntheticDefaultImports": true,
 
     /* Completeness */
