@@ -21,6 +21,7 @@ export const badgeIntents = {
     'bg-red-500/15 text-red-700 group-hover:bg-red-500/25 dark:bg-red-500/10 dark:text-red-400 dark:group-hover:bg-red-500/20',
   outline: 'inset-ring-border bg-transparent text-fg group-hover:bg-secondary',
 };
+
 export const badgeStyles = tv({
   base: 'inset-ring inset-ring-transparent inline-flex items-center gap-x-1.5 py-0.5 font-medium text-xs/5 **:data-[slot=icon]:size-3 forced-colors:outline',
   variants: {

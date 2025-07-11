@@ -5,12 +5,9 @@ export interface SkeletonProps extends React.ComponentProps<'div'> {
   soft?: boolean;
 }
 
-export function Skeleton({
-  ref,
-  soft = false,
-  className,
-  ...props
-}: SkeletonProps) {
+export function Skeleton(props: SkeletonProps) {
+  const { ref, soft = false, className, ...rest } = props;
+
   return (
     <div
       data-slot='skeleton'
@@ -20,7 +17,7 @@ export function Skeleton({
         soft ? 'bg-muted' : 'bg-secondary',
         className
       )}
-      {...props}
+      {...rest}
     />
   );
 }

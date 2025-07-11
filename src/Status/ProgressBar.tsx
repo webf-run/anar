@@ -16,6 +16,7 @@ export interface ProgressBarProps extends ProgressBarPrimitiveProps {
 
 export function ProgressBar(props: ProgressBarProps) {
   const { label, ref, className, ...rest } = props;
+
   return (
     <ProgressBarPrimitive
       ref={ref}
