@@ -50,6 +50,7 @@
     "@internationalized/date": "^3.8.2",
     "@react-aria/i18n": "^3.12.10",
     "@react-stately/calendar": "^3.8.2",
+    "@react-types/overlays": "^3.8.16",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "motion": "^12.23.0",
     "react-aria-components": "^1.10.1",
