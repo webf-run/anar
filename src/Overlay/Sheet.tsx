@@ -43,20 +43,6 @@ const overlayStyles = tv({
 });
 
 export type Sides = 'top' | 'bottom' | 'left' | 'right';
-function generateCompoundVariants(sides: Array<Sides>) {
-  return sides.map((side) => ({
-    side,
-    isFloat: true,
-    className:
-      side === 'top'
-        ? 'top-2 inset-x-2 rounded-lg ring-1 border-b-0'
-        : side === 'bottom'
-          ? 'bottom-2 inset-x-2 rounded-lg ring-1 border-t-0'
-          : side === 'left'
-            ? 'left-2 inset-y-2 rounded-lg ring-1 border-r-0'
-            : 'right-2 inset-y-2 rounded-lg ring-1 border-l-0',
-  }));
-}
 
 const contentStyles = tv({
   base: 'fixed z-50 grid gap-4 border-fg/5 bg-overlay text-overlay-fg shadow-lg transition ease-in-out dark:border-border',
@@ -89,6 +75,7 @@ const contentStyles = tv({
 });
 
 export type SheetProps = DialogTriggerProps;
+
 export function Sheet(props: SheetProps) {
   return <DialogTriggerPrimitive {...props} />;
 }
@@ -160,6 +147,21 @@ export function SheetContent(props: SheetContentProps) {
       </Modal>
     </ModalOverlay>
   );
+}
+
+function generateCompoundVariants(sides: Array<Sides>) {
+  return sides.map((side) => ({
+    side,
+    isFloat: true,
+    className:
+      side === 'top'
+        ? 'top-2 inset-x-2 rounded-lg ring-1 border-b-0'
+        : side === 'bottom'
+          ? 'bottom-2 inset-x-2 rounded-lg ring-1 border-t-0'
+          : side === 'left'
+            ? 'left-2 inset-y-2 rounded-lg ring-1 border-r-0'
+            : 'right-2 inset-y-2 rounded-lg ring-1 border-l-0',
+  }));
 }
 
 export const SheetTrigger = DialogTrigger;

@@ -53,7 +53,7 @@ export interface ModalContentProps
   overlay?: Omit<ModalOverlayProps, 'children'>;
 }
 
-function ModalContent(props: ModalContentProps) {
+export function ModalContent(props: ModalContentProps) {
   const {
     className,
     isDismissable: isDismissableInternal,

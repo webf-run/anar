@@ -21,29 +21,20 @@ import {
   DialogTrigger,
 } from './Dialog.js';
 
-type PopoverProps = DialogTriggerProps;
-const Popover = (props: PopoverProps) => {
+export type PopoverProps = DialogTriggerProps;
+
+export function Popover(props: PopoverProps) {
   return <DialogTriggerPrimitive {...props} />;
-};
+}
 
-const PopoverTitle = DialogTitle;
-const PopoverHeader = DialogHeader;
-const PopoverBody = DialogBody;
-const PopoverFooter = DialogFooter;
-
-interface PopoverContentProps extends PopoverPrimitiveProps {
+export interface PopoverContentProps extends PopoverPrimitiveProps {
   showArrow?: boolean;
   ref?: React.Ref<HTMLDivElement>;
 }
 
-const PopoverContent = ({
-  children,
-  showArrow = false,
-  className,
-  ref,
-  ...props
-}: PopoverContentProps) => {
-  const offset = props.offset ?? (showArrow ? 12 : 8);
+export function PopoverContent(props: PopoverContentProps) {
+  const { children, showArrow = false, className, ref, ...rest } = props;
+  const offset = rest.offset ?? (showArrow ? 12 : 8);
   return (
     <PopoverPrimitive
       ref={ref}
@@ -56,7 +47,7 @@ const PopoverContent = ({
         'placement-left:exiting:slide-out-to-right-1 placement-right:exiting:slide-out-to-left-1 placement-top:exiting:slide-out-to-bottom-1 placement-bottom:exiting:slide-out-to-top-1',
         'forced-colors:bg-[Canvas]',
       ])}
-      {...props}
+      {...rest}
     >
       {(values) => (
         <>
@@ -77,11 +68,15 @@ const PopoverContent = ({
       )}
     </PopoverPrimitive>
   );
-};
+}
 
 const PopoverTrigger = DialogTrigger;
 const PopoverClose = DialogClose;
 const PopoverDescription = DialogDescription;
+const PopoverTitle = DialogTitle;
+const PopoverHeader = DialogHeader;
+const PopoverBody = DialogBody;
+const PopoverFooter = DialogFooter;
 
 Popover.Trigger = PopoverTrigger;
 Popover.Close = PopoverClose;
@@ -91,6 +86,3 @@ Popover.Body = PopoverBody;
 Popover.Footer = PopoverFooter;
 Popover.Header = PopoverHeader;
 Popover.Title = PopoverTitle;
-
-export type { PopoverProps, PopoverContentProps };
-export { Popover, PopoverContent };

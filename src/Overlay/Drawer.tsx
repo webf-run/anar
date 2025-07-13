@@ -26,13 +26,11 @@ import { Button, type ButtonProps } from '../Button/Button.js';
 const DrawerRoot = motion.create(ModalPrimitive);
 const DrawerOverlay = motion.create(ModalOverlay);
 
-export type { DrawerContentProps };
-
 export function Drawer(props: DialogTriggerProps) {
   return <DialogTrigger {...props} />;
 }
 
-interface DrawerContentProps
+export interface DrawerContentProps
   extends Omit<ModalOverlayProps, 'className' | 'children' | 'isDismissable'>,
     Pick<
       DialogProps,

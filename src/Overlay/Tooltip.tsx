@@ -41,6 +41,7 @@ const tooltipStyles = tv({
 });
 
 export type TooltipProps = React.ComponentProps<typeof TooltipTriggerPrimitive>;
+
 export function Tooltip(props: TooltipProps) {
   return <TooltipTriggerPrimitive {...props} />;
 }
