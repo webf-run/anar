@@ -1,0 +1,53 @@
+.AnarAppShell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.AnarAppShellHeader {
+  flex: 0 0 auto;
+  background: var(--header-bg, #f8f9fa);
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.AnarAppShellBody {
+  flex: 1 1 auto;
+  display: flex;
+  overflow: hidden;
+}
+
+.AnarAppShellNavbar {
+  width: 250px;
+  background: var(--navbar-bg, #f1f3f5);
+  padding: 1rem;
+  border-right: 1px solid #ddd;
+  overflow-y: auto;
+}
+
+.AnarAppShellMain {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+/* Padding options */
+.padding-none {
+  padding: 0;
+}
+.padding-sm {
+  padding: 0.5rem;
+}
+.padding-md {
+  padding: 1rem;
+}
+.padding-lg {
+  padding: 2rem;
+}
+
+.AnarAppShellFooter {
+  flex: 0 0 auto;
+  background: var(--footer-bg, #f8f9fa);
+  padding: 1rem;
+  border-top: 1px solid #ddd;
+}
