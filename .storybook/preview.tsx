@@ -1,86 +1,57 @@
+import {
+  DocsContainer,
+  type DocsContainerProps,
+} from '@storybook/addon-docs/blocks';
 import type { Preview } from '@storybook/react';
-import { themes } from '@storybook/theming';
-import type { CSSProperties } from 'react';
+import type { Decorator } from '@storybook/react';
+import { themes } from 'storybook/theming';
 
-// Side effects imports are on the top.
-import '../src/Anar.css';
 import { Anar } from '../src/Anar.js';
-import './Reset.css';
+import '../src/Main.css';
+
+function Container(props: DocsContainerProps) {
+  return <DocsContainer {...props} theme={themes.dark} />;
+}
+
+export const decorators: Decorator[] = [
+  function withAnar(Story, context) {
+    const { colorScheme } = context.globals;
+
+    return (
+      <Anar colorScheme={colorScheme}>
+        <Story />
+      </Anar>
+    );
+  },
+];
 
 const preview: Preview = {
   globalTypes: {
     colorScheme: {
-      title: 'Color Scheme',
-      description: 'Global color scheme for components',
-      defaultValue: 'darkest',
+      name: 'colorScheme',
+      description: 'Anar color scheme selector',
+      defaultValue: 'light',
       toolbar: {
-        title: 'Color Scheme',
         icon: 'contrast',
-
         items: [
-          { value: 'light', title: 'Light', right: '🔆' },
-          { value: 'dark', title: 'Dark', right: '🔅' },
-          { value: 'darkest', title: 'Darkest', right: '🔅' },
-          { value: 'all', title: 'Side-by-side', right: '🪵' },
+          { value: 'light', title: 'Light', icon: 'sun' },
+          { value: 'dark', title: 'Dark', icon: 'moon' },
         ],
       },
     },
   },
   parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
+    backgrounds: { disable: true },
+    docs: {
+      container: Container,
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
+        date: /Date$/i,
       },
     },
-    docs: {
-      theme: window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? themes.dark
-        : themes.light,
-    },
   },
-  decorators: [
-    function withColorScheme(Story, context) {
-      const colorScheme = context.globals.colorScheme || 'dark';
-
-      const storyWrapper: CSSProperties = {
-        padding: '4rem',
-        border: '1px solid var(--gray-600)',
-        flex: 1,
-      };
-
-      if (colorScheme === 'all') {
-        const style: CSSProperties = {
-          display: 'flex',
-          gap: '4rem',
-        };
-
-        return (
-          <div style={style}>
-            <Anar colorScheme='light'>
-              <div style={storyWrapper} data-anar-scheme={'light'}>
-                <Story />
-              </div>
-            </Anar>
-
-            <Anar colorScheme='dark'>
-              <div style={storyWrapper} data-anar-scheme={'dark'}>
-                <Story />
-              </div>
-            </Anar>
-          </div>
-        );
-      }
-
-      return (
-        <Anar colorScheme={colorScheme} getRootElement={() => document.body}>
-          <div style={storyWrapper} data-anar-scheme={colorScheme}>
-            <Story />
-          </div>
-        </Anar>
-      );
-    },
-  ],
 };
 
 export default preview;

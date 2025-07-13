@@ -1,8 +1,0 @@
-@layer anar {
-  .AnarFieldError {
-    color: var(--AnarColorError);
-
-    font-size: 0.75rem;
-    font-weight: 500;
-  }
-}

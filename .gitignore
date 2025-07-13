@@ -1,24 +1,12 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-
-# Dependency directories
-node_modules
-
-# Generated artifacts
-dist
-doc_build
-*.tsbuildinfo
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Local
 .DS_Store
+*.local
+*.log*
 
-# Output of 'npm pack'
-*.tgz
-
-*storybook.log
+# Dist
+node_modules
+dist/
 storybook-static
+
+# IDE
+.idea
